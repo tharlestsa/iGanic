@@ -18,6 +18,7 @@
         <link href="https://markcell.github.io/jquery-tabledit/assets/css/prettify-bootstrap.min.css" rel="stylesheet">
         <link href="https://markcell.github.io/jquery-tabledit/assets/css/font-awesome.min.css" rel="stylesheet">
         <link href="https://markcell.github.io/jquery-tabledit/assets/css/custom.css" rel="stylesheet">
+        <link href="./bootstrap-4/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom styles -->
         <link href="dashboard.css" rel="stylesheet">

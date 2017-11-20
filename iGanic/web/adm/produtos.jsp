@@ -4,11 +4,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        
         <link href="https://markcell.github.io/jquery-tabledit/assets/css/bootstrap-yeti.min.css" rel="stylesheet" id="theme-file">
         <link href="https://markcell.github.io/jquery-tabledit/assets/css/prettify.min.css" rel="stylesheet">
         <link href="https://markcell.github.io/jquery-tabledit/assets/css/prettify-bootstrap.min.css" rel="stylesheet">
         <link href="https://markcell.github.io/jquery-tabledit/assets/css/font-awesome.min.css" rel="stylesheet">
         <link href="https://markcell.github.io/jquery-tabledit/assets/css/custom.css" rel="stylesheet">
+        <link href="./bootstrap-4/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
         <h1>Hello World!</h1>
