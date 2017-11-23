@@ -10,7 +10,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Dashboard - iGanic v-1.0</title>
+        <title>iGanic v-1.0</title>
 
         <!-- Bootstrap core CSS -->
         <link href="https://markcell.github.io/jquery-tabledit/assets/css/bootstrap-yeti.min.css" rel="stylesheet" id="theme-file">
@@ -98,7 +98,7 @@
                     </ul>
                 </nav>
 
-                <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+                <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-5">
                     <h2>Listagem de Categorias</h2>
                     <!--          <div class="table-responsive">
                                 <table id="tabelaTop10ProdutosCategoria-ajax" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -128,14 +128,8 @@
                         </table>
                     </div>
                 </main>
-
-
-
-
             </div>
         </div>
-
-
 
         <!-- Bootstrap core JavaScript
         ================================================== -->
@@ -173,7 +167,7 @@
 
             function montaTabela() {
                 $('#tabela-categorias').Tabledit({
-                    url: 'example.php',
+                    url: '/dados',
                     columns: {
                         identifier: [0, 'id'],
                         editable: [[1, 'nome']]

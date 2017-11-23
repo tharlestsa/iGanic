@@ -1,9 +1,10 @@
 <%-- 
     Document   : listaJSON
     Created on : 08/11/2017, 17:22:48
-    Author     : tatuapu
+    Author     : tharles
 --%>
 
+<%@page import="javax.swing.JOptionPane"%>
 <%@page import="java.io.StringWriter"%>
 <%@page import="org.json.simple.parser.JSONParser"%>
 <%@page import="java.util.ArrayList"%>
@@ -21,7 +22,6 @@
         JSONObject pai = new JSONObject();
         JsonArray filhos = new JsonArray();
         for (Categoria cr : lista) {
-
             dados = new JSONObject();
             dados.put("idCategoria", cr.getIdCategoria().toString());
             dados.put("nome", cr.getNome().toString());
