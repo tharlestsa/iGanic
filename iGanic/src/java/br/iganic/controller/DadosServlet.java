@@ -5,6 +5,8 @@
  */
 package br.iganic.controller;
 
+import br.iganic.dao.CategoriaDAO;
+import br.iganic.model.Categoria;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -36,15 +39,24 @@ public class DadosServlet extends HttpServlet {
             throws ServletException, IOException {
         this.request = request;
         this.response = response;
-
+        PrintWriter out = response.getWriter();
         String cmd = (request.getParameter("action") != null) ? request.getParameter("action").toLowerCase().toString() : "";
+                
+        Integer id = Integer.parseInt((request.getParameter("id") != null) ? request.getParameter("id") : "0");
+        
+        String nome = request.getParameter("nome");
 
         switch (cmd) {
             case "edit":
-                
+                this.salvaCategoria(new Categoria(id, nome));
+
+                JSONObject dados = new JSONObject();
+                dados.put("dados", "ok"); 
+                out.println(dados);
+
                 break;
             case "delete":
-
+                this.removeCategoria(new Categoria(id, nome));
                 break;
             case "restore":
 
@@ -94,4 +106,40 @@ public class DadosServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private Boolean salvaCategoria(Categoria categoria) {
+        Boolean salvou = true;
+        try {
+            CategoriaDAO catDAo = new CategoriaDAO();
+
+            if (categoria == null) {
+                salvou = false;
+            } else {
+                catDAo.atualizar(categoria);
+            }
+
+        } catch (Exception e) {
+            salvou = false;
+        }
+
+        return salvou;
+    }
+
+    private Boolean removeCategoria(Categoria categoria) {
+        Boolean removeu = true;
+        try {
+
+            CategoriaDAO catDAo = new CategoriaDAO();
+
+            if (categoria == null) {
+                removeu = false;
+            } else {
+                catDAo.excluir(categoria);
+            }
+
+        } catch (Exception e) {
+            removeu = false;
+        }
+
+        return removeu;
+    }
 }

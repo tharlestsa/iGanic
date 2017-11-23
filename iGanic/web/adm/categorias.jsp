@@ -167,7 +167,7 @@
 
             function montaTabela() {
                 $('#tabela-categorias').Tabledit({
-                    url: '/dados',
+                    url: "../dados",
                     columns: {
                         identifier: [0, 'id'],
                         editable: [[1, 'nome']]
@@ -189,12 +189,8 @@
                     },
                     onAlways: function () {
                         console.log('onAlways()');
-                    },
-                    onAjax: function (action, serialize) {
-                        console.log('onAjax(action, serialize)');
-                        console.log(action);
-                        console.log(serialize);
                     }
+                   
                 });
             }
         </script>

@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,12 +20,48 @@ public class CategoriaDAO implements DAO {
 
     @Override
     public void atualizar(Object ob) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        Categoria cat = (Categoria) ob;
+
+        PreparedStatement ps = null;
+        Connection conn = null;
+        conn = ConnectionDAO.getConnection(); 
+
+        if (cat == null) {
+            throw new Exception("O valor passado não pode ser nulo");
+        }
+        try {
+            ps = conn.prepareStatement(" UPDATE Categorias SET nome= ?  WHERE idCategoria= ? ");
+
+            ps.setString(1, cat.getNome());
+            ps.setInt(2, cat.getIdCategoria());
+
+            ps.executeUpdate();
+
+        } catch (SQLException sqle) {
+            throw new Exception("Erro ao atualizar dados: " + sqle);
+        } finally {
+            ConnectionDAO.closeConnection(conn, ps);
+        }
     }
 
     @Override
     public void excluir(Object ob) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        Categoria cat = (Categoria) ob;
+
+        PreparedStatement ps = null;
+        Connection conn = null;
+
+        try {
+            ps = conn.prepareStatement("DELETE FROM Categorias WHERE idCategoria = ?;");
+
+            ps.setInt(1, cat.getIdCategoria());
+            ps.executeUpdate();
+            
+        } catch (SQLException sqle) {
+            throw new Exception("Erro ao excluir dados: " + sqle);
+        } finally {
+            ConnectionDAO.closeConnection(conn, ps);
+        }
     }
 
     @Override
@@ -82,19 +119,18 @@ public class CategoriaDAO implements DAO {
         return listaCategorias;
     }
 
-    
     @Override
-    public void salvar(Object ob) throws Exception {}
-    
-    
+    public void salvar(Object ob) throws Exception {
+    }
+
     public int salvarCategoria(Object ob) throws Exception {
         Categoria categoria = (Categoria) ob;
 
         PreparedStatement ps = null;
         Connection conn = null;
-        ResultSet rs = null; 
-        
-        int idInserido = 0; 
+        ResultSet rs = null;
+
+        int idInserido = 0;
 
         try {
             conn = ConnectionDAO.getConnection();
@@ -102,18 +138,18 @@ public class CategoriaDAO implements DAO {
             ps = conn.prepareStatement(" INSERT INTO `Categorias`(`nome`) VALUES ((?)) LAST_INSERT_ID ");
 
             ps.setString(1, categoria.getNome());
-            
+
             rs = ps.executeQuery();
-            while (rs.next()) {                
-               idInserido = rs.getInt(1); 
+            while (rs.next()) {
+                idInserido = rs.getInt(1);
             }
-            
+
         } catch (SQLException sqle) {
             throw new Exception(sqle);
         } finally {
             ConnectionDAO.closeConnection(conn, ps);
         }
-        
+
         return idInserido;
     }
 
