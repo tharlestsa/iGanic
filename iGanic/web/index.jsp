@@ -46,7 +46,7 @@
                             out.print(new Mensagem("erro", String.valueOf(request.getAttribute("mensagem"))));
                         }
                     %>
-                    <form action="./login" method="POST" >
+                    <form id="form-login" action="./login" method="POST" >
                         <div class="form-group">
                             <label>Usuário</label>
                             <input class="form-control" type="text" id="usuario" name="usuario" placeholder="Informe o seu usuário">
@@ -68,6 +68,28 @@
         <script src="./template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
         <!-- Core plugin JavaScript-->
         <script src="./template/admin/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
+        <script src="../jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
+        <script>
+            $().ready(function () {
+                // validate the comment form when it is submitted
+                $("#commentForm").validate({
+                    rules: {
+                        usuario: {
+                            required: true,
+                            remote: "../servletValidador?cmd=validaNome"
+                        }
+                    },
+                    messages: {
+                        cname: {
+                            required: "Preencha este campo, cavalo!!",
+                            minlength: "Não acredito que seu nome seja só isso!",
+                            remote: "Nome inválido!"
+                        }
+                    }
+                });
+            });
+
+        </script>
     </body>
 
 </html>
