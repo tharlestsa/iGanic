@@ -32,7 +32,7 @@
             <div class="modal-body">Selecione "Sair" somente se estiver pronto para finalizar essa sessão.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                <a class="btn btn-primary" href="login.html">Sair</a>
+                <a class="btn btn-primary" href="index.jsp">Sair</a>
             </div>
         </div>
     </div>

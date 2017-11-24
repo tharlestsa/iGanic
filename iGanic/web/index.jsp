@@ -21,7 +21,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Login - iGanic </title>
+        <title>iGanic - Login de Acesso ao Sistema</title>
         <!-- Bootstrap core CSS-->
         <link href="./template/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 
@@ -58,7 +58,7 @@
                         <button type="button" id="acao" name="acao" class="btn btn-success btn-block">Entrar</button>
                     </form>
                     <div class="text-center">
-                        <a class="d-block small mt-3" href="register.html">Cadastrar novo usuário</a>
+                        <a class="d-block small mt-3" href="./cadastra_usuario.jsp">Cadastrar novo usuário</a>
                     </div>
                 </div>
             </div>
