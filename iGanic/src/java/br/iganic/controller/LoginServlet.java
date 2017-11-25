@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package br.iganic.controller;
-
+import br.iganic.model.Usuario; 
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,36 +27,36 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String idContest = request.getParameter("idContest");
-        String user = request.getParameter("usuario");
-        String pwd = request.getParameter("pwd");
-        String acao = request.getParameter("acao");
-
-        CandidatoDAO candidatoDAO = new CandidatoDAO();
-
-        try {
-
-            if (acao == null) {
-                request.getSession().invalidate();
-                request.getRequestDispatcher("./index.jsp").forward(request, response);
-            } else if (acao.equalsIgnoreCase("login")) {
-                List<Candidato> candidato;
-                candidato = candidatoDAO.procura(new Candidato(0, null, null, null, null, user, pwd, Integer.parseInt(idContest)));
-
-                if (candidato.isEmpty()) {
-                    request.setAttribute("mensagem", "Usuario ou senha incorretos!");
-                    request.getRequestDispatcher("/index.jsp").forward(request, response);
-                }
-
-                HttpSession sessao = request.getSession(true);
-                sessao.setAttribute("idUsuario", candidato.get(0).getIdCandidato());
-                request.getRequestDispatcher("/home.jsp").forward(request, response);
-
-            }
-        } catch (Exception ex) {
-            response.getWriter().print(ex);
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        String idContest = request.getParameter("idContest");
+//        String user = request.getParameter("usuario");
+//        String pwd = request.getParameter("pwd");
+//        String acao = request.getParameter("acao");
+//
+//        CandidatoDAO candidatoDAO = new CandidatoDAO();
+//
+//        try {
+//
+//            if (acao == null) {
+//                request.getSession().invalidate();
+//                request.getRequestDispatcher("./index.jsp").forward(request, response);
+//            } else if (acao.equalsIgnoreCase("login")) {
+//                List<Candidato> candidato;
+//                candidato = candidatoDAO.procura(new Candidato(0, null, null, null, null, user, pwd, Integer.parseInt(idContest)));
+//
+//                if (candidato.isEmpty()) {
+//                    request.setAttribute("mensagem", "Usuario ou senha incorretos!");
+//                    request.getRequestDispatcher("/index.jsp").forward(request, response);
+//                }
+//
+//                HttpSession sessao = request.getSession(true);
+//                sessao.setAttribute("idUsuario", candidato.get(0).getIdCandidato());
+//                request.getRequestDispatcher("/home.jsp").forward(request, response);
+//
+//            }
+//        } catch (Exception ex) {
+//            response.getWriter().print(ex);
+//            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
     }
 
