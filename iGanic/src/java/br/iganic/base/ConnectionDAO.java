@@ -14,7 +14,7 @@ public class ConnectionDAO {
         public static Connection getConnection() throws Exception{
             try{
                 Class.forName("com.mysql.jdbc.Driver");
-                return DriverManager.getConnection("jdbc:mysql://localhost:3306/iganic","admin","admin");
+                return DriverManager.getConnection("jdbc:mysql://localhost:3306/iGanic","iganic","iganic");
             }catch(ClassNotFoundException | SQLException e){
                 throw new Exception(e.getMessage());
             }

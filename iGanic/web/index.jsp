@@ -30,7 +30,6 @@
 
         <!-- Custom styles for this template-->
         <link href="./template/admin/css/sb-admin.css" rel="stylesheet" type="text/css"/>
-
         <link href="./css/estilos.css" rel="stylesheet" type="text/css"/>
 
 
@@ -55,7 +54,7 @@
                             <label >Senha</label>
                             <input class="form-control" id="senha" name="senha" type="password" placeholder="Informe a sua senha">
                         </div>
-                        <button type="button" id="acao" name="acao" class="btn btn-success btn-block">Entrar</button>
+                        <button type="button" id="acao" name="acao" value="entrar" class="btn btn-success btn-block">Entrar</button>
                     </form>
                     <div class="text-center">
                         <a class="d-block small mt-3" href="./cadastra_usuario.jsp">Cadastrar novo usuário</a>

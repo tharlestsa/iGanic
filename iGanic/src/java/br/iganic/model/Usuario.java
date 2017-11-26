@@ -17,12 +17,27 @@ public class Usuario {
     private String email;
     private String endereco;
     private Point geolocalizacao;
-    private TipoUsuario tipo;  
+    private String tipo;  
     private String usuario; 
     private String senha; 
     private Integer idCidade; 
 
-    public Usuario(Integer idUsuario, String nome, String cpf, String cel, String email, String endereco, Point geolocalizacao, TipoUsuario tipo, String usuario, String senha, Integer idCidade) {
+    public Usuario(String nome, String cpf, String cel, String email, String endereco, Point geolocalizacao, String tipo, String usuario, String senha, Integer idCidade) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.cel = cel;
+        this.email = email;
+        this.endereco = endereco;
+        this.geolocalizacao = geolocalizacao;
+        this.tipo = tipo;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.idCidade = idCidade;
+    }
+    
+    
+
+    public Usuario(Integer idUsuario, String nome, String cpf, String cel, String email, String endereco, Point geolocalizacao, String tipo, String usuario, String senha, Integer idCidade) {
         this.idUsuario = idUsuario;
         this.nome = nome;
         this.cpf = cpf;
@@ -92,13 +107,14 @@ public class Usuario {
         this.geolocalizacao = geolocalizacao;
     }
 
-    public TipoUsuario getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(TipoUsuario tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
 
     public String getUsuario() {
         return usuario;
