@@ -6,6 +6,7 @@ $(document).ready(function () {
     $('#cep').mask("00.000-000");
 
     $('#rua').attr('disabled', true);
+    $('#numero').attr('disabled', true);
     $('#bairro').attr('disabled', true);
     $('#cidade').attr('disabled', true);
     $('#estado').attr('disabled', true);
@@ -129,6 +130,11 @@ $().ready(function () {
 
 
 $(document).on('blur', "#cep", function () {
+    $('#rua').val('');
+    $('#numero').val('');
+    $('#comp').val('');
+    $('#bairro').val('');
+
     var cep = $('#cep').val();
     var cepSemPonto = cep.replace('.', '');
     $.ajax({
@@ -143,6 +149,7 @@ $(document).on('blur', "#cep", function () {
 
             if ((retorno.logradouro == '' || retorno.logradouro == undefined) || (retorno.bairro == '' || retorno.bairro == undefined)) {
                 $('#rua').attr('disabled', false);
+                $('#numero').attr('disabled', false);
                 $('#comp').attr('disabled', false);
                 $('#bairro').attr('disabled', false);
                 $('#cidade').attr('disabled', false);
@@ -159,23 +166,19 @@ $(document).on('blur', "#cep", function () {
                     rules: {
                         numero: {
                             required: true
-                        },
-                        comp: {
-                            required: true
                         }
                     },
                     messages: {
                         numero: {
-                            required: <label class='msg-required'>Informe o número da residência</label>
-                        },
-                        comp: {
-                            required: true
+                            required: "<label class='msg-required'>Informe o número da residência</label>"
                         }
                     }
                 });
 
                 alert("Endereço não encontrado!");
             } else {
+                $('#numero').attr('disabled', false);
+                $('#comp').attr('disabled', false);
                 $('#rua').val(retorno.logradouro);
                 $('#comp').val(retorno.complemento);
                 $('#bairro').val(retorno.bairro);
@@ -186,11 +189,12 @@ $(document).on('blur', "#cep", function () {
         error: function () {
             alert("CEP não encontrado");
 
-            $('#rua').attr('disabled', false);
-            $('#comp').attr('disabled', false);
-            $('#bairro').attr('disabled', false);
-            $('#cidade').attr('disabled', false);
-            $('#estado').attr('disabled', false);
+            $('#rua').attr('disabled', true);
+            $('#numero').attr('disabled', true);
+            $('#comp').attr('disabled', true);
+            $('#bairro').attr('disabled', true);
+            $('#cidade').attr('disabled', true);
+            $('#estado').attr('disabled', true);
         }
     });
 });
@@ -204,6 +208,7 @@ $(document).on('blur', "#confirmSenha", function () {
 function buscarCidadeEEstado(dados) {
     var comboEstado = $("#estado");
     var comboCidade = $("#cidade");
+     $('#cidade option').remove();
     $.ajax({
         type: 'GET',
         url: './usuario?acao=buscarcidades&localidade=' + dados.localidade + '&uf=' + dados.uf,

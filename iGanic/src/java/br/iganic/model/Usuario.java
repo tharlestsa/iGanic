@@ -1,9 +1,6 @@
 
 package br.iganic.model;
 
-import br.iganic.util.TipoUsuario;
-import com.esri.core.geometry.Point;
-
 /**
  *
  * @author tharles
@@ -16,35 +13,36 @@ public class Usuario {
     private String cel;
     private String email;
     private String endereco;
-    private Point geolocalizacao;
+    private String lat; 
+    private String lng; 
     private String tipo;  
     private String usuario; 
     private String senha; 
     private Integer idCidade; 
 
-    public Usuario(String nome, String cpf, String cel, String email, String endereco, Point geolocalizacao, String tipo, String usuario, String senha, Integer idCidade) {
+    public Usuario(String nome, String cpf, String cel, String email, String endereco, String lat, String lng, String tipo, String usuario, String senha, Integer idCidade) {
         this.nome = nome;
         this.cpf = cpf;
         this.cel = cel;
         this.email = email;
         this.endereco = endereco;
-        this.geolocalizacao = geolocalizacao;
+        this.lat = lat;
+        this.lng = lng;
         this.tipo = tipo;
         this.usuario = usuario;
         this.senha = senha;
         this.idCidade = idCidade;
     }
-    
-    
 
-    public Usuario(Integer idUsuario, String nome, String cpf, String cel, String email, String endereco, Point geolocalizacao, String tipo, String usuario, String senha, Integer idCidade) {
+    public Usuario(Integer idUsuario, String nome, String cpf, String cel, String email, String endereco, String lat, String lng, String tipo, String usuario, String senha, Integer idCidade) {
         this.idUsuario = idUsuario;
         this.nome = nome;
         this.cpf = cpf;
         this.cel = cel;
         this.email = email;
         this.endereco = endereco;
-        this.geolocalizacao = geolocalizacao;
+        this.lat = lat;
+        this.lng = lng;
         this.tipo = tipo;
         this.usuario = usuario;
         this.senha = senha;
@@ -99,12 +97,20 @@ public class Usuario {
         this.endereco = endereco;
     }
 
-    public Point getGeolocalizacao() {
-        return geolocalizacao;
+    public String getLat() {
+        return lat;
     }
 
-    public void setGeolocalizacao(Point geolocalizacao) {
-        this.geolocalizacao = geolocalizacao;
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
     }
 
     public String getTipo() {
@@ -114,7 +120,6 @@ public class Usuario {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-
 
     public String getUsuario() {
         return usuario;
@@ -138,7 +143,6 @@ public class Usuario {
 
     public void setIdCidade(Integer idCidade) {
         this.idCidade = idCidade;
-    }
-    
+    }   
     
 }

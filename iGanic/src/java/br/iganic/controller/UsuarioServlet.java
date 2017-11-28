@@ -40,7 +40,7 @@ public class UsuarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String acao = (request.getParameter("acao") != null) ? request.getParameter("acao").toLowerCase().toString() : "";
+        String acao = (request.getParameter("acao") != null) ? request.getParameter("acao").toLowerCase() : "";
 
         switch (acao) {
             case "buscarcidades":
@@ -174,26 +174,27 @@ public class UsuarioServlet extends HttpServlet {
             String cpf = request.getParameter("cpf");
             String email = request.getParameter("email");
             String cel = request.getParameter("cel");
-            
-            String rua = request.getParameter("rua"); 
+
+            String rua = request.getParameter("rua");
             String numero = request.getParameter("numero");
-            String comp = request.getParameter("comp"); 
+            String comp = request.getParameter("comp");
             String bairro = request.getParameter("bairro");
-            String endereco =  rua + "," + numero + ","+ comp + "," + bairro;
+            String endereco = rua + "," + numero + "," + comp + "," + bairro;
 
             Integer idCidade = Integer.parseInt(request.getParameter("cidade"));
             String tipo = request.getParameter("tipo");
             String usuario = request.getParameter("usuario");
             String senha = request.getParameter("senha");
-            Double lat = Double.parseDouble(request.getParameter("lat"));
-            Double lng = Double.parseDouble(request.getParameter("lng"));
-
-            Point point = new Point(lat, lng);
+            String lat = request.getParameter("lat");
+            String lng = request.getParameter("lng");
 
             UsuarioDAO usuDao = new UsuarioDAO();
 
             try {
-                Integer idUsuario = usuDao.salvarUsuario(new Usuario(nome, cpf, cel, email, endereco, point, tipo, usuario, senha, idCidade));
+                JOptionPane.showMessageDialog(null, "passei");
+
+                Integer idUsuario = usuDao.salvarUsuario(new Usuario(nome, cpf, cel, email, endereco, lat, lng, tipo, usuario, senha, idCidade));
+
                 if (idUsuario != 0) {
                     HttpSession sessao = request.getSession(true);
                     sessao.setAttribute("idUsuario", idUsuario);
@@ -206,7 +207,7 @@ public class UsuarioServlet extends HttpServlet {
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            e.getMessage();
         }
     }
 }

@@ -3,7 +3,6 @@ package br.iganic.dao;
 import br.iganic.base.ConnectionDAO;
 import br.iganic.base.DAO;
 import br.iganic.model.Usuario;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,27 +19,27 @@ public class UsuarioDAO implements DAO {
 
     @Override
     public void atualizar(Object ob) throws Exception {
-        
+
     }
 
     @Override
     public void excluir(Object ob) throws Exception {
-        
+
     }
 
     @Override
     public List listaTodos() throws Exception {
-        return null; 
+        return null;
     }
 
     @Override
     public List procura(Object ob) throws Exception {
-        return null; 
+        return null;
     }
 
     @Override
     public void salvar(Object ob) throws Exception {
-        
+
     }
 
     public int salvarUsuario(Object ob) throws Exception {
@@ -56,40 +55,35 @@ public class UsuarioDAO implements DAO {
             conn = ConnectionDAO.getConnection();
 
             ps = conn.prepareStatement(" INSERT INTO `iGanic`.`Usuarios`("
-                    + " `nome`,"
+                    + " `nome`, "
                     + " `cpf`, "
-                    + " `cel`,"
-                    + " `email`,"
-                    + " `endereco`,"
-                    + " `geolocalizacao`,"
-                    + " `tipo`,"
-                    + " `usuario`,"
-                    + " `senha`,"
-                    + " `idCidade`) VALUES ((?),(?),(?),(?),(?),ST_GeomFromText(?)),(?),(?),(?),(?)) LAST_INSERT_ID ");
-            
-            String lat = String.valueOf(usuario.getGeolocalizacao().getX()); 
-            String lng = String.valueOf(usuario.getGeolocalizacao().getY()); 
+                    + " `cel`, "
+                    + " `email`, "
+                    + " `endereco`, "
+                    + " `lat`, "
+                    + " `lng`, "
+                    + " `tipo`, "
+                    + " `usuario`, "
+                    + " `senha`, "
+                    + " `idCidade`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) LAST_INSERT_ID()");
 
             ps.setString(1, usuario.getNome());
-            ps.setString(2, usuario.getNome());
-            ps.setString(3, usuario.getNome());
-            ps.setString(3, usuario.getNome());
-            ps.setString(5, usuario.getNome());
-            ps.setString(6, "POINT("+lat +" "+ lng+ ")");
-            ps.setString(7, usuario.getNome());
-            ps.setString(8, usuario.getNome());
-            ps.setString(9, usuario.getNome());
-            ps.setInt(10, usuario.getIdCidade());
-            
+            ps.setString(2, usuario.getCpf());
+            ps.setString(3, usuario.getCel());
+            ps.setString(4, usuario.getEmail());
+            ps.setString(5, usuario.getEndereco());
+            ps.setString(6, usuario.getLat());
+            ps.setString(7, usuario.getLng());
+            ps.setString(8, usuario.getTipo());
+            ps.setString(9, usuario.getUsuario());
+            ps.setString(10, usuario.getSenha());
+            ps.setInt(11, usuario.getIdCidade());
 
-            rs = ps.executeQuery();
+            idInserido = ps.executeUpdate();
             
-            
-            while (rs.next()) {
-                idInserido = rs.getInt(1);
-            }
-
+            JOptionPane.showMessageDialog(null, String.valueOf(idInserido));
         } catch (SQLException sqle) {
+            JOptionPane.showMessageDialog(null, sqle.getMessage());
             throw new Exception(sqle);
         } finally {
             ConnectionDAO.closeConnection(conn, ps);
