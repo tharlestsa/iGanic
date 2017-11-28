@@ -48,7 +48,7 @@
                         out.print(new Mensagem(request.getAttribute("tipo").toString(), String.valueOf(request.getAttribute("mensagem"))));
                     }
                 %>
-                <form  id="form-usuario" action="./login" method="POST" >
+                <form  id="form-usuario" action="./usuario" method="POST" >
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-8">
@@ -168,7 +168,7 @@
                     </div>
                     <input class="form-control" id="lat" name="lat" type="hidden">
                     <input class="form-control" id="lng" name="lng" type="hidden">
-                    <button type="submit" name="action" value="registrar" class="btn btn-success btn-block">Registrar</button>
+                    <button type="submit" id="acao" name="acao" value="registrar" class="btn btn-success btn-block">Registrar</button>
                 </form>
                 <div class="text-center">
                     <a class="d-block small mt-3" href="index.jsp">Efetuar login</a>

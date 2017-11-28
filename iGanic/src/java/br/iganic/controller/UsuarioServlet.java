@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
 import org.json.simple.JsonArray;
 
@@ -39,13 +40,7 @@ public class UsuarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String acao = null;
-
-        if (request.getParameter("acao") == null) {
-            acao = request.getParameter("acao");
-        } else {
-            acao = request.getParameter("action");
-        }
+        String acao = (request.getParameter("acao") != null) ? request.getParameter("acao").toLowerCase().toString() : "";
 
         switch (acao) {
             case "buscarcidades":
@@ -179,8 +174,13 @@ public class UsuarioServlet extends HttpServlet {
             String cpf = request.getParameter("cpf");
             String email = request.getParameter("email");
             String cel = request.getParameter("cel");
-            String endereco = request.getParameter("rua") + "," + request.getParameter("numero") + ","
-                    + request.getParameter("comp") + "," + request.getParameter("bairro");
+            
+            String rua = request.getParameter("rua"); 
+            String numero = request.getParameter("numero");
+            String comp = request.getParameter("comp"); 
+            String bairro = request.getParameter("bairro");
+            String endereco =  rua + "," + numero + ","+ comp + "," + bairro;
+
             Integer idCidade = Integer.parseInt(request.getParameter("cidade"));
             String tipo = request.getParameter("tipo");
             String usuario = request.getParameter("usuario");
@@ -188,11 +188,7 @@ public class UsuarioServlet extends HttpServlet {
             Double lat = Double.parseDouble(request.getParameter("lat"));
             Double lng = Double.parseDouble(request.getParameter("lng"));
 
-            Point point = null;
-
-            if (lat != null && lng != null) {
-                point = new Point(lat, lng);
-            }
+            Point point = new Point(lat, lng);
 
             UsuarioDAO usuDao = new UsuarioDAO();
 
@@ -205,10 +201,12 @@ public class UsuarioServlet extends HttpServlet {
                 }
             } catch (Exception e) {
                 request.setAttribute("tipo", "erro");
-                request.setAttribute("mensagem", "Erro ao registrar a nova conta do usuário");
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                request.setAttribute("mensagem", "Ao registrar a nova conta do usuário.");
+                request.getRequestDispatcher("/cadastra_usuario.jsp").forward(request, response);
             }
 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 }
