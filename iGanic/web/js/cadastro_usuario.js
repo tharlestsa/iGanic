@@ -5,16 +5,20 @@ $(document).ready(function () {
     $('#cel').mask("(00)00000-0000");
     $('#cep').mask("00.000-000");
 
-    $('#rua').attr('disabled', true);
-    $('#numero').attr('disabled', true);
-    $('#bairro').attr('disabled', true);
-    $('#cidade').attr('disabled', true);
-    $('#estado').attr('disabled', true);
+    $('#rua').attr('readonly', true);
+    $('#numero').attr('readonly', true);
+    $('#bairro').attr('readonly', true);
+    $('#cidade').attr('readonly', true);
+    $('#estado').attr('readonly', true);
 });
 
 
 
 $().ready(function () {
+
+    var cpf = $("#cpf").val();
+    var usuario = $("#usuario").val();
+
     // validate the comment form when it is submitted
     $("#form-usuario").validate({
         rules: {
@@ -24,7 +28,8 @@ $().ready(function () {
 
             cpf: {
                 required: true,
-                minlength: 11
+                minlength: 11,
+//                remote: './usuario?acao=buscausuarioporcpf&cpf=' + cpf
             },
 
             email: {
@@ -38,7 +43,6 @@ $().ready(function () {
             cep: {
                 required: true,
                 minlength: 8
-//                remote: 'https://viacep.com.br/ws/' + cepSemPonto.replace('-', '') + '/json/'
             },
 
             rua: {
@@ -60,7 +64,8 @@ $().ready(function () {
                 required: true
             },
             usuario: {
-                required: true
+                required: true,
+//                remote: './usuario?acao=buscausuario&usuario=' + usuario
             },
             senha: {
                 required: true
@@ -78,7 +83,8 @@ $().ready(function () {
 
             cpf: {
                 required: "<label class='msg-required'>Preencha o CPF do usuário!</label>",
-                minlength: "<label class='msg-required'>O CPF contém 11 digitos, verifique e digite novamente!</label>"
+                minlength: "<label class='msg-required'>O CPF contém 11 digitos, verifique e digite novamente!</label>",
+//                remote: "<label class='msg-required'>Já existe um usuário cadastrado com esse CPF!</label>"
             },
 
             email: {
@@ -93,7 +99,6 @@ $().ready(function () {
             cep: {
                 required: "<label class='msg-required'>O CEP é obrigatório!</label>",
                 minlength: "<label class='msg-required'>O CEP contém 8 digitos, verifique e digite novamente!</label>"
-//                remote: "<label class='msg-required'>CEP inválido!</label>"
             },
 
             rua: {
@@ -115,7 +120,8 @@ $().ready(function () {
                 required: "<label class='msg-required'>Escolha o tipo de conta do usuário!</label>"
             },
             usuario: {
-                required: "<label class='msg-required'>Preencha o usuário de acesso ao sistema!</label>"
+                required: "<label class='msg-required'>Preencha o usuário de acesso ao sistema!</label>",
+//                remote: "<label class='msg-required'>Já existe uma conta cadastrado com esse usuário!</label>"
             },
             senha: {
                 required: "<label class='msg-required'>Preencha a senha do usuário!</label>"
@@ -148,12 +154,12 @@ $(document).on('blur', "#cep", function () {
             buscarCidadeEEstado(retorno);
 
             if ((retorno.logradouro == '' || retorno.logradouro == undefined) || (retorno.bairro == '' || retorno.bairro == undefined)) {
-                $('#rua').attr('disabled', false);
-                $('#numero').attr('disabled', false);
-                $('#comp').attr('disabled', false);
-                $('#bairro').attr('disabled', false);
-                $('#cidade').attr('disabled', false);
-                $('#estado').attr('disabled', false);
+                $('#rua').attr('readonly', false);
+                $('#numero').attr('readonly', false);
+                $('#comp').attr('readonly', false);
+                $('#bairro').attr('readonly', false);
+                $('#cidade').attr('readonly', false);
+                $('#estado').attr('readonly', false);
 
 //                $('#cep').val('');
 //                $('#rua').val('');
@@ -177,8 +183,8 @@ $(document).on('blur', "#cep", function () {
 
                 alert("Endereço não encontrado!");
             } else {
-                $('#numero').attr('disabled', false);
-                $('#comp').attr('disabled', false);
+                $('#numero').attr('readonly', false);
+                $('#comp').attr('readonly', false);
                 $('#rua').val(retorno.logradouro);
                 $('#comp').val(retorno.complemento);
                 $('#bairro').val(retorno.bairro);
@@ -189,12 +195,12 @@ $(document).on('blur', "#cep", function () {
         error: function () {
             alert("CEP não encontrado");
 
-            $('#rua').attr('disabled', true);
-            $('#numero').attr('disabled', true);
-            $('#comp').attr('disabled', true);
-            $('#bairro').attr('disabled', true);
-            $('#cidade').attr('disabled', true);
-            $('#estado').attr('disabled', true);
+            $('#rua').attr('readonly', true);
+            $('#numero').attr('readonly', true);
+            $('#comp').attr('readonly', true);
+            $('#bairro').attr('readonly', true);
+            $('#cidade').attr('readonly', true);
+            $('#estado').attr('readonly', true);
         }
     });
 });
@@ -208,7 +214,7 @@ $(document).on('blur', "#confirmSenha", function () {
 function buscarCidadeEEstado(dados) {
     var comboEstado = $("#estado");
     var comboCidade = $("#cidade");
-     $('#cidade option').remove();
+    $('#cidade option').remove();
     $.ajax({
         type: 'GET',
         url: './usuario?acao=buscarcidades&localidade=' + dados.localidade + '&uf=' + dados.uf,
@@ -267,7 +273,42 @@ function buscarPointDoCep(cep) {
             }
         },
         error: function (erro) {
-            console.log("Erro ao buscar as coordenadas na API do Google Meg: " + erro);
+            console.log("Erro ao buscar as coordenadas na API do Google Msg: " + erro);
         }
     });
 }
+
+$(document).on('blur', "#cpf", function () {
+    var cpf = $("#cpf").val();
+    var usuario = $("#usuario").val();
+    $.ajax({
+        type: 'GET',
+        url: './usuario?acao=buscausuarioporcpf&cpf=' + cpf,
+        mimeType: 'json',
+        success: function (retorno) {
+            if (retorno == true) {
+                alert("Já existe um usuário cadastrado com esse CPF!");
+            } 
+        },
+        error: function (erro) {
+            console.log("Erro: " + erro);
+        }
+    });
+});
+
+$(document).on('blur', "#usuario", function () {
+    var usuario = $("#usuario").val();
+    $.ajax({
+        type: 'GET',
+        url: './usuario?acao=buscausuario&usuario=' + usuario,
+        mimeType: 'json',
+        success: function (retorno) {
+            if (retorno == true) {
+                alert("Já existe uma conta cadastrada com esse usuário!");
+            } 
+        },
+        error: function (erro) {
+            console.log("Erro: " + erro);
+        }
+    });
+});

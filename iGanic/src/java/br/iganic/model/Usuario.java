@@ -1,24 +1,31 @@
-
 package br.iganic.model;
+
+import java.util.List;
 
 /**
  *
  * @author tharles
  */
 public class Usuario {
-    
-    private Integer idUsuario; 
+
+    private Integer idUsuario;
     private String nome;
     private String cpf;
     private String cel;
     private String email;
     private String endereco;
-    private String lat; 
-    private String lng; 
-    private String tipo;  
-    private String usuario; 
-    private String senha; 
-    private Integer idCidade; 
+    private String lat;
+    private String lng;
+    private String tipo;
+    private String usuario;
+    private String senha;
+    private Integer idCidade;
+
+    public Usuario(String cpf, String usuario, String senha) {
+        this.cpf = cpf;
+        this.usuario = usuario;
+        this.senha = senha; 
+    }
 
     public Usuario(String nome, String cpf, String cel, String email, String endereco, String lat, String lng, String tipo, String usuario, String senha, Integer idCidade) {
         this.nome = nome;
@@ -143,6 +150,6 @@ public class Usuario {
 
     public void setIdCidade(Integer idCidade) {
         this.idCidade = idCidade;
-    }   
-    
+    }
+
 }

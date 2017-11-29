@@ -54,7 +54,7 @@
                             <label >Senha</label>
                             <input class="form-control" id="senha" name="senha" type="password" placeholder="Informe a sua senha">
                         </div>
-                        <button type="button" id="acao" name="acao" value="entrar" class="btn btn-success btn-block">Entrar</button>
+                        <button type="submit" id="acao" name="acao" value="entrar" class="btn btn-success btn-block">Entrar</button>
                     </form>
                     <div class="text-center">
                         <a class="d-block small mt-3" href="./cadastra_usuario.jsp">Cadastrar novo usuário</a>
@@ -67,28 +67,9 @@
         <script src="./template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
         <!-- Core plugin JavaScript-->
         <script src="./template/admin/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
-        <script src="../jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
-        <script>
-            $().ready(function () {
-                // validate the comment form when it is submitted
-                $("#commentForm").validate({
-                    rules: {
-                        usuario: {
-                            required: true,
-                            remote: "../servletValidador?cmd=validaNome"
-                        }
-                    },
-                    messages: {
-                        cname: {
-                            required: "Preencha este campo, cavalo!!",
-                            minlength: "Não acredito que seu nome seja só isso!",
-                            remote: "Nome inválido!"
-                        }
-                    }
-                });
-            });
+        <script src="./jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
+        <script src="./js/login.js" type="text/javascript"></script>
 
-        </script>
     </body>
 
 </html>

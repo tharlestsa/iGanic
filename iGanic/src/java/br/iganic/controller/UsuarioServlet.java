@@ -28,15 +28,6 @@ import org.json.simple.JsonArray;
 @WebServlet(name = "UsuarioServlet", urlPatterns = {"/usuario"})
 public class UsuarioServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -51,6 +42,12 @@ public class UsuarioServlet extends HttpServlet {
                 break;
             case "registrar":
                 this.salvarUsuario(request, response);
+                break;
+            case "buscausuarioporcpf":
+                this.buscaUsuarioPorCpf(request, response);
+                break;
+            case "buscausuario":
+                this.buscaUsuario(request, response);
                 break;
         }
 
@@ -179,22 +176,39 @@ public class UsuarioServlet extends HttpServlet {
             String numero = request.getParameter("numero");
             String comp = request.getParameter("comp");
             String bairro = request.getParameter("bairro");
-            String endereco = rua + "," + numero + "," + comp + "," + bairro;
 
-            Integer idCidade = Integer.parseInt(request.getParameter("cidade"));
+            String endereco = null;
+
+            if ((rua != null) || (!rua.isEmpty())) {
+                endereco = rua;
+            }
+
+            if ((numero != null) || (!numero.isEmpty())) {
+                endereco += ", " + numero;
+            }
+
+            if ((comp != null) || (!comp.isEmpty())) {
+                endereco += ", " + comp;
+            }
+
+            if ((bairro != null) || (!bairro.isEmpty())) {
+                endereco += ", " + bairro;
+            }
+
             String tipo = request.getParameter("tipo");
             String usuario = request.getParameter("usuario");
             String senha = request.getParameter("senha");
             String lat = request.getParameter("lat");
             String lng = request.getParameter("lng");
 
+            Integer idCidade = Integer.parseInt(request.getParameter("cidade"));
+
             UsuarioDAO usuDao = new UsuarioDAO();
 
             try {
-                JOptionPane.showMessageDialog(null, "passei");
 
                 Integer idUsuario = usuDao.salvarUsuario(new Usuario(nome, cpf, cel, email, endereco, lat, lng, tipo, usuario, senha, idCidade));
-
+                JOptionPane.showMessageDialog(null, String.valueOf(idUsuario));
                 if (idUsuario != 0) {
                     HttpSession sessao = request.getSession(true);
                     sessao.setAttribute("idUsuario", idUsuario);
@@ -208,6 +222,48 @@ public class UsuarioServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.getMessage();
+        }
+    }
+
+    private void buscaUsuarioPorCpf(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try (PrintWriter out = response.getWriter()) {
+            String cpf = request.getParameter("cpf");
+
+            UsuarioDAO usuDao = new UsuarioDAO();
+            ArrayList<Usuario> usuarios = null;
+            try {
+                usuarios = (ArrayList<Usuario>) usuDao.buscaUsuarioPorCpf(new Usuario(cpf, null, null));
+            } catch (Exception e) {
+
+            }
+
+            if (usuarios.size() > 0) {
+                out.print(true);
+            } else {
+                out.print(false);
+            }
+
+        }
+    }
+    private void buscaUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try (PrintWriter out = response.getWriter()) {
+            String usuario = request.getParameter("usuario");
+
+            UsuarioDAO usuDao = new UsuarioDAO();
+            ArrayList<Usuario> usuarios = null;
+            
+            try {
+                usuarios = (ArrayList<Usuario>) usuDao.buscaUsuPeloUsuario(new Usuario(null, usuario, null));
+            } catch (Exception e) {
+
+            }
+
+            if (usuarios.size() > 0) {
+                out.print(true);
+            } else {
+                out.print(false);
+            }
+
         }
     }
 }

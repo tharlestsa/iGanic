@@ -84,7 +84,7 @@ public class Tabela {
                 + " <div class=\"card-body\">\n"
                 + "     <div class=\"table-responsive\">";
 
-        tabela += "<table class=\"table table-bordered dataTable\" id=\"dataTable\" width=\"100%\" cellspacing=\"0\" role=\"grid\" aria-describedby=\"dataTable_info\" style=\"width: 100%;\">";
+        tabela += "<table class=\"table table-bordered \" id=\"dataTable\" width=\"100%\" cellspacing=\"0\" role=\"grid\" aria-describedby=\"dataTable_info\" style=\"width: 100%;\">";
        
         tabela += this.montaColunas();
         
