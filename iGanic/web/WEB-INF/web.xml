@@ -4,9 +4,17 @@
         <servlet-name>DadosServlet</servlet-name>
         <servlet-class>br.iganic.controller.DadosServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>cadastroDeProduto</servlet-name>
+        <servlet-class>br.iganic.controller.CadastraProdutoServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DadosServlet</servlet-name>
         <url-pattern>/dados</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cadastroDeProduto</servlet-name>
+        <url-pattern>/cadastroDeProdutos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
