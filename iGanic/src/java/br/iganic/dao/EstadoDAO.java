@@ -39,7 +39,7 @@ public class EstadoDAO implements DAO {
             ps.executeUpdate();
 
         } catch (SQLException sqle) {
-            
+            JOptionPane.showMessageDialog(null, sqle.getMessage());
             throw new Exception("Erro ao atualizar dados: " + sqle);
         } finally {
             ConnectionDAO.closeConnection(conn, ps);
@@ -54,8 +54,8 @@ public class EstadoDAO implements DAO {
         Connection conn = null;
 
         try {
+            conn = ConnectionDAO.getConnection();
             ps = conn.prepareStatement(" DELETE FROM `iGanic`.`Estados` WHERE `idEstado`= ? ");
-
             ps.setInt(1, est.getIdEstado());
             ps.executeUpdate();
 

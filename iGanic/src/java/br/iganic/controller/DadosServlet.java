@@ -137,11 +137,7 @@ public class DadosServlet extends HttpServlet {
         try {
             EstadoDAO estDAo = new EstadoDAO();
 
-            if (est == null) {
-                salvou = false;
-            } else {
-                estDAo.atualizar(est);
-            }
+            estDAo.atualizar(est);
 
         } catch (Exception e) {
             salvou = false;
@@ -153,14 +149,10 @@ public class DadosServlet extends HttpServlet {
     private Boolean removeEstado(Estado est) {
         Boolean removeu = true;
         try {
-
+            
             EstadoDAO estDAo = new EstadoDAO();
 
-            if (est == null) {
-                removeu = false;
-            } else {
-                estDAo.excluir(est);
-            }
+            estDAo.excluir(est);
 
         } catch (Exception e) {
             removeu = false;
