@@ -121,6 +121,7 @@
                                     <th>#</th>
                                     <th>Nome</th>
                                     <th>uf</th>
+                                    <th>Foto</th>
                                     <th class="tabledit-toolbar-column"></th></tr>
                             </thead>
                             <tbody id="dados-tabela">
@@ -129,6 +130,28 @@
                         </table>
                     </div>
                 </main>
+            </div>
+            <!-- Logout Modal-->
+            <div class="modal fade" id="foto-modal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Inserir Fotos</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <iframe style="width: 95%; height: 300px; border: none; " id="frame">
+                                
+                            </iframe>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                            <a class="btn btn-primary" href="">Sair</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -154,6 +177,7 @@
                             body += "<td>" + dados.idEstado + "</td>";
                             body += "<td>" + dados.nome + "</td>";
                             body += "<td>" + dados.uf + "</td>";
+                            body += "<td> <button type='button'class='btn btn-sm btn-dafualt' onClick='abriGerenciadorDeFotos(" + dados.idEstado + ")'><span class='glyphicon glyphicon-camera'></span> Upload</button></td>";
                             body += "</tr>";
                             $("#dados-tabela").append(body);
 
@@ -167,6 +191,11 @@
                 });
 
             });
+
+            function abriGerenciadorDeFotos(id) {
+                $("#foto-modal").modal();
+                $("#frame-if").attr('src', '../fotos?idProduto='+id+'&cmd=listar');
+            }
 
             function montaTabela() {
                 $('#tabela-categorias').Tabledit({

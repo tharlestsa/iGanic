@@ -50,28 +50,33 @@ public class DadosServlet extends HttpServlet {
 
         String nome = request.getParameter("nome");
         String uf = request.getParameter("uf");
-        JOptionPane.showMessageDialog(null, id + nome + uf);
 
+        JSONObject dado = new JSONObject();
         switch (cmd) {
             case "edit":
-                this.salvaEstado(new Estado(id, nome, uf));
 
-                JSONObject dados = new JSONObject();
-                dados.put("dados", "ok");
-                out.println(dados);
+                try {
+
+                    this.salvaEstado(new Estado(id, nome, uf));
+                    dado.put("dados", "ok");
+                    out.println(dado);
+
+                } catch (Exception e) {
+                    dado.put("erro", e.getMessage());
+                    out.println(dado);
+                }
 
                 break;
 
             case "delete":
                 try {
-                    if (this.removeEstado(new Estado(id, nome, uf))) {
-                        JSONObject dado = new JSONObject();
+                    this.removeEstado(new Estado(id, nome, uf));
+                    dado.put("dados", "ok");
+                    out.println(dado);
 
-                        dado.put("dados", "ok");
-                        out.println(dado);
-                    }
                 } catch (Exception e) {
-                    
+                    dado.put("erro", e.getMessage());
+                    out.println(dado);
                 }
 
                 break;

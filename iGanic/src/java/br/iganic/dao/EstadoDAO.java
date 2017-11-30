@@ -34,11 +34,12 @@ public class EstadoDAO implements DAO {
 
             ps.setString(1, est.getNome());
             ps.setString(2, est.getUf());
-            ps.setInt(2, est.getIdEstado());
+            ps.setInt(3, est.getIdEstado());
 
             ps.executeUpdate();
 
         } catch (SQLException sqle) {
+            
             throw new Exception("Erro ao atualizar dados: " + sqle);
         } finally {
             ConnectionDAO.closeConnection(conn, ps);
@@ -53,12 +54,13 @@ public class EstadoDAO implements DAO {
         Connection conn = null;
 
         try {
-            ps = conn.prepareStatement("DELETE FROM `iGanic`.`Estados` WHERE `idEstado`= ? ");
+            ps = conn.prepareStatement(" DELETE FROM `iGanic`.`Estados` WHERE `idEstado`= ? ");
 
             ps.setInt(1, est.getIdEstado());
             ps.executeUpdate();
 
         } catch (SQLException sqle) {
+            JOptionPane.showMessageDialog(null, sqle.getMessage());
             throw new Exception("Erro ao excluir dados: " + sqle);
         } finally {
             ConnectionDAO.closeConnection(conn, ps);
