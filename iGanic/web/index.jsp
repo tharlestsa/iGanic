@@ -37,7 +37,7 @@
 
     <body >
         <div class="container">
-            <div class="card card-login mx-auto mt-5">
+            <div id="card-login" class="card card-login mx-auto mt-5">
                 <img class="img-responsive" src="img/logo/Logo iGanic_fundo_transparente_reduzida.png" alt=""/>
                 <div class="card-header" style='font-weight:bold;' >Login</div>
                 <div class="card-body ">

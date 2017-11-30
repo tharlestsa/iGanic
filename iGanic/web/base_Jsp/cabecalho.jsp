@@ -58,10 +58,10 @@
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseComponents">
                             <li>
-                                <a href="navbar.html">Navbar</a>
+                                <a href="">Navbar</a>
                             </li>
                             <li>
-                                <a href="cards.html">Cards</a>
+                                <a href="">Cards</a>
                             </li>
                         </ul>
                     </li>

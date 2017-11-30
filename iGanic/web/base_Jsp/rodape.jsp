@@ -45,7 +45,6 @@
 <script src="./template/admin/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
 <!-- Page level plugin JavaScript-->
 <script src="./template/admin/vendor/chart.js/Chart.min.js" type="text/javascript"></script>
-<script src="./js/editaIdiomaDataTable.js" type="text/javascript"></script>
 <script src="./template/admin/vendor/datatables/jquery.dataTables.js" type="text/javascript"></script>
 <script src="./template/admin/vendor/datatables/dataTables.bootstrap4.js" type="text/javascript"></script>
 <!-- Custom scripts for all pages-->
@@ -53,6 +52,9 @@
 <!-- Custom scripts for this page-->
 <script src="./template/admin/js/sb-admin-datatables.min.js" type="text/javascript"></script>
 <script src="./template/admin/js/sb-admin-charts.min.js" type="text/javascript"></script>
+<script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
+<script src="./js/editaIdiomaDataTable.js" type="text/javascript"></script>
+
 </div>
 </body>
 

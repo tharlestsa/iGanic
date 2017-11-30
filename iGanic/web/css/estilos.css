@@ -2,12 +2,16 @@
 body {
     background-image: url(../img/img_login/organicos_2.jpeg); 
     background-size: 100% auto;
-   
+
 }
 
 .msg-required{
     color: #cc0000; 
     font-size: 12px; 
-        
+
+}
+
+#card-login{
+    margin-bottom: 10%;
 }
 

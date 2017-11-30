@@ -50,7 +50,4 @@
     out.print(conteudo);
 %>
 
-
-
-
 <jsp:include page="./base_Jsp/rodape.jsp" />

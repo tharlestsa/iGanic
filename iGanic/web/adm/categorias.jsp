@@ -1,5 +1,5 @@
 <%@page import="br.iganic.dao.CategoriaDAO"%>
-<%@page import="br.iganic.model.Categoria"%>
+<%@page import="br.iganic.model.Estado"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
@@ -10,7 +10,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>iGanic v-1.0</title>
+        <title>iGanic</title>
 
         <!-- Bootstrap core CSS -->
         <link href="https://markcell.github.io/jquery-tabledit/assets/css/bootstrap-yeti.min.css" rel="stylesheet" id="theme-file">
@@ -120,6 +120,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Nome</th>
+                                    <th>uf</th>
                                     <th class="tabledit-toolbar-column"></th></tr>
                             </thead>
                             <tbody id="dados-tabela">
@@ -143,14 +144,16 @@
 
                 $.ajax({
                     type: 'GET',
-                    url: 'http://localhost:8084/iGanic/getCategorias.iga?cmd=listacategorias',
+                    url: '../dados?action=listarestados',
                     mimeType: 'json',
                     success: function (retorno) {
+                        console.log(JSON.stringify(retorno));
                         var dados = retorno.data;
                         $.each(dados, function (i, dados) {
                             var body = "<tr>";
-                            body += "<td>" + dados.idCategoria + "</td>";
+                            body += "<td>" + dados.idEstado + "</td>";
                             body += "<td>" + dados.nome + "</td>";
+                            body += "<td>" + dados.uf + "</td>";
                             body += "</tr>";
                             $("#dados-tabela").append(body);
 
@@ -170,7 +173,7 @@
                     url: "../dados",
                     columns: {
                         identifier: [0, 'id'],
-                        editable: [[1, 'nome']]
+                        editable: [[1, 'nome'], [2, 'uf']]
                     },
                     onDraw: function () {
                         console.log('onDraw()');
@@ -190,7 +193,7 @@
                     onAlways: function () {
                         console.log('onAlways()');
                     }
-                   
+
                 });
             }
         </script>
