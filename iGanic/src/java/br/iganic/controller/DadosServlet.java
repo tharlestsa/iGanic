@@ -5,16 +5,20 @@
  */
 package br.iganic.controller;
 
-import br.iganic.dao.CategoriaDAO;
-import br.iganic.model.Categoria;
+import br.iganic.dao.EstadoDAO;
+import br.iganic.model.Estado;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
+import org.json.simple.JsonArray;
 
 /**
  *
@@ -41,25 +45,42 @@ public class DadosServlet extends HttpServlet {
         this.response = response;
         PrintWriter out = response.getWriter();
         String cmd = (request.getParameter("action") != null) ? request.getParameter("action").toLowerCase().toString() : "";
-                
+
         Integer id = Integer.parseInt((request.getParameter("id") != null) ? request.getParameter("id") : "0");
-        
+
         String nome = request.getParameter("nome");
+        String uf = request.getParameter("uf");
+        JOptionPane.showMessageDialog(null, id + nome + uf);
 
         switch (cmd) {
             case "edit":
-                this.salvaCategoria(new Categoria(id, nome));
+                this.salvaEstado(new Estado(id, nome, uf));
 
                 JSONObject dados = new JSONObject();
-                dados.put("dados", "ok"); 
+                dados.put("dados", "ok");
                 out.println(dados);
 
                 break;
+
             case "delete":
-                this.removeCategoria(new Categoria(id, nome));
+                try {
+                    if (this.removeEstado(new Estado(id, nome, uf))) {
+                        JSONObject dado = new JSONObject();
+
+                        dado.put("dados", "ok");
+                        out.println(dado);
+                    }
+                } catch (Exception e) {
+                    
+                }
+
                 break;
+
             case "restore":
 
+                break;
+            case "listarestados":
+                this.listarEstados(request, response);
                 break;
             default:
 
@@ -106,15 +127,15 @@ public class DadosServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private Boolean salvaCategoria(Categoria categoria) {
+    private Boolean salvaEstado(Estado est) {
         Boolean salvou = true;
         try {
-            CategoriaDAO catDAo = new CategoriaDAO();
+            EstadoDAO estDAo = new EstadoDAO();
 
-            if (categoria == null) {
+            if (est == null) {
                 salvou = false;
             } else {
-                catDAo.atualizar(categoria);
+                estDAo.atualizar(est);
             }
 
         } catch (Exception e) {
@@ -124,16 +145,16 @@ public class DadosServlet extends HttpServlet {
         return salvou;
     }
 
-    private Boolean removeCategoria(Categoria categoria) {
+    private Boolean removeEstado(Estado est) {
         Boolean removeu = true;
         try {
 
-            CategoriaDAO catDAo = new CategoriaDAO();
+            EstadoDAO estDAo = new EstadoDAO();
 
-            if (categoria == null) {
+            if (est == null) {
                 removeu = false;
             } else {
-                catDAo.excluir(categoria);
+                estDAo.excluir(est);
             }
 
         } catch (Exception e) {
@@ -141,5 +162,35 @@ public class DadosServlet extends HttpServlet {
         }
 
         return removeu;
+    }
+
+    private void listarEstados(HttpServletRequest request, HttpServletResponse response) {
+
+        try {
+            EstadoDAO estDao = new EstadoDAO();
+            ArrayList<Estado> estados = null;
+
+            estados = (ArrayList<Estado>) estDao.listaTodos();
+
+            JSONObject dados = new JSONObject();
+            JSONObject pai = new JSONObject();
+            JsonArray filhos = new JsonArray();
+
+            for (Estado est : estados) {
+                dados = new JSONObject();
+                dados.put("idEstado", est.getIdEstado());
+                dados.put("nome", est.getNome());
+                dados.put("uf", est.getUf());
+
+                filhos.add(dados);
+            }
+
+            pai.put("data", filhos);
+
+            response.getWriter().print(pai);
+        } catch (Exception e) {
+
+        }
+
     }
 }

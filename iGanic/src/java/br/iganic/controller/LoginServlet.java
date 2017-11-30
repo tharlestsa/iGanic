@@ -10,6 +10,8 @@ import br.iganic.model.Usuario;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,38 +26,55 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
+    private String usuario;
+    private String senha;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
 
-        String usuario = request.getParameter("usuario");
-        String senha = request.getParameter("senha");
+        this.usuario = request.getParameter("usuario");
+        this.senha = (String) request.getParameter("senha");
+
         String acao = request.getParameter("acao");
 
-        UsuarioDAO usuDao = new UsuarioDAO();
-
-        try {
-
-            if (acao == null) {
+        switch (acao) {
+            case "null":
                 request.getSession().invalidate();
                 request.getRequestDispatcher("./index.jsp").forward(request, response);
-            } else if (acao.equalsIgnoreCase("entrar")) {
-                List<Usuario> usu = usuDao.buscaUsuPeloUsuario(new Usuario(null, usuario, senha));
-                response.getWriter().print(senha.equals(usu.get(0).getUsuario()));
-                if (usu.isEmpty()) {
-                    request.setAttribute("mensagem", "Usuario ou senha incorretos!");
-                    request.getRequestDispatcher("/index.jsp").forward(request, response);
-                } else if (senha.equals( usu.get(0).getUsuario())) {
-                    
-                    HttpSession sessao = request.getSession(true);
-                    sessao.setAttribute("idUsuario", usu.get(0).getIdUsuario());
-                    request.getRequestDispatcher("/principal.jsp").forward(request, response);
+                break;
 
-                }
+            case "entrar":
+                this.autenticarUsuario(request, response);
+                break;
 
+            default:
+                request.getSession().invalidate();
+                request.getRequestDispatcher("./index.jsp").forward(request, response);
+
+        }
+
+    }
+
+    private void autenticarUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        UsuarioDAO usuDao = new UsuarioDAO();
+        List<Usuario> usu;
+        try {
+            usu = usuDao.buscaUsuPeloUsuarioESenha(new Usuario(null, this.usuario, this.senha));
+
+            if (usu.isEmpty()) {
+                request.setAttribute("tipo", "erro");
+                request.setAttribute("mensagem", "Usuario ou senha incorretos!");
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
             }
+            
+            HttpSession sessao = request.getSession(true);
+            sessao.setAttribute("idUsuario", usu.get(0).getIdUsuario());
+            request.getRequestDispatcher("/principal.jsp").forward(request, response);
         } catch (Exception ex) {
-
+            request.setAttribute("tipo", "erro");
+            request.setAttribute("mensagem", "Ao buscar os dados do usuário!");
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
 
     }
@@ -72,7 +91,11 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -86,7 +109,11 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
