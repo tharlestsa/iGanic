@@ -32,7 +32,7 @@ public class UsuarioServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String acao = (request.getParameter("acao") != null) ? request.getParameter("acao").toLowerCase() : "";
-
+        
         switch (acao) {
             case "buscarcidades":
                 this.buscaCidadesEEstados(request, response);

@@ -7,6 +7,7 @@ package br.iganic.controller;
 
 import br.iganic.dao.ProdutoDAO;
 import br.iganic.model.Produto;
+import br.iganic.util.Sessao;
 import br.iganic.view.Mensagem;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -49,9 +50,14 @@ public class CadastraProdutoServlet extends HttpServlet {
         Double quantidade = Double.parseDouble(request.getParameter("quantidade"));
         String modo = request.getParameter("modo");
 
+        Sessao.trataSessao(request, response);
+        Integer idUsuario = Integer.parseInt((String)request.getSession().getAttribute("idUsuario"));
+        
+        JOptionPane.showMessageDialog(null, idUsuario);
+        
         ProdutoDAO produtoDAO = new ProdutoDAO();
 
-        Produto produto = new Produto(nome, unidade, preco, quantidade, modo, 1);
+        Produto produto = new Produto(nome, unidade, preco, quantidade, modo, idUsuario);
 
         if (acao == null) {
             return;
