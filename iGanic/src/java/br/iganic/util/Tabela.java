@@ -16,11 +16,16 @@ public class Tabela {
     protected ArrayList<String> colunas;
     protected ArrayList<String> linhas;
     private final String nomeDaTabela;
+    private String id ="";
 
     public Tabela(String nome) {
         this.colunas = new ArrayList();
         linhas = new ArrayList();
         this.nomeDaTabela = nome;
+    }
+    
+    public void setId(String id){
+        this.id = id;
     }
 
     public Tabela(String nome, String[] colunas) {
@@ -84,7 +89,7 @@ public class Tabela {
                 + " <div class=\"card-body\">\n"
                 + "     <div class=\"table-responsive\">";
 
-        tabela += "<table class=\"table table-bordered \" id=\"dataTable\" width=\"100%\" cellspacing=\"0\" role=\"grid\" aria-describedby=\"dataTable_info\" style=\"width: 100%;\">";
+        tabela += "<table class=\"table table-bordered \" id=\""+ this.id + "\" width=\"100%\" cellspacing=\"0\" role=\"grid\" aria-describedby=\"dataTable_info\" style=\"width: 100%;\">";
        
         tabela += this.montaColunas();
         
