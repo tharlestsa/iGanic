@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
  */
 public class Sessao {
     
-    private static boolean existeSessao(HttpServletRequest request){
+    public static boolean existeSessao(HttpServletRequest request){
         HttpSession session = request.getSession();
 
         return session.getAttribute("idUsuario") != null;
@@ -36,4 +36,15 @@ public class Sessao {
         }
     }
     
+    public static void trataSessaoAdm(HttpServletRequest request, HttpServletResponse response) throws ServletException{
+        HttpSession session = request.getSession();
+        
+        if(session.getAttribute("idAdministrador") == null){
+            try {
+                request.getRequestDispatcher("./adm/index.jsp").forward(request, response);
+            } catch (IOException ex) {
+                Logger.getLogger(Sessao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }

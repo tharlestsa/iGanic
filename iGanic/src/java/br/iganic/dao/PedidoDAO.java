@@ -24,27 +24,7 @@ public class PedidoDAO implements DAO {
 
     @Override
     public void atualizar(Object ob) throws Exception {
-        
-        Pedido p = (Pedido)ob;
-        
-        PreparedStatement ps;
-        Connection conn;
-        ResultSet rs;
-        
-        try {
-            conn = ConnectionDAO.getConnection();
-            
-            ps = conn.prepareStatement("update Pedidos set status = ? where idPedido = ?");
-            ps.setString(1, p.getStatus());
-            ps.setInt(2, p.getIdPedido());
-            
-            ps.executeUpdate();
-            
-        } catch (Exception ex) {
-            Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            throw new Exception();
-        }
-        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -79,7 +59,7 @@ public class PedidoDAO implements DAO {
             ps = conn.prepareStatement(" SELECT Pedidos.idPedido, Pedidos.data, Pedidos.quantidade, Pedidos.status, Pedidos.idUsuario, Pedidos.idProduto, Produtos.nome "
                                             + "FROM `Pedidos` "
                                              + "INNER JOIN Produtos on "
-                                             + "`Pedidos`.`idProduto` = Produtos.idProduto and Produtos.idUsuario = ? order by Pedidos.data desc");
+                                             + "`Pedidos`.`idProduto` = Produtos.idProduto and Produtos.idUsuario = ?");
             ps.setInt(1, idUsuario);
             
             rs = ps.executeQuery();
