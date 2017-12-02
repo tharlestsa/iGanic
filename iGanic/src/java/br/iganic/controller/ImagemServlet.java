@@ -5,7 +5,7 @@
  */
 package br.iganic.controller;
 
-import br.iganic.model.Estado;
+import br.iganic.util.Calcula;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -33,9 +33,7 @@ public class ImagemServlet extends HttpServlet {
             case "listar":
                  out.print(cmd);
                 try {
-
-                 
-
+                
                 } catch (Exception e) {
                 
                 }
