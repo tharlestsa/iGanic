@@ -4,6 +4,7 @@
     Author     : tharles
 --%>
 
+<%@page import="java.util.Calendar"%>
 <%@page import="br.iganic.util.Button"%>
 <%@page import="br.iganic.util.Tabela"%>
 <%@page import="br.iganic.model.Pedido"%>
@@ -11,7 +12,11 @@
 <%@page import="br.iganic.dao.PedidoDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<jsp:include page="./base_Jsp/cabecalho.jsp" />
+<%--<jsp:include page="./base_Jsp/cabecalho.jsp" />--%>
+
+<jsp:include page="./base_Jsp/cabecalho.jsp" flush="true" >
+    <jsp:param name="tipoUsuario"  value="${sessionScope.tipoUsuario}" />
+</jsp:include>
 
 
 <%

@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-                
+
         this.usuario = request.getParameter("usuario");
         this.senha = (String) request.getParameter("senha");
 
@@ -71,6 +71,7 @@ public class LoginServlet extends HttpServlet {
 
             HttpSession sessao = request.getSession(true);
             sessao.setAttribute("idUsuario", usu.get(0).getIdUsuario());
+            sessao.setAttribute("tipoUsuario", usu.get(0).getTipo());
             request.getRequestDispatcher("/principal.jsp").forward(request, response);
         } catch (Exception ex) {
             request.setAttribute("tipo", "erro");
