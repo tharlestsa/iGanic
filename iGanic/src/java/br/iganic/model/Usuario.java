@@ -21,6 +21,11 @@ public class Usuario {
     private String senha;
     private Integer idCidade;
 
+    public Usuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    
+    
     public Usuario(String cpf, String usuario, String senha) {
         this.cpf = cpf;
         this.usuario = usuario;

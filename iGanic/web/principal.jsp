@@ -4,20 +4,13 @@
     Author     : tharles
 --%>
 
-<%@page import="java.util.Calendar"%>
-<%@page import="br.iganic.util.Button"%>
-<%@page import="br.iganic.util.Tabela"%>
-<%@page import="br.iganic.model.Pedido"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="br.iganic.dao.PedidoDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="./base_Jsp/cabecalho.jsp" />
 
 <!-- Seção de Promoções -->
-<section id="promocao"d>
+<section id="promocao">
     <div class="breadcrumb">
-
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>

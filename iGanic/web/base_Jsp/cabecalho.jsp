@@ -4,6 +4,11 @@
     Author     : tharles
 --%>
 
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="br.iganic.model.Usuario"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="br.iganic.dao.UsuarioDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt_br">
@@ -27,7 +32,7 @@
     <body class="fixed-nav sticky-footer bg-dark" id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-            <a class="navbar-brand" href="index.html" style="color: #ff6200; font-weight: bold;">iGanic</a>
+            <!--<a class="navbar-brand" href="index.html" style="color: #ff6200; font-weight: bold;">iGanic</a>-->
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -37,44 +42,7 @@
                 <% } else {%>
                 <jsp:include page="./area_fornecedor.jsp" />
                 <% }%>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item dropdown pull-right">
-                        <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-user-circle-o"></i>
-                            <span class="d-lg-none">Perfil</span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="messagesDropdown">
-                            <h6 class="dropdown-header">New Messages:</h6>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">
-                                <strong>David Miller</strong>
-                                <span class="small float-right text-muted">11:21 AM</span>
-                                <div class="dropdown-message small">Hey there! This new version of SB Admin is pretty awesome! These messages clip off when they reach the end of the box so they don't overflow over to the sides!</div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">
-                                <strong>Jane Smith</strong>
-                                <span class="small float-right text-muted">11:21 AM</span>
-                                <div class="dropdown-message small">I was wondering if you could meet for an appointment at 3:00 instead of 4:00. Thanks!</div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">
-                                <strong>John Doe</strong>
-                                <span class="small float-right text-muted">11:21 AM</span>
-                                <div class="dropdown-message small">I've sent the final files over to you for review. When you're able to sign off of them let me know and we can discuss distribution.</div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item small" href="#">View all messages</a>
-                        </div>
-                    </li>
-                </ul>        
 
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fa fa-fw fa-sign-out"></i>Sair</a>
-                    </li>
-                </ul>
                 <ul class="navbar-nav sidenav-toggler">
                     <li class="nav-item">
                         <a class="nav-link text-center" id="sidenavToggler">
@@ -82,8 +50,97 @@
                         </a>
                     </li>
                 </ul>
+
+                <% if (session.getAttribute("tipoUsuario").equals("C")) {%>
+                <ul class="navbar-nav ml-sm-auto" >
+                    <li id="busca-produto" class="nav-item" >
+                        <form class="form-inline" action="" method="POST">
+                            <div class="input-group input-group-md">
+                                <input class="form-control" type="text" placeholder="Digite o nome do alimento...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" name="acao" value="pesquisar" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                    </li> 
+                </ul>
+                <% } %>
+                <ul class="navbar-nav ml-auto" >
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                            <i class="fa fa-user-circle-o"></i>
+                            <%
+                                UsuarioDAO usu = new UsuarioDAO();
+                                ArrayList<Usuario> usuarios = new ArrayList<>();
+                                try {
+                                    int idUsuario = (int) request.getSession().getAttribute("idUsuario");
+                                    usuarios = (ArrayList<Usuario>) usu.buscaUsuPeloId(new Usuario(idUsuario));
+
+                                    for (Usuario u : usuarios) {
+                                        out.print("<strong>" + u.getNome() + "</strong>");
+                                    }
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            %>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
+                            <h6 class="dropdown-header">New Messages:</h6>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">
+                                <strong>David Miller</strong>
+                                <span class="small float-left text-muted">11:21 AM</span>
+                                <div class="dropdown-message small">Hey there! This new version of SB Admin is pretty awesome! These messages clip off when they reach the end of the box so they don't overflow over to the sides!</div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">
+                                <strong>Jane Smith</strong>
+                                <span class="small float-left text-muted">11:21 AM</span>
+                                <div class="dropdown-message small">I was wondering if you could meet for an appointment at 3:00 instead of 4:00. Thanks!</div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">
+                                <strong>John Doe</strong>
+                                <span class="small float-left text-muted">11:21 AM</span>
+                                <div class="dropdown-message small">I've sent the final files over to you for review. When you're able to sign off of them let me know and we can discuss distribution.</div>
+                            </a>
+                            <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                                <i class="fa fa-fw fa-sign-out"></i>Sair</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item small" href="#">View all messages</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fa fa-fw fa-sign-out"></i>Sair</a>
+                    </li>
+                </ul>
+
             </div>
         </nav>
+        <!-- Logout Modal-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja sair?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Selecione "Sair" somente se estiver pronto para finalizar essa sessão.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <form action="" method="POST"> <button class="btn btn-success" name="acao" value="sair"type="submit" href="index.jsp">Sair</button></form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Logout Modal-->
         <div class="content-wrapper" style="background-image: url('./img/img_login/organicos_3.jpeg');background-repeat: no-repeat;background-position: center;">
             <div class="container-fluid" style="opacity: 0.85;">
 

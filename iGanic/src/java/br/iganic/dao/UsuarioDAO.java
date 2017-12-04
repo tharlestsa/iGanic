@@ -240,6 +240,59 @@ public class UsuarioDAO implements DAO {
         return usuarios;
 
     }
+    
+    public List buscaUsuPeloId(Object ob) throws Exception {
+        Usuario usu = (Usuario) ob;
+
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        List<Usuario> usuarios = new ArrayList<Usuario>();
+        try {
+            conn = ConnectionDAO.getConnection();
+            ps = conn.prepareStatement(" SELECT `idUsuario`, "
+                    + "`nome`,"
+                    + "`cpf`, "
+                    + "`cel`,"
+                    + "`email`, "
+                    + "`endereco`, "
+                    + "`lat`, "
+                    + "`lng`, "
+                    + "`tipo`, "
+                    + "`usuario`, "
+                    + "`senha`, "
+                    + "`idCidade` "
+                    + "FROM `iGanic`.`Usuarios` WHERE `idUsuario` =  ? ");
+
+            ps.setInt(1, usu.getIdUsuario());
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                usuarios.add(new Usuario(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11),
+                        rs.getInt(12))
+                );
+            }
+
+        } catch (SQLException sqle) {
+            throw new Exception(sqle);
+        } finally {
+            ConnectionDAO.closeConnection(conn, ps, rs);
+        }
+        return usuarios;
+
+    }
 
     public List buscaUsuPeloUsuarioESenha(Object ob) throws Exception {
         Usuario usu = (Usuario) ob;
