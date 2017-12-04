@@ -24,7 +24,7 @@
 
     ArrayList<Pedido> pedidos = pedidoDAO.buscaPedidosDoFornecedor(2);
 
-    Tabela table = new Tabela("Pedidos", new String[]{"#", "Data", "Status", "Produto", "Quantidade"});
+    Tabela table = new Tabela("Pedidos", new String[]{"#", "Data", "Cliente", "Status", "Produto", "Quantidade"});
     table.setId("tabela");
 
     for (Pedido p : pedidos) {
@@ -41,7 +41,7 @@
                 break;
         }
 
-        table.addLinha(new String[]{String.valueOf(p.getIdPedido()), p.getData(), status, p.getNomeProduto(), String.valueOf(p.getQtd())});
+        table.addLinha(new String[]{String.valueOf(p.getIdPedido()), p.getData(), p.getCliente(),status, p.getNomeProduto(), String.valueOf(p.getQtd())});
     }
 
     conteudo = table.toString();
@@ -73,7 +73,7 @@
         },
         columns: {
             identifier: [0, 'idPedido'],
-            editable: [[2, 'status','{"A": "Em andamento", "F" :"Finalizado", "C" : "Cancelado"}']]
+            editable: [[3, 'status','{"A": "Em andamento", "F" :"Finalizado", "C" : "Cancelado"}']]
         }
     });
 </script>
