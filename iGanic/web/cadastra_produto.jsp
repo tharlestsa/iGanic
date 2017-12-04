@@ -7,7 +7,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="br.iganic.view.Mensagem"%>
 
-<jsp:include page="./base_Jsp/cabecalho.jsp" />
+<jsp:include page="./base_Jsp/cabecalho.jsp">
+    <jsp:param name="titulo" value="Cadastro de Produtos" />
+</jsp:include>
 
 <html lang="pt_br">
 

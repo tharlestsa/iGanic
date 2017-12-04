@@ -7,11 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
-        <a class="nav-link" href="">
-            <img class="img-thumbnail" src="./img/logo/Logo_iGanic_fundo_branco.png" alt=""/>
-        </a>
-    </li>
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Buscar Produtos">
         <a class="nav-link" href="">
             <i class="fa fa-fw fa-dashboard"></i>

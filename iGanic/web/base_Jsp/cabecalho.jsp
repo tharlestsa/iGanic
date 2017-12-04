@@ -19,23 +19,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>iGanic - Página Principal</title>
+        <link rel="icon" href="./img/iganic_sem_fundo.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="./img/iganic_sem_fundo.ico" type="image/x-icon" />
+        <title>iGanic - ${param.titulo}</title>
         <!-- Bootstrap core CSS-->
+        <link rel="icon" href="MeuIcone.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="MeuIcone.ico" type="image/x-icon" />
         <link href="./template/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <!-- Custom fonts for this template-->
         <link href="./template/admin/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
         <!-- Page level plugin CSS-->
         <link href="./template/admin/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css"/>
         <!-- Custom styles for this template-->
+        <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet">
         <link href="./template/admin/css/sb-admin.css" rel="stylesheet" type="text/css"/>
+
     </head>
     <%
-    Sessao.trataSessao(request, response);
+        Sessao.trataSessao(request, response);
     %>
     <body class="fixed-nav sticky-footer bg-dark" id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-            <!--<a class="navbar-brand" href="index.html" style="color: #ff6200; font-weight: bold;">iGanic</a>-->
+            <div id="div-logo">
+                <a id="logo" class="navbar-brand" href="index.jsp">iGanic</a>
+            </div>>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

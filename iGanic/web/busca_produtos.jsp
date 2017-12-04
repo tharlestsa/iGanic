@@ -6,10 +6,11 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<jsp:include page="./base_Jsp/cabecalho.jsp" />
-
+<jsp:include page="./base_Jsp/cabecalho.jsp">
+    <jsp:param name="titulo" value="Busca de Produtos" />
+</jsp:include>
 <!-- Mapa -->
-<div id="mapa" style="height: 500px; width: 100%; background-color: grey;">
+<div id="mapa">
     
 </div>
 <!-- /Mapa -->

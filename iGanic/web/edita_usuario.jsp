@@ -10,7 +10,10 @@
 <%@page import="br.iganic.dao.EstadoDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<jsp:include page="./base_Jsp/cabecalho.jsp" />
+<jsp:include page="./base_Jsp/cabecalho.jsp">
+    <jsp:param name="titulo" value="Edição dos Dados do Usuário" />
+</jsp:include>
+
 <div class="breadcrumb">
     <div class="card-body">
         <% if (request.getAttribute("mensagem") != null) {

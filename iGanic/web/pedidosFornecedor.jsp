@@ -11,7 +11,10 @@
 <%@page import="br.iganic.util.Tabela"%>
 <%@page import="br.iganic.util.Label"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="./base_Jsp/cabecalho.jsp" />
+
+<jsp:include page="./base_Jsp/cabecalho.jsp">
+    <jsp:param name="titulo" value="Pedidos" />
+</jsp:include>
 
 <style>.tabledit-toolbar{width: 130px;} .botao{margin-left: 5px;}</style>
 <%

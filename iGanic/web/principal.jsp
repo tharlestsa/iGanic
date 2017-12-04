@@ -6,7 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<jsp:include page="./base_Jsp/cabecalho.jsp" />
+<jsp:include page="./base_Jsp/cabecalho.jsp">
+    <jsp:param name="titulo" value="Página Principal" />
+</jsp:include>
 
 <!-- Seção de Promoções -->
 <section id="promocao">

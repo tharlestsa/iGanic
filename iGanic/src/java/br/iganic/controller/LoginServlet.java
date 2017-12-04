@@ -38,11 +38,18 @@ public class LoginServlet extends HttpServlet {
         this.senha = (String) request.getParameter("senha");
 
         String acao = request.getParameter("acao");
-        if(acao == null) acao = "";
+        if (acao == null) {
+            acao = "";
+        }
         switch (acao) {
             case "":
-                request.getSession().invalidate();
-                request.getRequestDispatcher("./index.jsp").forward(request, response);
+                if (Sessao.existeSessao(request)) {
+                    request.getRequestDispatcher("/principal.jsp").forward(request, response);
+                } else {
+                    request.getSession().invalidate();
+                    request.getRequestDispatcher("./index.jsp").forward(request, response);
+                }
+
                 break;
 
             case "entrar":
