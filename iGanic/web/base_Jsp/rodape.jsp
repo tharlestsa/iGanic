@@ -35,6 +35,10 @@
 <!-- Custom scripts for this page-->
 <script src="./template/admin/js/sb-admin-datatables.min.js" type="text/javascript"></script>
 <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKRNk-dKdR-ahbI7IQcfRS-FedpmFQOLg&callback=initMap&language=pt_br">
+</script>
+<script src="./js/mapa.js" type="text/javascript"></script>
 <script src="./js/editaIdiomaDataTable.js" type="text/javascript"></script>
 </body>
 
