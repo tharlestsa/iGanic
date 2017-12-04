@@ -8,7 +8,7 @@
 
 <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="./principal.jsp">
             <img class="img-thumbnail" src="./img/logo/Logo_iGanic_fundo_branco.png" alt=""/>
         </a>
     </li>

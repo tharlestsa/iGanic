@@ -38,7 +38,7 @@
     <body >
         <div class="container">
             <div id="card-login" class="card card-login mx-auto mt-5">
-                <img class="img-responsive" src="img/logo/Logo iGanic_fundo_transparente_reduzida.png" alt=""/>
+                <img width="60%" style="margin: auto;"class="img-responsive" src="./img/logo/Logo_iGanic_fundo_branco.png" alt=""/>
                 <div class="card-header" style='font-weight:bold;' >Login</div>
                 <div class="card-body ">
                     <% if (request.getAttribute("mensagem") != null) {

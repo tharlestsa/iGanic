@@ -48,7 +48,6 @@ public class LoginServlet extends HttpServlet {
             case "entrar":
                 this.autenticarUsuario(request, response);
                 break;
-
             default:
                 request.getSession().invalidate();
                 request.getRequestDispatcher("./index.jsp").forward(request, response);

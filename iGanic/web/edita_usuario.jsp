@@ -1,0 +1,151 @@
+<%-- 
+    Document   : edita_usuario
+    Created on : 03/12/2017, 23:08:10
+    Author     : tharles
+--%>
+
+<%@page import="br.iganic.view.Mensagem"%>
+<%@page import="br.iganic.model.Estado"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="br.iganic.dao.EstadoDAO"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<jsp:include page="./base_Jsp/cabecalho.jsp" />
+<div class="breadcrumb">
+    <div class="card-body">
+        <% if (request.getAttribute("mensagem") != null) {
+                out.print(new Mensagem(request.getAttribute("tipo").toString(), String.valueOf(request.getAttribute("mensagem"))));
+            }
+        %>
+        <form  id="form-usuario" action="./usuario" method="POST" >
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-8">
+                        <label for="inputNome">Nome</label>
+                        <input class="form-control" id="nome" name="nome" type="text" placeholder="Informe seu nome completo">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputCpf">CPF</label>
+                        <input class="form-control" id="cpf" name="cpf" type="text" placeholder="Informe o seu CPF">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-8">
+                        <label for="inputEmail">E-mail</label>
+                        <input class="form-control" id="email" name="email" type="email" placeholder="Informe seu o E-mail">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputCel">Celular</label>
+                        <input class="form-control" id="cel" name="cel" type="tel" placeholder="nº de celular">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-4">
+                        <label for="inputCep">CEP</label>
+                        <input class="form-control" id="cep" name="cep" type="text" placeholder="Informe o CEP">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputRua">Rua</label>
+                        <input class="form-control" id="rua" name="rua" type="text" placeholder="Informe a rua de sua residência">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="inputNumero">nº</label>
+                        <input class="form-control" id="numero" name="numero" type="text" placeholder="Número">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <label for="inputComp">Complemento</label>
+                        <input class="form-control" id="comp" name="comp" type="text" placeholder="Complemento">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputBairro">Bairro</label>
+                        <input class="form-control" id="bairro" name="bairro" type="text" placeholder="Informe o seu bairro">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <label for="inputEstado">Estado</label>
+                        <select class="form-control" id="estado" name="estado"  onchange="buscarCidadesDoEstado()">
+                            <option value="" >Informe o Estado</option>
+                            <%
+                                EstadoDAO estDao = new EstadoDAO();
+                                ArrayList<Estado> estados = null;
+                                try {
+                                    estados = (ArrayList<Estado>) estDao.listaTodos();
+                                    for (Estado e : estados) {
+                                        out.print("<option value='" + e.getIdEstado() + "' >" + e.getUf() + "</option>");
+                                    }
+                                } catch (Exception e) {
+
+                                }
+                            %>
+
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputCidade">Cidade</label>
+                        <select class="form-control" id="cidade" name="cidade" >
+                            <option value="" >Informe a Cidade</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <label for="inputTipo">Tipo da Conta</label>
+                        <select class="form-control" id="tipo" name="tipo" >
+                            <option value="-1" >Informe o tipo da conta do usuário</option>
+                            <option value="C">Cliente</option>
+                            <option value="F" >Fornecedor</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputUsuario">Usuário</label>
+                        <input class="form-control" id="usuario" name="usuario" type="text" placeholder="Informe o usuário acesso ao login">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <label for="inputSenha">Senha</label>
+                        <input class="form-control" id="senha" name="senha"  type="password" placeholder="Informe a senha acesso">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="confirmSenha">Confirme a senha</label>
+                        <input class="form-control" id="confirmSenha" name="confirmSenha" type="password" placeholder="Informe a senha novamente">
+                    </div>
+                </div>
+            </div>
+            <input class="form-control" id="lat" name="lat" type="hidden">
+            <input class="form-control" id="lng" name="lng" type="hidden">
+            <button type="submit" id="acao" name="acao" value="registrar" class="btn btn-success btn-block">Salvar</button>
+        </form>
+
+    </div>
+</div>
+
+<script src="./mask-plugin/jquery.mask.min.js" type="text/javascript"></script>
+<script src="./jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
+<script src="./js/cadastro_usuario.js" type="text/javascript"></script>
+
+<jsp:include page="./base_Jsp/rodape.jsp" />
+
