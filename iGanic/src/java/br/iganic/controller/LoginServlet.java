@@ -38,9 +38,9 @@ public class LoginServlet extends HttpServlet {
         this.senha = (String) request.getParameter("senha");
 
         String acao = request.getParameter("acao");
-
+        if(acao == null) acao = "";
         switch (acao) {
-            case "null":
+            case "":
                 request.getSession().invalidate();
                 request.getRequestDispatcher("./index.jsp").forward(request, response);
                 break;
