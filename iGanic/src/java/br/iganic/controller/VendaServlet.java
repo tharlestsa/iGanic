@@ -36,21 +36,21 @@ public class VendaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         Sessao.trataSessao(request, response);
         
         int idUsuario = (int) request.getSession().getAttribute("idUsuario");
         VendaDAO dao = new VendaDAO();
-        
+
         ArrayList<Venda> vendas = dao.buscaVendasDoFornecedor(idUsuario);
-        
-        if(vendas.isEmpty()){
+
+        if (vendas.isEmpty()) {
             request.setAttribute("mensagem", new Mensagem("info", "Nenhuma venda concluída até o momento!"));
         }
-        
+
         request.setAttribute("vendas", vendas);
         request.getRequestDispatcher("./vendas.jsp").forward(request, response);
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -8,6 +8,7 @@ package br.iganic.dao;
 import br.iganic.base.ConnectionDAO;
 import br.iganic.base.DAO;
 import br.iganic.model.Pedido;
+import br.iganic.model.PedidoCliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -103,6 +104,42 @@ public class PedidoDAO implements DAO {
         }
             
         
+        return pedidos;
+    }
+    
+    public ArrayList buscaPedidosDoCliente(int idUsuario){
+        ArrayList<PedidoCliente> pedidos = new ArrayList();
+        
+        PreparedStatement ps;
+        Connection conn;
+        ResultSet rs;
+        
+        try {
+            conn = ConnectionDAO.getConnection();
+            ps= conn.prepareStatement("SELECT Pedidos.data, Produtos.nome,Pedidos.quantidade, Pedidos.status, Usuarios.nome, Produtos.unidade, (Pedidos.quantidade * Produtos.preco) AS total "
+                    + "from Pedidos "
+                    + "INNER JOIN Produtos ON Pedidos.idProduto = Produtos.idProduto "
+                    + "INNER JOIN Usuarios ON Usuarios.idUsuario = Produtos.idUsuario WHERE Pedidos.idUsuario = ? ORDER BY Pedidos.data DESC");
+            
+            ps.setInt(1, idUsuario);
+            
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                PedidoCliente p = new PedidoCliente();
+                p.setData(rs.getString(1));
+                p.setProduto(rs.getString(2));
+                p.setQtd(rs.getString(3));
+                p.setStatus(rs.getString(4));
+                p.setFornecedor(rs.getString(5));
+                p.setUnidade(rs.getString(6));
+                p.setTotal(rs.getString(7));
+                
+                pedidos.add(p);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
         return pedidos;
     }
 }

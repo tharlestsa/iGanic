@@ -10,13 +10,13 @@
 <%@page import="br.iganic.dao.PedidoDAO"%>
 <%@page import="br.iganic.util.Tabela"%>
 <%@page import="br.iganic.util.Label"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="./base_Jsp/cabecalho.jsp">
     <jsp:param name="titulo" value="Pedidos" />
 </jsp:include>
 
 <style>.tabledit-toolbar{width: 130px;} .botao{margin-left: 5px;}</style>
+<div class="container cont">
 <%
     String conteudo;
 
@@ -48,6 +48,7 @@
 
     out.print(conteudo);
 %>
+</div>
 
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://markcell.github.io/jquery-tabledit/assets/js/jquery.min.js"></script>
