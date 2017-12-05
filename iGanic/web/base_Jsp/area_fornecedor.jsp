@@ -19,10 +19,10 @@
             <span class="nav-link-text">Histórico de Vendas</span>
         </a>
     </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-        <a class="nav-link" href="tables.html">
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Cadastro de Produtos">
+        <a class="nav-link" href="./cadastra_produto.jsp">
             <i class="fa fa-fw fa-table"></i>
-            <span class="nav-link-text">Tables</span>
+            <span class="nav-link-text">Cadastro de Produtos</span>
         </a>
     </li>
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">

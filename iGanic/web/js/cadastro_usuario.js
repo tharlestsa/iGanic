@@ -150,7 +150,7 @@ $(document).on('blur', "#cep", function () {
         success: function (retorno) {
             $("#lat").val('');
             $("#lng").val('');
-
+            console.log(JSON.stringify(retorno));
             buscarCidadeEEstado(retorno);
 
             if ((retorno.logradouro == '' || retorno.logradouro == undefined) || (retorno.bairro == '' || retorno.bairro == undefined)) {
@@ -220,13 +220,14 @@ function buscarCidadeEEstado(dados) {
         url: './usuario?acao=buscarcidades&localidade=' + dados.localidade + '&uf=' + dados.uf,
         mimeType: 'json',
         success: function (retorno) {
+            console.log(JSON.stringify(retorno));
             var optionCidade = new Option(retorno.cidade, retorno.idCidade);
-            console.log(retorno.idCidade + " - " + retorno.idEstado);
             optionCidade.selected = true;
             comboEstado.val(retorno.idEstado);
             comboCidade.append(optionCidade);
         },
         error: function (erro) {
+            console.log(JSON.stringify(erro));
             console.log(erro);
         }
     });
@@ -241,6 +242,7 @@ function buscarCidadesDoEstado() {
         url: './usuario?acao=buscarcidadesdoestado&&uf=' + uf,
         mimeType: 'json',
         success: function (retorno) {
+             console.log(JSON.stringify(retorno));
             var dados = retorno.data;
             $('#cidade option').remove();
             $.each(dados, function (i, dados) {
@@ -288,7 +290,7 @@ $(document).on('blur', "#cpf", function () {
         success: function (retorno) {
             if (retorno == true) {
                 alert("Já existe um usuário cadastrado com esse CPF!");
-            } 
+            }
         },
         error: function (erro) {
             console.log("Erro: " + erro);
@@ -305,7 +307,7 @@ $(document).on('blur', "#usuario", function () {
         success: function (retorno) {
             if (retorno == true) {
                 alert("Já existe uma conta cadastrada com esse usuário!");
-            } 
+            }
         },
         error: function (erro) {
             console.log("Erro: " + erro);
