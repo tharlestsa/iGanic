@@ -42,7 +42,11 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
             <div id="div-logo">
-                <a id="logo" class="navbar-brand" href="index.jsp">iGanic</a>
+                <a id="logo" class="navbar-brand" href="<% if (Sessao.existeSessao(request)) {
+                        out.print("./principal.jsp");
+                    } else {
+                        out.print("./index.jsp");
+                    }%>">iGanic</a>
             </div>>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -145,6 +149,6 @@
             </div>
         </div>
         <!-- /Logout Modal-->
-        <div class="content-wrapper" style="background-image: url('./img/img_login/organicos_3.jpeg');background-repeat: no-repeat;background-position: center;">
+        <div id="background-tela" class="content-wrapper">
             <div class="container-fluid" style="opacity: 0.85;">
 

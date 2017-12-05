@@ -356,3 +356,26 @@ footer.sticky-footer {
 #mapa{
     height: 500px; width: 100%; background-color: grey;
 }
+
+.imagem-produto-10{
+    max-width:30%;
+    max-height:30%;
+    width: auto;
+    height: auto;
+}
+
+#background-tela{
+    /*background-color: #7a7a52;*/
+    /*    background-image: url('./img/img_login/organicos_3.jpeg');
+        background-repeat: no-repeat;
+        background-position: center;*/
+}
+
+#cont{
+    margin-top: 1.5%;
+}
+
+#promocao{
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+}
