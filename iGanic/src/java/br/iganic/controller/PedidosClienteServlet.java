@@ -6,8 +6,7 @@
 package br.iganic.controller;
 
 import br.iganic.dao.PedidoDAO;
-import br.iganic.model.Pedido;
-import br.iganic.util.Sessao;
+import br.iganic.model.PedidoCliente;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -20,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author rafael
  */
-@WebServlet(name = "PedidosFornecedorServlet", urlPatterns = {"/pedidosFornecedor"})
-public class PedidosFornecedorServlet extends HttpServlet {
+@WebServlet(name = "PedidosCliente", urlPatterns = {"/pedidosCliente"})
+public class PedidosClienteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,35 +35,25 @@ public class PedidosFornecedorServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        Sessao.trataSessao(request, response);
         PedidoDAO dao = new PedidoDAO();
         int idUsuario = (int) request.getSession().getAttribute("idUsuario");
 
         String acao = request.getParameter("action");
 
-        ArrayList<Pedido> pedidos = new ArrayList();
+        ArrayList<PedidoCliente> pedidos;
 
         if (acao == null) {
             acao = "listar";
         }
-        
-        switch (acao) {
-            case "listar":
-                pedidos = dao.buscaPedidosDoFornecedor(idUsuario);
-                break;
-            case "edit":
-                Pedido p = new Pedido();
-                p.setIdPedido(Integer.parseInt(request.getParameter("idPedido")));
-                p.setStatus(request.getParameter("status"));
-                try {
-                    dao.atualizar(p);
-                } catch (Exception e) {
-                }
-                break;
+        pedidos = dao.buscaPedidosDoCliente(idUsuario);
+
+        if (acao.equals("alt")) {
+            String idPedido = request.getParameter("idPedido");
+            System.out.println(idPedido);
         }
 
         request.setAttribute("pedidos", pedidos);
-        request.getRequestDispatcher("./pedidosFornecedor.jsp").forward(request, response);
+        request.getRequestDispatcher("./pedidosCliente.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

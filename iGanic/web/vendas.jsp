@@ -11,7 +11,7 @@
 <jsp:include page="./base_Jsp/cabecalho.jsp">
     <jsp:param name="titulo" value="Vendas" />
 </jsp:include>
-
+<div class="container cont">
 <%
     ArrayList<Venda> vendas = (ArrayList<Venda>) request.getAttribute("vendas");
 
@@ -37,5 +37,5 @@
     out.println(conteudo);
 
 %>
-
+</div>
 <jsp:include page="./base_Jsp/rodape.jsp" />
