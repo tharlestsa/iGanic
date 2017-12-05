@@ -5,12 +5,10 @@
  */
 package br.iganic.controller;
 
-import br.iganic.dao.VendaDAO;
-import br.iganic.model.Venda;
-import br.iganic.util.Sessao;
-import br.iganic.view.Mensagem;
+import br.iganic.util.Upload;
+import static java.awt.SystemColor.text;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author rafael
+ * @author guilherme
  */
-@WebServlet(name = "VendaServlet", urlPatterns = {"/vendas"})
-public class VendaServlet extends HttpServlet {
+@WebServlet(name = "NewServlet", urlPatterns = {"/newServlet"})
+public class NewServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,22 +34,18 @@ public class VendaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        Sessao.trataSessao(request, response);
-        
-        int idUsuario = (int) request.getSession().getAttribute("idUsuario");
-        VendaDAO dao = new VendaDAO();
-
-        ArrayList<Venda> vendas = dao.buscaVendasDoFornecedor(idUsuario);
-
-        if (vendas.isEmpty()) {
-            request.setAttribute("mensagem", new Mensagem("info", "Nenhuma venda concluída até o momento!"));
+        try (PrintWriter out = response.getWriter()) {
+            try {
+                if (new Upload().anexos(request, response)) {
+                    out.print("Ficheiro enviado!");
+        } else {
+                    out.print("Ficheiro não enviado!");
         }
-
-        request.setAttribute("vendas", vendas);
-        request.getRequestDispatcher("./vendas.jsp").forward(request, response);
-
-    }
+        } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

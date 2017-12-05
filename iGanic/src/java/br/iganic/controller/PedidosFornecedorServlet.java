@@ -44,8 +44,6 @@ public class PedidosFornecedorServlet extends HttpServlet {
 
         ArrayList<Pedido> pedidos = new ArrayList();
 
-        System.out.println(idUsuario);
-        
         if (acao == null) {
             acao = "listar";
         }
@@ -58,13 +56,11 @@ public class PedidosFornecedorServlet extends HttpServlet {
                 Pedido p = new Pedido();
                 p.setIdPedido(Integer.parseInt(request.getParameter("idPedido")));
                 p.setStatus(request.getParameter("status"));
-                System.out.println(p.getIdPedido());
                 try {
                     dao.atualizar(p);
                 } catch (Exception e) {
                 }
                 break;
-
         }
 
         request.setAttribute("pedidos", pedidos);

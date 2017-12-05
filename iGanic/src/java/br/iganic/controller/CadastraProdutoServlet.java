@@ -26,7 +26,7 @@ import javax.swing.JOptionPane;
  *
  * @author guilherme
  */
-@WebServlet(name = "CadastraProdutoServlet", urlPatterns = {"/produto"})
+@WebServlet(name = "CadastraProdutoServlet", urlPatterns = {"/cadastraProdutos"})
 public class CadastraProdutoServlet extends HttpServlet {
 
     /**
@@ -57,7 +57,7 @@ public class CadastraProdutoServlet extends HttpServlet {
 
          ProdutoDAO produtoDAO = new ProdutoDAO();
 
-        Produto produto = new Produto(nome, unidade, preco, quantidade, modo, 1);
+        Produto produto = new Produto(nome, unidade, preco, quantidade, modo, idUsuario);
 
         if (acao == null) {
             return;

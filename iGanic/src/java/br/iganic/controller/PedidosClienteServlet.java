@@ -5,10 +5,8 @@
  */
 package br.iganic.controller;
 
-import br.iganic.dao.VendaDAO;
-import br.iganic.model.Venda;
-import br.iganic.util.Sessao;
-import br.iganic.view.Mensagem;
+import br.iganic.dao.PedidoDAO;
+import br.iganic.model.PedidoCliente;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -21,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author rafael
  */
-@WebServlet(name = "VendaServlet", urlPatterns = {"/vendas"})
-public class VendaServlet extends HttpServlet {
+@WebServlet(name = "PedidosCliente", urlPatterns = {"/pedidosCliente"})
+public class PedidosClienteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,20 +35,25 @@ public class VendaServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        Sessao.trataSessao(request, response);
-        
+        PedidoDAO dao = new PedidoDAO();
         int idUsuario = (int) request.getSession().getAttribute("idUsuario");
-        VendaDAO dao = new VendaDAO();
 
-        ArrayList<Venda> vendas = dao.buscaVendasDoFornecedor(idUsuario);
+        String acao = request.getParameter("action");
 
-        if (vendas.isEmpty()) {
-            request.setAttribute("mensagem", new Mensagem("info", "Nenhuma venda concluída até o momento!"));
+        ArrayList<PedidoCliente> pedidos;
+
+        if (acao == null) {
+            acao = "listar";
+        }
+        pedidos = dao.buscaPedidosDoCliente(idUsuario);
+
+        if (acao.equals("alt")) {
+            String idPedido = request.getParameter("idPedido");
+            System.out.println(idPedido);
         }
 
-        request.setAttribute("vendas", vendas);
-        request.getRequestDispatcher("./vendas.jsp").forward(request, response);
-
+        request.setAttribute("pedidos", pedidos);
+        request.getRequestDispatcher("./pedidosCliente.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

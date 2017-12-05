@@ -19,7 +19,7 @@
                     out.print(new Mensagem(String.valueOf(request.getAttribute("tipo")), String.valueOf(request.getAttribute("mensagem"))));
                 }
             %>
-            <form id="form-produto" action="./produto" method="POST" >
+            <form id="form-produto" action="./cadastraProdutos" method="POST" >
 
                 <div class="form-group">
                     <div class="form-row">
