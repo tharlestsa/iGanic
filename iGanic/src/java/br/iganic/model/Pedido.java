@@ -10,9 +10,18 @@ package br.iganic.model;
  * @author rafael
  */
 public class Pedido {
-    private String nomeProduto, data, status;
+    private String nomeProduto, data, status, cliente;
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
     private float qtd;
     private int idProduto, idUsuario, idPedido;
+    
     
     public Pedido(String nome, int idPedido, String data, float qtd, String status, int idUsuario, int idProduto){
         this.nomeProduto = nome;

@@ -6,15 +6,10 @@
 package br.iganic.controller;
 
 import br.iganic.dao.PedidoDAO;
-import br.iganic.dao.VendaDAO;
 import br.iganic.model.Pedido;
-import br.iganic.model.Venda;
 import br.iganic.util.Sessao;
-import br.iganic.view.Mensagem;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,19 +44,17 @@ public class PedidosFornecedorServlet extends HttpServlet {
 
         ArrayList<Pedido> pedidos = new ArrayList();
 
+        System.out.println(idUsuario);
+        
         if (acao == null) {
             acao = "listar";
         }
-        
-        System.out.println(acao);
-        System.out.println(request.getParameter("status"));
         
         switch (acao) {
             case "listar":
                 pedidos = dao.buscaPedidosDoFornecedor(idUsuario);
                 break;
             case "edit":
-                System.out.println("passei");
                 Pedido p = new Pedido();
                 p.setIdPedido(Integer.parseInt(request.getParameter("idPedido")));
                 p.setStatus(request.getParameter("status"));

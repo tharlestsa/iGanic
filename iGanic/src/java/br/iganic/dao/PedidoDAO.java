@@ -76,8 +76,10 @@ public class PedidoDAO implements DAO {
         
         try {
             conn = ConnectionDAO.getConnection();
-            ps = conn.prepareStatement(" SELECT Pedidos.idPedido, Pedidos.data, Pedidos.quantidade, Pedidos.status, Pedidos.idUsuario, Pedidos.idProduto, Produtos.nome "
+            ps = conn.prepareStatement(" SELECT Pedidos.idPedido, Pedidos.data, Pedidos.quantidade, Pedidos.status, Pedidos.idUsuario, Pedidos.idProduto, Produtos.nome, Usuarios.nome "
                                             + "FROM `Pedidos` "
+                                             + "INNER JOIN Usuarios on "
+                                                + "Pedidos.idUsuario = Usuarios.idUsuario "
                                              + "INNER JOIN Produtos on "
                                              + "`Pedidos`.`idProduto` = Produtos.idProduto and Produtos.idUsuario = ? order by Pedidos.data desc");
             ps.setInt(1, idUsuario);
@@ -92,6 +94,7 @@ public class PedidoDAO implements DAO {
                 p.setIdUsuario(rs.getInt(5));
                 p.setIdProduto(rs.getInt(6));
                 p.setNomeProduto(rs.getString(7));
+                p.setCliente(rs.getString(8));
                 
                 pedidos.add(p);
             }
