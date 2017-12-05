@@ -14,8 +14,8 @@ public class Usuario {
     private String cel;
     private String email;
     private String endereco;
-    private String lat;
-    private String lng;
+    private Double lat;
+    private Double lng;
     private String tipo;
     private String usuario;
     private String senha;
@@ -32,7 +32,7 @@ public class Usuario {
         this.senha = senha; 
     }
 
-    public Usuario(String nome, String cpf, String cel, String email, String endereco, String lat, String lng, String tipo, String usuario, String senha, Integer idCidade) {
+    public Usuario(String nome, String cpf, String cel, String email, String endereco, Double lat, Double lng, String tipo, String usuario, String senha, Integer idCidade) {
         this.nome = nome;
         this.cpf = cpf;
         this.cel = cel;
@@ -46,7 +46,7 @@ public class Usuario {
         this.idCidade = idCidade;
     }
 
-    public Usuario(Integer idUsuario, String nome, String cpf, String cel, String email, String endereco, String lat, String lng, String tipo, String usuario, String senha, Integer idCidade) {
+    public Usuario(Integer idUsuario, String nome, String cpf, String cel, String email, String endereco, Double lat, Double lng, String tipo, String usuario, String senha, Integer idCidade) {
         this.idUsuario = idUsuario;
         this.nome = nome;
         this.cpf = cpf;
@@ -109,19 +109,19 @@ public class Usuario {
         this.endereco = endereco;
     }
 
-    public String getLat() {
+    public Double getLat() {
         return lat;
     }
 
-    public void setLat(String lat) {
+    public void setLat(Double lat) {
         this.lat = lat;
     }
 
-    public String getLng() {
+    public Double getLng() {
         return lng;
     }
 
-    public void setLng(String lng) {
+    public void setLng(Double lng) {
         this.lng = lng;
     }
 
@@ -156,5 +156,6 @@ public class Usuario {
     public void setIdCidade(Integer idCidade) {
         this.idCidade = idCidade;
     }
+
 
 }

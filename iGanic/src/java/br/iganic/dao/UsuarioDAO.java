@@ -69,8 +69,8 @@ public class UsuarioDAO implements DAO {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getString(7),
-                        rs.getString(8),
+                        rs.getDouble(7),
+                        rs.getDouble(8),
                         rs.getString(9),
                         rs.getString(10),
                         rs.getString(11),
@@ -111,8 +111,8 @@ public class UsuarioDAO implements DAO {
             ps.setString(3, usuario.getCel());
             ps.setString(4, usuario.getEmail());
             ps.setString(5, usuario.getEndereco());
-            ps.setString(6, usuario.getLat());
-            ps.setString(7, usuario.getLng());
+            ps.setDouble(6, usuario.getLat());
+            ps.setDouble(7, usuario.getLng());
             ps.setString(8, usuario.getTipo());
             ps.setString(9, usuario.getUsuario());
             ps.setString(10, usuario.getSenha());
@@ -170,8 +170,8 @@ public class UsuarioDAO implements DAO {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getString(7),
-                        rs.getString(8),
+                        rs.getDouble(7),
+                        rs.getDouble(8),
                         rs.getString(9),
                         rs.getString(10),
                         rs.getString(11),
@@ -223,8 +223,8 @@ public class UsuarioDAO implements DAO {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getString(7),
-                        rs.getString(8),
+                        rs.getDouble(7),
+                        rs.getDouble(8),
                         rs.getString(9),
                         rs.getString(10),
                         rs.getString(11),
@@ -276,8 +276,8 @@ public class UsuarioDAO implements DAO {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getString(7),
-                        rs.getString(8),
+                        rs.getDouble(7),
+                        rs.getDouble(8),
                         rs.getString(9),
                         rs.getString(10),
                         rs.getString(11),
@@ -330,8 +330,8 @@ public class UsuarioDAO implements DAO {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getString(7),
-                        rs.getString(8),
+                        rs.getDouble(7),
+                        rs.getDouble(8),
                         rs.getString(9),
                         rs.getString(10),
                         rs.getString(11),

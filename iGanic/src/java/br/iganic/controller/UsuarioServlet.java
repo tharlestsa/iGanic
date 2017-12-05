@@ -204,8 +204,8 @@ public class UsuarioServlet extends HttpServlet {
             String tipo = request.getParameter("tipo");
             String usuario = request.getParameter("usuario");
             String senha = request.getParameter("senha");
-            String lat = request.getParameter("lat");
-            String lng = request.getParameter("lng");
+            Double lat = Double.parseDouble(request.getParameter("lat"));
+            Double lng = Double.parseDouble(request.getParameter("lng"));
 
             Integer idCidade = Integer.parseInt(request.getParameter("cidade"));
 

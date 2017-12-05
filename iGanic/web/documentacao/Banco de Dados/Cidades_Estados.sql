@@ -1,4 +1,5 @@
 
+
 INSERT INTO `iGanic`.`Estados` (`idEstado`, `nome`, `uf`) VALUES
 (1, 'Acre', 'AC'),
 (2, 'Alagoas', 'AL'),
