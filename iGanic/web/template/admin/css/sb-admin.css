@@ -373,7 +373,14 @@ footer.sticky-footer {
 
 #cont{
     margin-top: 1.5%;
+    margin-bottom: 1.5%;
 }
+
+.cont{
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+}
+
 
 .margem{
      margin-top: 1.5%;

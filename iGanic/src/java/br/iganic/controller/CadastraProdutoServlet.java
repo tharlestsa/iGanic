@@ -52,7 +52,8 @@ public class CadastraProdutoServlet extends HttpServlet {
         String modo = request.getParameter("modo");
 
         Sessao.trataSessao(request, response);
-        Integer idUsuario = Integer.parseInt((String) request.getSession().getAttribute("idUsuario"));
+        
+        int idUsuario = (int) request.getSession().getAttribute("idUsuario");
 
          ProdutoDAO produtoDAO = new ProdutoDAO();
 
@@ -74,14 +75,15 @@ public class CadastraProdutoServlet extends HttpServlet {
 
             try {
                 produtoDAO.salvarProduto(produto);
-                JOptionPane.showMessageDialog(null, "Salvou");
+                request.setAttribute("tipo", "suce");
+                request.setAttribute("mensagem", "Produto Cadastrado!");
                 request.getRequestDispatcher("/cadastra_produto.jsp").forward(request, response);
 
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "entrou no erro");
+                JOptionPane.showMessageDialog(null, ex.getMessage());
                 request.setAttribute("tipo", "erro");
                 request.setAttribute("mensagem", "Nao foi possivel cadastrar esse produto!!");
-                request.getRequestDispatcher("/cadastra_usuario.jsp").forward(request, response);
+                request.getRequestDispatcher("/cadastra_produto.jsp").forward(request, response);
             }
 
         } catch (Exception ex) {
