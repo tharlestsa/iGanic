@@ -6,6 +6,7 @@ import br.iganic.dao.UsuarioDAO;
 import br.iganic.model.Cidade;
 import br.iganic.model.Estado;
 import br.iganic.model.Usuario;
+import br.iganic.util.Sessao;
 import br.iganic.util.TipoUsuario;
 import com.esri.core.geometry.Point;
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class UsuarioServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String acao = (request.getParameter("acao") != null) ? request.getParameter("acao").toLowerCase() : "";
-        
+
         switch (acao) {
             case "buscarcidades":
                 this.buscaCidadesEEstados(request, response);
@@ -49,6 +50,11 @@ public class UsuarioServlet extends HttpServlet {
             case "buscausuario":
                 this.buscaUsuario(request, response);
                 break;
+
+            default:
+                if (Sessao.existeSessao(request)) {
+                    request.getRequestDispatcher("/principal.jsp").forward(request, response);
+                }
         }
 
     }
@@ -208,8 +214,7 @@ public class UsuarioServlet extends HttpServlet {
             try {
 
                 Integer idUsuario = usuDao.salvarUsuario(new Usuario(nome, cpf, cel, email, endereco, lat, lng, tipo, usuario, senha, idCidade));
-                JOptionPane.showMessageDialog(null, String.valueOf(idUsuario));
-                if (idUsuario != 0) {
+                if (idUsuario < 0) {
                     HttpSession sessao = request.getSession(true);
                     sessao.setAttribute("idUsuario", idUsuario);
                     request.getRequestDispatcher("/principal.jsp").forward(request, response);
@@ -245,13 +250,14 @@ public class UsuarioServlet extends HttpServlet {
 
         }
     }
+
     private void buscaUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try (PrintWriter out = response.getWriter()) {
             String usuario = request.getParameter("usuario");
 
             UsuarioDAO usuDao = new UsuarioDAO();
             ArrayList<Usuario> usuarios = null;
-            
+
             try {
                 usuarios = (ArrayList<Usuario>) usuDao.buscaUsuPeloUsuario(new Usuario(null, usuario, null));
             } catch (Exception e) {
