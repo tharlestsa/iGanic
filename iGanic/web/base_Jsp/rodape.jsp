@@ -35,6 +35,9 @@
 <!-- Custom scripts for this page-->
 <script src="./template/admin/js/sb-admin-datatables.min.js" type="text/javascript"></script>
 <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
+<script src="./mask-plugin/jquery.mask.min.js" type="text/javascript"></script>
+<script src="./jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
+<script src="./js/cadastro_usuario.js" type="text/javascript"></script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKRNk-dKdR-ahbI7IQcfRS-FedpmFQOLg&callback=initMap&language=pt_br">
 </script>

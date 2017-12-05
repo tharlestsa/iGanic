@@ -4,6 +4,8 @@
     Author     : tharles
 --%>
 
+<%@page import="br.iganic.model.Usuario"%>
+<%@page import="br.iganic.dao.UsuarioDAO"%>
 <%@page import="br.iganic.view.Mensagem"%>
 <%@page import="br.iganic.model.Estado"%>
 <%@page import="java.util.ArrayList"%>
@@ -14,22 +16,38 @@
     <jsp:param name="titulo" value="Edição dos Dados do Usuário" />
 </jsp:include>
 
-<div class="breadcrumb">
+<div class="breadcrumb margem">
     <div class="card-body">
         <% if (request.getAttribute("mensagem") != null) {
                 out.print(new Mensagem(request.getAttribute("tipo").toString(), String.valueOf(request.getAttribute("mensagem"))));
             }
         %>
         <form  id="form-usuario" action="./usuario" method="POST" >
+            <%
+                UsuarioDAO usu = new UsuarioDAO();
+                ArrayList<Usuario> usuarios = new ArrayList<>();
+                Usuario usuarioModel = null;
+                try {
+                    int idUsuario = (int) request.getSession().getAttribute("idUsuario");
+                    usuarios = (ArrayList<Usuario>) usu.buscaUsuPeloId(new Usuario(idUsuario));
+
+                    for (Usuario u : usuarios) {
+                        usuarioModel = u;
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            %>
             <div class="form-group">
                 <div class="form-row">
                     <div class="col-md-8">
                         <label for="inputNome">Nome</label>
-                        <input class="form-control" id="nome" name="nome" type="text" placeholder="Informe seu nome completo">
+                        <input class="form-control" id="nome" name="nome" type="text" value="<% usuarioModel.getNome(); %>" placeholder="Informe seu nome completo">
                     </div>
                     <div class="col-md-4">
                         <label for="inputCpf">CPF</label>
-                        <input class="form-control" id="cpf" name="cpf" type="text" placeholder="Informe o seu CPF">
+                        <input class="form-control" id="cpf" name="cpf" type="text" value="<% usuarioModel.getCpf(); %>" placeholder="Informe o seu CPF" disabled="">
                     </div>
                 </div>
             </div>
@@ -39,11 +57,11 @@
                 <div class="form-row">
                     <div class="col-md-8">
                         <label for="inputEmail">E-mail</label>
-                        <input class="form-control" id="email" name="email" type="email" placeholder="Informe seu o E-mail">
+                        <input class="form-control" id="email" name="email" type="email"  value="<% usuarioModel.getEmail(); %>" placeholder="Informe seu o E-mail">
                     </div>
                     <div class="col-md-4">
                         <label for="inputCel">Celular</label>
-                        <input class="form-control" id="cel" name="cel" type="tel" placeholder="nº de celular">
+                        <input class="form-control" id="cel" name="cel" type="tel" value="<% usuarioModel.getCel(); %>" placeholder="nº de celular">
                     </div>
                 </div>
             </div>
@@ -52,7 +70,7 @@
                 <div class="form-row">
                     <div class="col-md-4">
                         <label for="inputCep">CEP</label>
-                        <input class="form-control" id="cep" name="cep" type="text" placeholder="Informe o CEP">
+                        <input class="form-control" id="cep" name="cep" type="text" value="" placeholder="Informe o CEP">
                     </div>
                     <div class="col-md-6">
                         <label for="inputRua">Rua</label>
@@ -140,15 +158,10 @@
             </div>
             <input class="form-control" id="lat" name="lat" type="hidden">
             <input class="form-control" id="lng" name="lng" type="hidden">
-            <button type="submit" id="acao" name="acao" value="registrar" class="btn btn-success btn-block">Salvar</button>
+            <button type="submit" id="acao" name="acao" value="editar" class="btn btn-success btn-block">Salvar</button>
         </form>
 
     </div>
 </div>
-
-<script src="./mask-plugin/jquery.mask.min.js" type="text/javascript"></script>
-<script src="./jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
-<script src="./js/cadastro_usuario.js" type="text/javascript"></script>
-
 <jsp:include page="./base_Jsp/rodape.jsp" />
 
