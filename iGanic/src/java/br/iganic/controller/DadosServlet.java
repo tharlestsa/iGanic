@@ -6,18 +6,25 @@
 package br.iganic.controller;
 
 import br.iganic.dao.EstadoDAO;
+import br.iganic.dao.UsuarioDAO;
 import br.iganic.model.Estado;
+import br.iganic.model.Usuario;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.json.simple.JsonArray;
 
 /**
@@ -26,7 +33,7 @@ import org.json.simple.JsonArray;
  */
 @WebServlet(name = "DadosServlet", urlPatterns = {"/dados"})
 public class DadosServlet extends HttpServlet {
-
+    int i = 0; 
     HttpServletRequest request;
     HttpServletResponse response;
 
@@ -81,9 +88,10 @@ public class DadosServlet extends HttpServlet {
 
                 break;
 
-            case "restore":
-
+            case "alimenta":
+                this.alimentaUsuario(request, response);
                 break;
+
             case "listarestados":
                 this.listarEstados(request, response);
                 break;
@@ -149,7 +157,7 @@ public class DadosServlet extends HttpServlet {
     private Boolean removeEstado(Estado est) {
         Boolean removeu = true;
         try {
-            
+
             EstadoDAO estDAo = new EstadoDAO();
 
             estDAo.excluir(est);
@@ -190,4 +198,32 @@ public class DadosServlet extends HttpServlet {
         }
 
     }
+
+    private void alimentaUsuario(HttpServletRequest request, HttpServletResponse response) {
+
+        try {
+            PrintWriter out = response.getWriter();
+            
+            UsuarioDAO usuDao = new UsuarioDAO(); 
+
+            Object obj = JSONValue.parse(new FileReader("/home/tharles/Documentos/Arquivos Curso Sistemas de Informação/6º Período/DW II/Projetos/iGanic/web/adm/city.json"));
+
+            JSONArray array2 = (JSONArray) obj;
+            ArrayList<Usuario> usuarios = new ArrayList<>(); 
+             
+            array2.forEach(city -> {
+                JSONObject json = new JSONObject();
+                json = (JSONObject) city;
+                usuarios.add(new Usuario(json.get("title").toString(), json.get("id").toString()+i, json.get("id_state").toString(), json.get("population").toString(), json.get("title").toString(), Double.parseDouble(json.get("lat").toString()), Double.parseDouble(json.get("lng").toString()),  "C", "teste"+i, "teste"+i, 9));
+                i++; 
+            });
+            
+            usuDao.salvarUsuarios(usuarios);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+    }
+
 }

@@ -157,5 +157,10 @@ public class Usuario {
         this.idCidade = idCidade;
     }
 
+    @Override
+    public String toString() {
+        return "Usuario{" + "idUsuario=" + idUsuario + ", nome=" + nome + ", cpf=" + cpf + ", cel=" + cel + ", email=" + email + ", endereco=" + endereco + ", lat=" + lat + ", lng=" + lng + ", tipo=" + tipo + ", usuario=" + usuario + ", senha=" + senha + ", idCidade=" + idCidade + '}';
+    }
+
 
 }

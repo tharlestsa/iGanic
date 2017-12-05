@@ -1,20 +1,10 @@
-SELECT *, 
-    (6371 * acos( cos( radians($LAT) ) 
- * cos( radians( latitude ) ) 
- * cos( radians( longitude ) - radians($LNG) ) 
- + sin( radians($LAT) ) 
- * sin( radians( latitude ) ) ) ) AS distancia 
-    FROM tec_tecnico
-    ORDER BY distancia
-    
-    
     
 DELIMITER $$
-CREATE DEFINER=`iganic`@`localhost` 
+CREATE DEFINER=`root`@`localhost` 
 PROCEDURE `procedure_procura_produtos_prox_cliente`( IN latCliente double, IN lngCliente double)
 
 BEGIN
-	SELECT *, 
+    SELECT *, 
     (6371 * acos( cos( radians(latCliente) ) 
          * cos( radians( lat ) ) 
          * cos( radians( lng ) - radians(lngCliente) ) 
@@ -23,7 +13,8 @@ BEGIN
     FROM `iGanic`.`Usuarios`
     INNER JOIN `iGanic`.`Produtos`
         ON `iGanic`.`Usuarios`.`idUsuario` = `iGanic`.`Produtos`.`idUsuario`
-    ORDER BY distancia
+    ORDER BY distancia ASC
+    LIMIT 10;
     
 END$$
-DELIMITER; 
+DELIMITER ;

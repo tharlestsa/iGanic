@@ -5,12 +5,15 @@ import br.iganic.base.DAO;
 import br.iganic.model.Usuario;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -240,7 +243,7 @@ public class UsuarioDAO implements DAO {
         return usuarios;
 
     }
-    
+
     public List buscaUsuPeloId(Object ob) throws Exception {
         Usuario usu = (Usuario) ob;
 
@@ -348,4 +351,45 @@ public class UsuarioDAO implements DAO {
 
     }
 
+    public void salvarUsuarios(ArrayList<Usuario> usuarios) throws Exception {
+
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+
+        try {
+            conn = ConnectionDAO.getConnection();
+            conn.setAutoCommit(false);
+
+            for (Usuario usuario : usuarios ) {
+                ps = conn.prepareStatement(" select cadastraUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
+
+                ps.setString(1, usuario.getNome());
+                ps.setString(2, usuario.getCpf());
+                ps.setString(3, usuario.getCel());
+                ps.setString(4, usuario.getEmail());
+                ps.setString(5, usuario.getEndereco());
+                ps.setDouble(6, usuario.getLat());
+                ps.setDouble(7, usuario.getLng());
+                ps.setString(8, usuario.getTipo());
+                ps.setString(9, usuario.getUsuario());
+                ps.setString(10, usuario.getSenha());
+                ps.setInt(11, usuario.getIdCidade());
+                
+                System.out.println(usuario.toString());
+
+                rs = ps.executeQuery();
+                
+               
+
+            }
+            conn.commit();
+
+        } catch (SQLException sqle) {
+            conn.rollback();
+        } finally {
+            conn.setAutoCommit(true);
+            ConnectionDAO.closeConnection(conn, ps);
+        }
+    }
 }
