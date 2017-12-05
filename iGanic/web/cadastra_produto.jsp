@@ -7,10 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="br.iganic.view.Mensagem"%>
 
-<jsp:include page="./base_Jsp/cabecalho.jsp">
-    <jsp:param name="titulo" value="Cadastro de Produtos" />
-</jsp:include>
-
 <html lang="pt_br">
 
     <head>
@@ -42,7 +38,7 @@
                             out.print(new Mensagem("erro", String.valueOf(request.getAttribute("mensagem"))));
                         }
                     %>
-                    <form id="form-produto" action="./cadastroDeProduto" method="POST" >
+                    <form id="form-produto" action="./produto" method="POST" >
                         <div class="form-group">
                             <label>Descriçao</label>
                             <input class="form-control" type="text" id="descricao" name="descricao" placeholder="Informe o nome do produto">
@@ -73,12 +69,12 @@
                 </div>
             </div>
         </div>
-        <!--         Bootstrap core JavaScript
-                <script src="./template/admin/vendor/jquery/jquery.min.js" type="text/javascript"></script>
-                <script src="./template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
-                 Core plugin JavaScript
-                <script src="./template/admin/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
-                <script src="../jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>-->
+        <!--Bootstrap core JavaScript-->
+        <script src="./template/admin/vendor/jquery/jquery.min.js" type="text/javascript"></script>
+        <script src="./template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+        <!--Core plugin JavaScript-->
+        <script src="./template/admin/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
+        <script src="../jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
     </body>
 
 </html>
