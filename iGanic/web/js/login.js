@@ -7,7 +7,9 @@ $(document).on('blur', "#usuario", function () {
         mimeType: 'json',
         success: function (retorno) {
             if (retorno === false) {
-                alert("Esse usuário não está resgistrado!");
+                $("[data-toggle='usuario']").tooltip('show');
+            } else {
+                $("[data-toggle='usuario']").tooltip('hide');
             }
         },
         error: function (erro) {
@@ -16,7 +18,12 @@ $(document).on('blur', "#usuario", function () {
     });
 });
 
+$(document).on('keypress', "#usuario", function () {
+    $("[data-toggle='usuario']").tooltip('hide');
+});
+
 $().ready(function () {
+
     // validate the comment form when it is submitted
     $("#form-login").validate({
         rules: {

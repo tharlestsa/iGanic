@@ -50,7 +50,7 @@
                     <form id="form-login" action="./login" method="POST" >
                         <div class="form-group">
                             <label>Usuário</label>
-                            <input class="form-control" type="text" id="usuario" name="usuario" placeholder="Informe o seu usuário">
+                            <input class="form-control" type="text" id="usuario" name="usuario" placeholder="Informe o seu usuário" data-toggle="usuario" title="Este usuário não existe!">
                         </div>
                         <div class="form-group">
                             <label >Senha</label>

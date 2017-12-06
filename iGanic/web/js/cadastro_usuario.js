@@ -10,6 +10,7 @@ $(document).ready(function () {
     $('#bairro').attr('readonly', true);
     $('#cidade').attr('readonly', true);
     $('#estado').attr('readonly', true);
+
 });
 
 
@@ -153,35 +154,20 @@ $(document).on('blur', "#cep", function () {
             console.log(JSON.stringify(retorno));
             buscarCidadeEEstado(retorno);
 
-            if ((retorno.logradouro == '' || retorno.logradouro == undefined) || (retorno.bairro == '' || retorno.bairro == undefined)) {
-                $('#rua').attr('readonly', false);
-                $('#numero').attr('readonly', false);
-                $('#comp').attr('readonly', false);
-                $('#bairro').attr('readonly', false);
-                $('#cidade').attr('readonly', false);
-                $('#estado').attr('readonly', false);
+            if ((retorno.logradouro === '' || retorno.logradouro === undefined) || (retorno.bairro === '' || retorno.bairro === undefined)) {
 
-//                $('#cep').val('');
-//                $('#rua').val('');
-//                $('#comp').val('');
-//                $('#bairro').val('');
-//
-//                $('#cidade option:selected').prop("selected", false);
-//                $('#estado option:selected').prop("selected", false);
-                $("#form-usuario").validate({
-                    rules: {
-                        numero: {
-                            required: true
-                        }
-                    },
-                    messages: {
-                        numero: {
-                            required: "<label class='msg-required'>Informe o número da residência</label>"
-                        }
-                    }
-                });
+                if ((retorno.cidade === '' || retorno.cidade === undefined)) {
+                    $('#rua').attr('readonly', false);
+                    $('#numero').attr('readonly', false);
+                    $('#comp').attr('readonly', false);
+                    $('#bairro').attr('readonly', false);
+                } else {
+                    $("[data-toggle='cep']").tooltip('show');
+                    $('#cidade').attr('readonly', true);
+                    $('#estado').attr('readonly', true);
+                }
 
-                alert("Endereço não encontrado!");
+
             } else {
                 $('#numero').attr('readonly', false);
                 $('#comp').attr('readonly', false);
@@ -193,7 +179,7 @@ $(document).on('blur', "#cep", function () {
             buscarPointDoCep(cepSemPonto);
         },
         error: function () {
-            alert("CEP não encontrado");
+            $("[data-toggle='cep']").tooltip('show');
 
             $('#rua').attr('readonly', true);
             $('#numero').attr('readonly', true);
@@ -203,6 +189,10 @@ $(document).on('blur', "#cep", function () {
             $('#estado').attr('readonly', true);
         }
     });
+});
+
+$(document).on('keypress', "#cep", function () {
+    $("[data-toggle='cep']").tooltip('hide');
 });
 
 $(document).on('blur', "#confirmSenha", function () {
@@ -242,7 +232,7 @@ function buscarCidadesDoEstado() {
         url: './usuario?acao=buscarcidadesdoestado&&uf=' + uf,
         mimeType: 'json',
         success: function (retorno) {
-             console.log(JSON.stringify(retorno));
+            console.log(JSON.stringify(retorno));
             var dados = retorno.data;
             $('#cidade option').remove();
             $.each(dados, function (i, dados) {
@@ -271,7 +261,7 @@ function buscarPointDoCep(cep) {
                     $("#lng").val(dados.geometry.location.lng);
                 });
             } else {
-                console.log("CEP não encontrado" + erro);
+                console.log("Localização não encontrada");
             }
         },
         error: function (erro) {

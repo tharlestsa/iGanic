@@ -51,8 +51,10 @@
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+             ${sessionScope.tipoUsuario}
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <c:choose>
+                   
                     <c:when test="${sessionScope.tipoUsuario == 'C'}">
                         <jsp:include page="./area_cliente.jsp" />
                     </c:when>
@@ -110,19 +112,13 @@
                             %>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
-
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="">
+                            <a class="dropdown-item" href="./edita_usuario.jsp">
                                 <%
                                     out.print("<strong>" + usuarioModel.getNome() + "</strong>");
                                     out.print("<div class='dropdown-message small'>Cel: " + usuarioModel.getCel() + "</div>");
                                     out.print("<div class='dropdown-message small'>E-mail: " + usuarioModel.getEmail() + "</div>");
                                     out.print("<div class='dropdown-message small'>Geolocalização: " + usuarioModel.getLat() + " " + usuarioModel.getLng() + "</div>");
                                 %>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">
-                                <form action="./edita_usuario.jsp" method="POST"> <button class="btn btn-success" name="acao" value="editar_usuario" type="submit">Editar</button></form>
                             </a>
                         </div>
                     </li>

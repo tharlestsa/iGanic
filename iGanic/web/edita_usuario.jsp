@@ -55,8 +55,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="form-group">
                 <div class="form-row">
                     <div class="col-md-8">
@@ -69,12 +67,11 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-group">
                 <div class="form-row">
                     <div class="col-md-4">
                         <label for="inputCep">CEP</label>
-                        <input class="form-control" id="cep" name="cep" type="text" value="" placeholder="Informe o CEP">
+                        <input class="form-control" id="cep" name="cep" type="text" value="" placeholder="Informe o CEP" data-toggle="cep" title="">
                     </div>
                     <div class="col-md-6">
                         <label for="inputRua">Rua</label>
@@ -87,7 +84,6 @@
 
                 </div>
             </div>
-
             <div class="form-group">
                 <div class="form-row">
                     <div class="col-md-6">
@@ -100,7 +96,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-group">
                 <div class="form-row">
                     <div class="col-md-6">
@@ -138,10 +133,10 @@
                         <select class="form-control" id="tipo" name="tipo">
                             <option value="-1" >Informe o tipo da conta do usuário</option>
                             <% if (usuarioModel.getTipo().equals("C")) {
-                                    response.getWriter().print("<option value='C' selected >Cliente</option>");
+                                    response.getWriter().print("<option value='C' selected='' >Cliente</option>");
                                 } else if (usuarioModel.getTipo().equals("F")) {
                                     System.out.println(usuarioModel.getTipo());
-                                    response.getWriter().print("<option value='F' selected >Fornecedor</option>");
+                                    response.getWriter().print("<option value='F' selected='' >Fornecedor</option>");
                                 } else {%> 
                             <option value='C' >Cliente</option>
                             <option value='F' >Fornecedor</option>

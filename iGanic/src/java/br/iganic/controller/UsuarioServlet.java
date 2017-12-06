@@ -221,7 +221,8 @@ public class UsuarioServlet extends HttpServlet {
                 if (idUsuario > 0) {
                     HttpSession sessao = request.getSession(true);
                     sessao.setAttribute("idUsuario", idUsuario);
-                    sessao.setAttribute("tipoUsuario:", tipo);
+                    JOptionPane.showMessageDialog(null,tipo);
+                    sessao.setAttribute("tipoUsuario", tipo);
                     request.getRequestDispatcher("/principal.jsp").forward(request, response);
                 }
 

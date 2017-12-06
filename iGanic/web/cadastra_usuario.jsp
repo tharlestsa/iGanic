@@ -82,7 +82,7 @@
                         <div class="form-row">
                             <div class="col-md-4">
                                 <label for="inputCep">CEP</label>
-                                <input class="form-control" id="cep" name="cep" type="text" placeholder="Informe o CEP">
+                                <input class="form-control" id="cep" name="cep" type="text" placeholder="Informe o CEP" data-toggle="cep" title="Este CEP não foi encontrado!">
                             </div>
                             <div class="col-md-6">
                                 <label for="inputRua">Rua</label>
