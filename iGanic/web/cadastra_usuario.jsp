@@ -175,7 +175,7 @@
                 </div>
             </div>
         </div>
-    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="./template/admin/vendor/jquery/jquery.min.js" type="text/javascript"></script>
     <script src="./template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
