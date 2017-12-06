@@ -16,6 +16,10 @@
         <servlet-name>CadastraProdutoServlet</servlet-name>
         <servlet-class>br.iganic.controller.CadastraProdutoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Upload</servlet-name>
+        <servlet-class>Upload</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DadosServlet</servlet-name>
         <url-pattern>/dados</url-pattern>

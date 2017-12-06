@@ -58,7 +58,7 @@ public class Upload {
                             } else {
                                 fileName = optionalFileName;
                             }
-                            String dirName = request.getServletContext().getRealPath("img_produto");
+                            String dirName = request.getServletContext().getRealPath("/img/");
                             File saveTo = new File(dirName + fileName);
                             //System.out.println("caminho: " + saveTo.toString() );
                             try {

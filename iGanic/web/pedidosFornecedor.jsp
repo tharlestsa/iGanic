@@ -20,9 +20,11 @@
 <%
     String conteudo;
 
-    PedidoDAO pedidoDAO = new PedidoDAO();
+    ArrayList<Pedido> pedidos = (ArrayList<Pedido>) request.getAttribute("pedidos");
 
-    ArrayList<Pedido> pedidos = pedidoDAO.buscaPedidosDoFornecedor(2);
+    if (pedidos == null) {
+        request.getRequestDispatcher("./pedidosFornecedor").forward(request, response);
+    }
 
     Tabela table = new Tabela("Pedidos", new String[]{"#", "Data", "Cliente", "Status", "Produto", "Quantidade"});
     table.setId("tabela");

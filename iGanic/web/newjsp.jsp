@@ -4,6 +4,7 @@
     Author     : guilherme
 --%>
 
+<%@page import="javax.swing.JOptionPane"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,9 +13,19 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action ="./newServlet"  method="post" enctype="multipart/form-data">
-            <input type ="file" name ="file"/>
-            <input type="submit"  value="Enviar"/>
+        <form id="form-uploadimagem" action ="./newServlet"  method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <input type ="file" name ="file"/>
+                        <%
+                            int idProduto = (int) request.getAttribute("idProdutoo");
+                        %>
+                        <input type="hidden" name="idProduto" value="${idProduto}"/> 
+                        <button type="submit" id="acao" name="acao" value="enviar" class="btn btn-success btn-block">Enviar</button>
+                    </div>
+                </div>
+            </div>
         </form>
     </body>
 </html>

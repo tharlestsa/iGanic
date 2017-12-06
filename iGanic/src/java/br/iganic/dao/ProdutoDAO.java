@@ -13,7 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,7 +24,34 @@ public class ProdutoDAO implements DAO {
 
     @Override
     public void atualizar(Object ob) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        Produto p = (Produto) ob;
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs;
+        
+        try {
+            conn = ConnectionDAO.getConnection();
+            
+            ps = conn.prepareStatement("update Produtos set nome = ?, unidade = ?, preco = ?, quantidade = ?, modoProducao = ? "
+                    + "where idProduto = ?");
+           
+            ps.setString(1, p.getNome());
+            ps.setString(2, p.getUnidade());
+            ps.setDouble(3, p.getPreco());
+            ps.setDouble(4, p.getQuantidade());
+            ps.setString(5, p.getModoProducao());
+            ps.setInt(6, p.getIdProduto());
+            
+            ps.executeUpdate();
+//            
+        } catch (Exception ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new Exception();
+        } finally {
+            ConnectionDAO.closeConnection(conn, ps);
+        }
+        
     }
 
     @Override
@@ -53,13 +81,10 @@ public class ProdutoDAO implements DAO {
         Connection conn = null;
         ResultSet rs = null;
 
-       
-       
         try {
              
             conn = ConnectionDAO.getConnection();
             ps = conn.prepareStatement("INSERT INTO `iGanic`.`Produtos` (`nome`, `unidade`, `preco`, `quantidade`, `modoProducao`, `idUsuario`) VALUES ((?),(?),(?),(?),(?),(?))");
-
             ps.setString(1, produto.getNome());
             ps.setString(2, produto.getUnidade());
             ps.setDouble(3, produto.getPreco());
@@ -75,9 +100,45 @@ public class ProdutoDAO implements DAO {
         } finally {
             ConnectionDAO.closeConnection(conn, ps);
         }
-
+    }
+    
+    public Produto buscaProduto(int idProduto) throws Exception{
+        Produto p = new Produto();
         
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs;
 
+        try {
+            conn = ConnectionDAO.getConnection();
+            
+            ps = conn.prepareStatement("select * from Produtos where idProduto = ?");
+            ps.setInt(1, idProduto);
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                p.setIdProduto(rs.getInt(1));
+                p.setNome(rs.getString(2));
+                p.setUnidade(rs.getString(3));
+                p.setPreco(rs.getDouble(4));
+                p.setQuantidade(rs.getDouble(5));
+                p.setModoProducao(rs.getString(6));
+                p.setIdUsuario(rs.getInt(7));
+            }
+            
+        }catch(SQLException e){
+            throw new Exception(e);
+        } finally {
+            ConnectionDAO.closeConnection(conn, ps);
+        }
+        
+        return p;
+    }
+    
+    public void adicionaQtdProduto(int idProduto, Double Qtd){
+        
+        
+        
     }
 
 }

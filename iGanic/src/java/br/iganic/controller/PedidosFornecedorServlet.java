@@ -47,10 +47,14 @@ public class PedidosFornecedorServlet extends HttpServlet {
         if (acao == null) {
             acao = "listar";
         }
-        
+
         switch (acao) {
             case "listar":
-                pedidos = dao.buscaPedidosDoFornecedor(idUsuario);
+                try {
+                    pedidos = dao.buscaPedidosDoFornecedor(idUsuario);
+                } catch (Exception e) {
+
+                }
                 break;
             case "edit":
                 Pedido p = new Pedido();

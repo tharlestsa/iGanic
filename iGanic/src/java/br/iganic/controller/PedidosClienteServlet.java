@@ -6,7 +6,10 @@
 package br.iganic.controller;
 
 import br.iganic.dao.PedidoDAO;
+import br.iganic.dao.ProdutoDAO;
+import br.iganic.model.Pedido;
 import br.iganic.model.PedidoCliente;
+import br.iganic.model.Produto;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -32,7 +35,7 @@ public class PedidosClienteServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException{
         response.setContentType("text/html;charset=UTF-8");
 
         PedidoDAO dao = new PedidoDAO();
@@ -40,16 +43,45 @@ public class PedidosClienteServlet extends HttpServlet {
 
         String acao = request.getParameter("action");
 
-        ArrayList<PedidoCliente> pedidos;
+        ArrayList<PedidoCliente> pedidos = new ArrayList();
 
         if (acao == null) {
             acao = "listar";
         }
-        pedidos = dao.buscaPedidosDoCliente(idUsuario);
+        
+        
+        
+        
 
         if (acao.equals("alt")) {
+            System.out.println("passou");
             String idPedido = request.getParameter("idPedido");
-            System.out.println(idPedido);
+            ProdutoDAO produtoDAO = new ProdutoDAO();
+            
+            try{
+                PedidoCliente p = dao.buscaPedido(Integer.parseInt(idPedido));
+                Produto produto = produtoDAO.buscaProduto(Integer.parseInt(p.getIdProduto()));
+                
+                produto.setQuantidade(produto.getQuantidade() + Double.parseDouble(p.getQtd()));
+                
+                produtoDAO.atualizar(produto);
+                
+                Pedido ped = new Pedido();
+                ped.setIdPedido(Integer.parseInt(p.getIdPedido()));
+                ped.setStatus("C");
+                dao.atualizar(ped);
+                
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+            
+            
+        }
+        
+        try{
+            pedidos = dao.buscaPedidosDoCliente(idUsuario);
+        }catch(Exception e){
+        
         }
 
         request.setAttribute("pedidos", pedidos);

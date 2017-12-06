@@ -21,7 +21,7 @@
     ArrayList<PedidoCliente> pedidos = (ArrayList<PedidoCliente>) request.getAttribute("pedidos");
 
     if (pedidos == null) {
-        request.getRequestDispatcher("./vendas").forward(request, response);
+        request.getRequestDispatcher("./pedidosCliente").forward(request, response);
     }
     String conteudo = "";
     

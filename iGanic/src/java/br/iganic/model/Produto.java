@@ -39,6 +39,8 @@ public class Produto {
         this.modoProducao = modoProducao;
         this.idUsuario = idUsuario;
     }
+    
+    public Produto(){}
 
     public int getIdProduto() {
         return idProduto;

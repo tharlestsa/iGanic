@@ -19,13 +19,13 @@
                     out.print(new Mensagem(String.valueOf(request.getAttribute("tipo")), String.valueOf(request.getAttribute("mensagem"))));
                 }
             %>
-            <form id="form-produto" action="./cadastraProdutos" method="POST" >
+            <form id="form-produto" action="./cadastraProdutos" method="post">
 
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-12">
-                            <label>Descriçao</label>
-                            <input class="form-control" type="text" id="descricao" name="descricao" placeholder="Informe o nome do produto" required="">
+                            <label>Nome</label>
+                            <input class="form-control" type="text" id="nome" name="nome" placeholder="Informe o nome do produto" required="">
                         </div>
                     </div>
                 </div>
@@ -41,11 +41,11 @@
                         </div>
                         <div class="col-md-4">
                             <label>Preço</label>
-                            <input class="form-control" type="text" id="preco" name="preco" placeholder="Informe o preço do produto" required="">
+                            <input class="form-control" type="text" id="preco" name="preco" placeholder="Informe o preço do produto">
                         </div>
                         <div class="col-md-4">
                             <label>Quantidade</label>
-                            <input class="form-control" type="text" id="quantidade" name="quantidade" placeholder="Informe a quantidade do produto" required="">
+                            <input class="form-control" type="text" id="quantidade" name="quantidade" placeholder="Informe a quantidade do produto">
                         </div>
                     </div>
                 </div>
@@ -57,11 +57,24 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <input type="hidden" name="id-produto" value="id-produto"/> 
+                </div>
                 <button type="submit" id="acao" name="acao" value="cadastrar" class="btn btn-success btn-block">Cadastrar</button>
             </form>
 
         </div>
     </div>
+            
 </div>
+ <!-- Bootstrap core JavaScript-->
+    <script src="./template/admin/vendor/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="./template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+<!-- Core plugin JavaScript-->
+<script src="./template/admin/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
+<script src="./mask-plugin/jquery.mask.min.js" type="text/javascript"></script>
+<script src="./jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
+<script src="./js/cadastro_produto.js" type="text/javascript"></script>
+
 
 <jsp:include page="./base_Jsp/rodape.jsp" />

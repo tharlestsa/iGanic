@@ -5,8 +5,11 @@
  */
 package br.iganic.controller;
 
+import br.iganic.dao.ImagemDAO;
+import br.iganic.model.Imagem;
 import br.iganic.util.Upload;
 import static java.awt.SystemColor.text;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,19 +37,30 @@ public class NewServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         response.setContentType("text/html;charset=UTF-8");
+
+        ImagemDAO imgDAO = new ImagemDAO();
+        String dirName = request.getServletContext().getRealPath("/img/");
+        String idProduto = request.getParameter("idProduto");
+        JOptionPane.showMessageDialog(null, idProduto);
+
+        Imagem img = new Imagem(dirName, Integer.parseInt(idProduto));
+
         try (PrintWriter out = response.getWriter()) {
             try {
                 if (new Upload().anexos(request, response)) {
+                    imgDAO.salvarImagem(img);
+
                     out.print("Ficheiro enviado!");
-        } else {
+                } else {
                     out.print("Ficheiro não enviado!");
-        }
-        } catch (Exception e) {
-                        e.printStackTrace();
-                    }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

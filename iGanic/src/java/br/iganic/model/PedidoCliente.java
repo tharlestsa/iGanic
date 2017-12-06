@@ -10,7 +10,7 @@ package br.iganic.model;
  * @author rafael
  */
 public class PedidoCliente {
-    private String data,produto, status, fornecedor, unidade, total, qtd, idPedido;
+    private String data,produto, status, fornecedor, unidade, total, qtd, idPedido, idUsuario, idProduto;
 
     public PedidoCliente() {
     }
@@ -42,6 +42,24 @@ public class PedidoCliente {
     public String getStatus() {
         return status;
     }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getIdProduto() {
+        return idProduto;
+    }
+
+    public void setIdProduto(String idProduto) {
+        this.idProduto = idProduto;
+    }
+    
+    
 
     public void setStatus(String status) {
         this.status = status;
