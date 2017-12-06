@@ -6,8 +6,10 @@
 package br.iganic.controller;
 
 import br.iganic.dao.ProdutoDAO;
+import br.iganic.model.Pedido;
 import br.iganic.model.Produto;
 import br.iganic.util.Sessao;
+import br.iganic.util.Upload;
 import br.iganic.view.Mensagem;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,31 +39,37 @@ public class CadastraProdutoServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @javax.servlet.annotation.MultipartConfig;
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
         response.setContentType("text/html;charset=UTF-8");
 
         String acao = request.getParameter("acao");
 
+        Sessao.trataSessao(request, response);
+        JOptionPane.showMessageDialog(null, acao);
+        switch (acao) {
+            case "cadastrar":
+                cadastrarProduto(request, response);
+                break;
+        }
+
+    }
+
+    public void cadastrarProduto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nome = request.getParameter("descricao");
         String unidade = request.getParameter("unidade");
         Double preco = Double.parseDouble(request.getParameter("preco"));
         Double quantidade = Double.parseDouble(request.getParameter("quantidade"));
         String modo = request.getParameter("modo");
-
-        Sessao.trataSessao(request, response);
-        
+        //String idProduto = request.getParameter("id-produto");
+        //JOptionPane.showMessageDialog(null, idProduto);
         int idUsuario = (int) request.getSession().getAttribute("idUsuario");
 
-         ProdutoDAO produtoDAO = new ProdutoDAO();
-
+        ProdutoDAO produtoDAO = new ProdutoDAO();
         Produto produto = new Produto(nome, unidade, preco, quantidade, modo, idUsuario);
-
-        if (acao == null) {
-            return;
-        }
 
         try {
 
@@ -69,7 +77,7 @@ public class CadastraProdutoServlet extends HttpServlet {
                 request.setAttribute("tipo", "erro");
                 request.setAttribute("mensagem", "Preencha todos os campos!");
                 request.getRequestDispatcher("/cadastra_produto.jsp").forward(request, response);
-                JOptionPane.showMessageDialog(null, "");
+
                 return;
             }
 
@@ -77,7 +85,7 @@ public class CadastraProdutoServlet extends HttpServlet {
                 produtoDAO.salvarProduto(produto);
                 request.setAttribute("tipo", "suce");
                 request.setAttribute("mensagem", "Produto Cadastrado!");
-                request.getRequestDispatcher("/cadastra_produto.jsp").forward(request, response);
+                request.getRequestDispatcher("/newjsp.jsp").forward(request, response);
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -90,9 +98,10 @@ public class CadastraProdutoServlet extends HttpServlet {
             response.getWriter().println(ex.getMessage());
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    }
+    
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

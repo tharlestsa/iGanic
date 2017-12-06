@@ -19,7 +19,7 @@
                     out.print(new Mensagem(String.valueOf(request.getAttribute("tipo")), String.valueOf(request.getAttribute("mensagem"))));
                 }
             %>
-            <form id="form-produto" action="./cadastraProdutos" method="POST" >
+            <form id="form-produto" action="./cadastraProdutos" method="post">
 
                 <div class="form-group">
                     <div class="form-row">
@@ -41,11 +41,11 @@
                         </div>
                         <div class="col-md-4">
                             <label>Preço</label>
-                            <input class="form-control" type="text" id="preco" name="preco" placeholder="Informe o preço do produto" required="">
+                            <input class="form-control" type="text" id="preco" name="preco" placeholder="Informe o preço do produto">
                         </div>
                         <div class="col-md-4">
                             <label>Quantidade</label>
-                            <input class="form-control" type="text" id="quantidade" name="quantidade" placeholder="Informe a quantidade do produto" required="">
+                            <input class="form-control" type="text" id="quantidade" name="quantidade" placeholder="Informe a quantidade do produto">
                         </div>
                     </div>
                 </div>
@@ -56,6 +56,9 @@
                             <textarea class="form-control" rows="6" type="text" id="modo" name="modo" placeholder="Informe o modo de produçao do produto" required=""></textarea>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-12">
+                    <input type="hidden" name="id-produto" value="id-produto"/> 
                 </div>
                 <button type="submit" id="acao" name="acao" value="cadastrar" class="btn btn-success btn-block">Cadastrar</button>
             </form>
