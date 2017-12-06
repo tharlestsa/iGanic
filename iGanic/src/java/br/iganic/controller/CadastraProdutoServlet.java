@@ -83,7 +83,7 @@ public class CadastraProdutoServlet extends HttpServlet {
 
             try {
                 produtoDAO.salvarProduto(produto);
-                request.setAttribute("idProdutoo", idproduto);
+               // request.setAttribute("idProdutoo", idproduto);
                 request.setAttribute("tipo", "suce");
                 request.setAttribute("mensagem", "Produto Cadastrado!");
                 request.getRequestDispatcher("/newjsp.jsp").forward(request, response);

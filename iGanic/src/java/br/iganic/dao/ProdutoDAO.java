@@ -13,7 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,7 +24,34 @@ public class ProdutoDAO implements DAO {
 
     @Override
     public void atualizar(Object ob) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        Produto p = (Produto) ob;
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs;
+        
+        try {
+            conn = ConnectionDAO.getConnection();
+            
+            ps = conn.prepareStatement("update Produtos set nome = ?, unidade = ?, preco = ?, quantidade = ?, modoProducao = ? "
+                    + "where idProduto = ?");
+           
+            ps.setString(1, p.getNome());
+            ps.setString(2, p.getUnidade());
+            ps.setDouble(3, p.getPreco());
+            ps.setDouble(4, p.getQuantidade());
+            ps.setString(5, p.getModoProducao());
+            ps.setInt(6, p.getIdProduto());
+            
+            ps.executeUpdate();
+//            
+        } catch (Exception ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new Exception();
+        } finally {
+            ConnectionDAO.closeConnection(conn, ps);
+        }
+        
     }
 
     @Override
@@ -105,6 +133,12 @@ public class ProdutoDAO implements DAO {
         }
         
         return p;
+    }
+    
+    public void adicionaQtdProduto(int idProduto, Double Qtd){
+        
+        
+        
     }
 
 }
