@@ -11,6 +11,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="br.iganic.dao.UsuarioDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="pt_br">
     <head>
@@ -46,16 +47,19 @@
                     } else {
                         out.print("./index.jsp");
                     }%>">iGanic</a>
-            </div>>
+            </div>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <% if (session.getAttribute("tipoUsuario").equals("C")) {%>
-                <jsp:include page="./area_cliente.jsp" />
-                <% } else {%>
-                <jsp:include page="./area_fornecedor.jsp" />
-                <% }%>
+                <c:choose>
+                    <c:when test="${sessionScope.tipoUsuario == 'C'}">
+                        <jsp:include page="./area_cliente.jsp" />
+                    </c:when>
+                    <c:otherwise>
+                        <jsp:include page="./area_fornecedor.jsp"/>
+                    </c:otherwise>
+                </c:choose>
 
                 <ul class="navbar-nav sidenav-toggler">
                     <li class="nav-item">
@@ -64,23 +68,24 @@
                         </a>
                     </li>
                 </ul>
-
-                <% if (session.getAttribute("tipoUsuario").equals("C")) {%>
-                <ul class="navbar-nav ml-sm-auto" >
-                    <li id="busca-produto" class="nav-item" >
-                        <form class="form-inline" action="./busca_produtos.jsp" method="POST">
-                            <div class="input-group input-group-md">
-                                <input class="form-control" type="text" placeholder="Digite o nome do alimento...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-success" name="acao" value="pesquisar" type="submit">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </form>
-                    </li> 
-                </ul>
-                <% } %>
+                <c:choose>
+                    <c:when test="${sessionScope.tipoUsuario == 'C'}">
+                        <ul class="navbar-nav ml-sm-auto" >
+                            <li id="busca-produto" class="nav-item" >
+                                <form class="form-inline" action="./busca_produtos.jsp" method="POST">
+                                    <div class="input-group input-group-md">
+                                        <input class="form-control" type="text" placeholder="Digite o nome do alimento...">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-success" name="acao" value="pesquisar" type="submit">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </li> 
+                        </ul>
+                    </c:when>
+                </c:choose>
                 <ul class="navbar-nav ml-auto" >
                     <li class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

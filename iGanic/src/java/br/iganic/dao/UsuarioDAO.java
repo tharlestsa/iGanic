@@ -128,8 +128,7 @@ public class UsuarioDAO implements DAO {
             }
 
         } catch (SQLException sqle) {
-            JOptionPane.showMessageDialog(null, sqle.getMessage());
-
+            System.out.println(sqle.getMessage()+"\n\n\n");
             throw new Exception(sqle);
         } finally {
             ConnectionDAO.closeConnection(conn, ps);
@@ -289,6 +288,7 @@ public class UsuarioDAO implements DAO {
             }
 
         } catch (SQLException sqle) {
+             JOptionPane.showMessageDialog(null, sqle.getMessage());
             throw new Exception(sqle);
         } finally {
             ConnectionDAO.closeConnection(conn, ps, rs);

@@ -4,6 +4,7 @@
     Author     : tharles
 --%>
 
+<%@page import="javax.swing.JOptionPane"%>
 <%@page import="br.iganic.model.Usuario"%>
 <%@page import="br.iganic.dao.UsuarioDAO"%>
 <%@page import="br.iganic.view.Mensagem"%>
@@ -29,13 +30,16 @@
                 Usuario usuarioModel = null;
                 try {
                     int idUsuario = (int) request.getSession().getAttribute("idUsuario");
+
                     usuarios = (ArrayList<Usuario>) usu.buscaUsuPeloId(new Usuario(idUsuario));
 
                     for (Usuario u : usuarios) {
                         usuarioModel = u;
                     }
 
+                    System.out.println("\n\n\n" + usuarioModel.toString() + "\n\n\n");
                 } catch (Exception e) {
+                    System.out.println(e.getMessage());
                     e.printStackTrace();
                 }
             %>
@@ -43,11 +47,11 @@
                 <div class="form-row">
                     <div class="col-md-8">
                         <label for="inputNome">Nome</label>
-                        <input class="form-control" id="nome" name="nome" type="text" value="<% usuarioModel.getNome(); %>" placeholder="Informe seu nome completo">
+                        <input class="form-control" id="nome" name="nome" type="text" value="<% out.print(usuarioModel.getNome()); %>"  placeholder="Informe seu nome completo">
                     </div>
                     <div class="col-md-4">
                         <label for="inputCpf">CPF</label>
-                        <input class="form-control" id="cpf" name="cpf" type="text" value="<% usuarioModel.getCpf(); %>" placeholder="Informe o seu CPF" disabled="">
+                        <input class="form-control" id="cpf" name="cpf" type="text" value="<% out.print(usuarioModel.getCpf()); %>" readonly="" placeholder="Informe o seu CPF">
                     </div>
                 </div>
             </div>
@@ -57,11 +61,11 @@
                 <div class="form-row">
                     <div class="col-md-8">
                         <label for="inputEmail">E-mail</label>
-                        <input class="form-control" id="email" name="email" type="email"  value="<% usuarioModel.getEmail(); %>" placeholder="Informe seu o E-mail">
+                        <input class="form-control" id="email" name="email" type="email"  value="<% out.print(usuarioModel.getEmail()); %>" placeholder="Informe seu o E-mail">
                     </div>
                     <div class="col-md-4">
                         <label for="inputCel">Celular</label>
-                        <input class="form-control" id="cel" name="cel" type="tel" value="<% usuarioModel.getCel(); %>" placeholder="nº de celular">
+                        <input class="form-control" id="cel" name="cel" type="tel" value="<%out.print(usuarioModel.getCel());; %>" placeholder="nº de celular">
                     </div>
                 </div>
             </div>
@@ -101,7 +105,7 @@
                 <div class="form-row">
                     <div class="col-md-6">
                         <label for="inputEstado">Estado</label>
-                        <select class="form-control" id="estado" name="estado"  onchange="buscarCidadesDoEstado()">
+                        <select class="form-control" id="estado" name="estado" value="<%out.print(usuarioModel.getTipo());%>" onchange="buscarCidadesDoEstado()">
                             <option value="" >Informe o Estado</option>
                             <%
                                 EstadoDAO estDao = new EstadoDAO();
@@ -131,15 +135,22 @@
                 <div class="form-row">
                     <div class="col-md-6">
                         <label for="inputTipo">Tipo da Conta</label>
-                        <select class="form-control" id="tipo" name="tipo" >
+                        <select class="form-control" id="tipo" name="tipo">
                             <option value="-1" >Informe o tipo da conta do usuário</option>
-                            <option value="C">Cliente</option>
-                            <option value="F" >Fornecedor</option>
+                            <% if (usuarioModel.getTipo().equals("C")) {
+                                    response.getWriter().print("<option value='C' selected >Cliente</option>");
+                                } else if (usuarioModel.getTipo().equals("F")) {
+                                    System.out.println(usuarioModel.getTipo());
+                                    response.getWriter().print("<option value='F' selected >Fornecedor</option>");
+                                } else {%> 
+                            <option value='C' >Cliente</option>
+                            <option value='F' >Fornecedor</option>
+                            <%}%>
                         </select>
                     </div>
                     <div class="col-md-6">
                         <label for="inputUsuario">Usuário</label>
-                        <input class="form-control" id="usuario" name="usuario" type="text" placeholder="Informe o usuário acesso ao login">
+                        <input class="form-control" id="usuario" name="usuario" type="text" value="<%out.print(usuarioModel.getUsuario());%>" placeholder="Informe o usuário acesso ao login">
                     </div>
                 </div>
             </div>

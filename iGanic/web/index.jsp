@@ -21,6 +21,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
+        <link rel="icon" href="./img/iganic_sem_fundo.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="./img/iganic_sem_fundo.ico" type="image/x-icon" />
         <title>iGanic - Login de Acesso ao Sistema</title>
         <!-- Bootstrap core CSS-->
         <link href="./template/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>

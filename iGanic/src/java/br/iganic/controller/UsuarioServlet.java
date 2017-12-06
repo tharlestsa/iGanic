@@ -32,6 +32,7 @@ public class UsuarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF8");
         String acao = (request.getParameter("acao") != null) ? request.getParameter("acao").toLowerCase() : "";
 
         switch (acao) {
@@ -126,19 +127,20 @@ public class UsuarioServlet extends HttpServlet {
 
             try {
                 est_usuario = (Estado) estDao.procura(new Estado(cid_usuario.getIdEstado(), null, null)).get(0);
-            } catch (Exception e) {
+                JSONObject json = new JSONObject();
+                json.put("idEstado", est_usuario.getIdEstado());
+                json.put("estado", est_usuario.getNome());
+                json.put("uf", est_usuario.getUf());
+                json.put("idCidade", cid_usuario.getIdCidade());
+                json.put("cidade", cid_usuario.getNome());
 
+                out.print(json);
+            } catch (Exception e) {
+                JSONObject json = new JSONObject();
+                json.put("status", "falhou");
+                System.out.println("\nExeceção estado: " + e.getMessage());
             }
 
-            JSONObject json = new JSONObject();
-
-            json.put("idEstado", est_usuario.getIdEstado());
-            json.put("estado", est_usuario.getNome());
-            json.put("uf", est_usuario.getUf());
-            json.put("idCidade", cid_usuario.getIdCidade());
-            json.put("cidade", cid_usuario.getNome());
-
-            out.print(json);
         }
     }
 
@@ -214,12 +216,17 @@ public class UsuarioServlet extends HttpServlet {
             try {
 
                 Integer idUsuario = usuDao.salvarUsuario(new Usuario(nome, cpf, cel, email, endereco, lat, lng, tipo, usuario, senha, idCidade));
-                if (idUsuario < 0) {
+                
+
+                if (idUsuario > 0) {
                     HttpSession sessao = request.getSession(true);
                     sessao.setAttribute("idUsuario", idUsuario);
+                    sessao.setAttribute("tipoUsuario:", tipo);
                     request.getRequestDispatcher("/principal.jsp").forward(request, response);
                 }
+
             } catch (Exception e) {
+                System.out.println("\n\n" + e.getMessage() + "\n\n");
                 request.setAttribute("tipo", "erro");
                 request.setAttribute("mensagem", "Ao registrar a nova conta do usuário.");
                 request.getRequestDispatcher("/cadastra_usuario.jsp").forward(request, response);

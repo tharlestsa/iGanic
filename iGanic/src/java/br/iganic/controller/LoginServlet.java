@@ -9,7 +9,6 @@ import br.iganic.dao.UsuarioDAO;
 import br.iganic.model.Usuario;
 import br.iganic.util.Sessao;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +32,7 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF8");
 
         this.usuario = request.getParameter("usuario");
         this.senha = (String) request.getParameter("senha");

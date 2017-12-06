@@ -26,6 +26,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
+        <link rel="icon" href="./img/iganic_sem_fundo.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="./img/iganic_sem_fundo.ico" type="image/x-icon" />
         <title>iGanic - Registro de Usuário </title>
         <!-- Bootstrap core CSS-->
         <link href="./template/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -176,15 +178,15 @@
             </div>
         </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="./template/admin/vendor/jquery/jquery.min.js" type="text/javascript"></script>
-    <script src="./template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="./template/admin/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
-    <script src="./mask-plugin/jquery.mask.min.js" type="text/javascript"></script>
-    <script src="./jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
-    <script src="./js/cadastro_usuario.js" type="text/javascript"></script>
-</body>
+        <!-- Bootstrap core JavaScript-->
+        <script src="./template/admin/vendor/jquery/jquery.min.js" type="text/javascript"></script>
+        <script src="./template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="./template/admin/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
+        <script src="./mask-plugin/jquery.mask.min.js" type="text/javascript"></script>
+        <script src="./jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
+        <script src="./js/cadastro_usuario.js" type="text/javascript"></script>
+    </body>
 
 </html>
 
