@@ -28,8 +28,8 @@ public class PedidoDAO implements DAO {
         
         Pedido p = (Pedido)ob;
         
-        PreparedStatement ps;
-        Connection conn;
+        PreparedStatement ps = null;
+        Connection conn = null;
         ResultSet rs;
         
         try {
@@ -44,6 +44,8 @@ public class PedidoDAO implements DAO {
         } catch (Exception ex) {
             Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
             throw new Exception();
+        } finally {
+            ConnectionDAO.closeConnection(conn, ps);
         }
         
     }
@@ -68,11 +70,11 @@ public class PedidoDAO implements DAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public ArrayList buscaPedidosDoFornecedor(int idUsuario){
+    public ArrayList buscaPedidosDoFornecedor(int idUsuario) throws Exception{
         ArrayList <Pedido> pedidos = new ArrayList();
         
-        PreparedStatement ps;
-        Connection conn;
+        PreparedStatement ps = null;
+        Connection conn = null;
         ResultSet rs;
         
         try {
@@ -101,17 +103,19 @@ public class PedidoDAO implements DAO {
             }
         } catch (Exception ex) {
             Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionDAO.closeConnection(conn, ps);
         }
             
         
         return pedidos;
     }
     
-    public ArrayList buscaPedidosDoCliente(int idUsuario){
+    public ArrayList buscaPedidosDoCliente(int idUsuario) throws Exception{
         ArrayList<PedidoCliente> pedidos = new ArrayList();
         
-        PreparedStatement ps;
-        Connection conn;
+        PreparedStatement ps = null;
+        Connection conn = null;
         ResultSet rs;
         
         try {
@@ -139,6 +143,8 @@ public class PedidoDAO implements DAO {
             }
         } catch (Exception ex) {
             Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionDAO.closeConnection(conn, ps);
         }
             
         return pedidos;

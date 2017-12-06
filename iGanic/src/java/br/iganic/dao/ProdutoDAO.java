@@ -73,5 +73,38 @@ public class ProdutoDAO implements DAO {
             ConnectionDAO.closeConnection(conn, ps);
         }
     }
+    
+    public Produto buscaProduto(int idProduto) throws Exception{
+        Produto p = new Produto();
+        
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs;
+
+        try {
+            conn = ConnectionDAO.getConnection();
+            
+            ps = conn.prepareStatement("select * from Produtos where idProduto = ?");
+            ps.setInt(1, idProduto);
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                p.setIdProduto(rs.getInt(1));
+                p.setNome(rs.getString(2));
+                p.setUnidade(rs.getString(3));
+                p.setPreco(rs.getDouble(4));
+                p.setQuantidade(rs.getDouble(5));
+                p.setModoProducao(rs.getString(6));
+                p.setIdUsuario(rs.getInt(7));
+            }
+            
+        }catch(SQLException e){
+            throw new Exception(e);
+        } finally {
+            ConnectionDAO.closeConnection(conn, ps);
+        }
+        
+        return p;
+    }
 
 }

@@ -50,7 +50,7 @@ public class PedidosFornecedorServlet extends HttpServlet {
         
         switch (acao) {
             case "listar":
-                pedidos = dao.buscaPedidosDoFornecedor(idUsuario);
+               // pedidos = dao.buscaPedidosDoFornecedor(idUsuario);
                 break;
             case "edit":
                 Pedido p = new Pedido();

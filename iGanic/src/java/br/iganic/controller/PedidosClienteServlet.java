@@ -40,12 +40,19 @@ public class PedidosClienteServlet extends HttpServlet {
 
         String acao = request.getParameter("action");
 
-        ArrayList<PedidoCliente> pedidos;
+        ArrayList<PedidoCliente> pedidos = new ArrayList();
 
         if (acao == null) {
             acao = "listar";
         }
-        pedidos = dao.buscaPedidosDoCliente(idUsuario);
+        
+        try{
+            pedidos = dao.buscaPedidosDoCliente(idUsuario);
+        }catch(Exception e){
+        
+        }
+        
+        
 
         if (acao.equals("alt")) {
             String idPedido = request.getParameter("idPedido");
