@@ -24,8 +24,8 @@
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-12">
-                            <label>Descriçao</label>
-                            <input class="form-control" type="text" id="descricao" name="descricao" placeholder="Informe o nome do produto" required="">
+                            <label>Nome</label>
+                            <input class="form-control" type="text" id="nome" name="nome" placeholder="Informe o nome do produto" required="">
                         </div>
                     </div>
                 </div>
@@ -65,6 +65,16 @@
 
         </div>
     </div>
+            
 </div>
+ <!-- Bootstrap core JavaScript-->
+    <script src="./template/admin/vendor/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="./template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+<!-- Core plugin JavaScript-->
+<script src="./template/admin/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
+<script src="./mask-plugin/jquery.mask.min.js" type="text/javascript"></script>
+<script src="./jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
+<script src="./js/cadastro_produto.js" type="text/javascript"></script>
+
 
 <jsp:include page="./base_Jsp/rodape.jsp" />

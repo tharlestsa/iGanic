@@ -57,7 +57,6 @@ public class ProdutoDAO implements DAO {
              
             conn = ConnectionDAO.getConnection();
             ps = conn.prepareStatement("INSERT INTO `iGanic`.`Produtos` (`nome`, `unidade`, `preco`, `quantidade`, `modoProducao`, `idUsuario`) VALUES ((?),(?),(?),(?),(?),(?))");
-
             ps.setString(1, produto.getNome());
             ps.setString(2, produto.getUnidade());
             ps.setDouble(3, produto.getPreco());

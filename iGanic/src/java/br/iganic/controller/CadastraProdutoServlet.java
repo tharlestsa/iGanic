@@ -59,7 +59,7 @@ public class CadastraProdutoServlet extends HttpServlet {
     }
 
     public void cadastrarProduto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String nome = request.getParameter("descricao");
+        String nome = request.getParameter("nome");
         String unidade = request.getParameter("unidade");
         Double preco = Double.parseDouble(request.getParameter("preco"));
         Double quantidade = Double.parseDouble(request.getParameter("quantidade"));
@@ -83,6 +83,7 @@ public class CadastraProdutoServlet extends HttpServlet {
 
             try {
                 produtoDAO.salvarProduto(produto);
+                request.setAttribute("idProdutoo", idproduto);
                 request.setAttribute("tipo", "suce");
                 request.setAttribute("mensagem", "Produto Cadastrado!");
                 request.getRequestDispatcher("/newjsp.jsp").forward(request, response);
@@ -100,7 +101,7 @@ public class CadastraProdutoServlet extends HttpServlet {
         }
 
     }
-    
+
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

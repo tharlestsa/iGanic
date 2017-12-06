@@ -42,8 +42,8 @@ public class NewServlet extends HttpServlet {
 
         ImagemDAO imgDAO = new ImagemDAO();
         String dirName = request.getServletContext().getRealPath("/img/");
-       String idProduto = request.getParameter("id-produto");
-       JOptionPane.showMessageDialog(null, idProduto);
+        String idProduto = request.getParameter("idProduto");
+        JOptionPane.showMessageDialog(null, idProduto);
 
         Imagem img = new Imagem(dirName, Integer.parseInt(idProduto));
 
