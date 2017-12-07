@@ -354,7 +354,7 @@ footer.sticky-footer {
 }
 
 #mapa{
-     margin-top: 1.5%;
+    margin-top: 1.5%;
     height: 490px; width: 100%; background-color: grey;
 }
 
@@ -409,4 +409,10 @@ footer.sticky-footer {
 #tabela-busca{
     margin-top: 1.5%;
     margin-bottom: 1.5%;  
+}
+
+.card-map{
+    margin: 0;
+    margin-right: 13%;
+    height: 330px;
 }

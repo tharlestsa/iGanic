@@ -51,7 +51,7 @@
     table.setId("tabela-busca");
 
     for (Fornecedor forn : fornecedores) {
-        String pedir = "    <form class=1form-inline' action='./pedidos.jsp' method='POST'>"
+        String pedir = "    <form class='form-inline' action='./pedidos.jsp' method='POST'>"
                 + "        <div class='input-group input-group-md'>"
                 + "           <input class='form-control' type='hidden' name='idProduto' id='idProduto' value='" + String.valueOf(forn.getProduto().getIdProduto()) + "'>"
                 + "               <span class='input-group'>"
