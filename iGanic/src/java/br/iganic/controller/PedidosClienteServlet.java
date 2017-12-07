@@ -50,7 +50,6 @@ public class PedidosClienteServlet extends HttpServlet {
         }
         
         if (acao.equals("alt")) {
-            System.out.println("passou");
             String idPedido = request.getParameter("idPedido");
             ProdutoDAO produtoDAO = new ProdutoDAO();
             
@@ -60,13 +59,11 @@ public class PedidosClienteServlet extends HttpServlet {
                 Produto produto = produtoDAO.buscaProduto(Integer.parseInt(p.getIdProduto()));
                 
                 produto.setQuantidade(produto.getQuantidade() + Double.parseDouble(p.getQtd()));
-                System.out.println(produto.toString());
                 produtoDAO.atualizar(produto);
                 
                 Pedido ped = new Pedido();
                 ped.setIdPedido(Integer.parseInt(p.getIdPedido()));
                 ped.setStatus("C");
-                System.out.println(ped.getIdPedido() + ped.getStatus());
                 dao.atualizar(ped);
                 
             }catch (Exception e){
