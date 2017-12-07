@@ -42,8 +42,10 @@
                 status = "Finalizado";
                 break;
         }
+        
+        String qtd = String.valueOf(p.getQtd()) + " " + p.getUnidadeProduto();
 
-        table.addLinha(new String[]{String.valueOf(p.getIdPedido()), p.getData(), p.getCliente(),status, p.getNomeProduto(), String.valueOf(p.getQtd())});
+        table.addLinha(new String[]{String.valueOf(p.getIdPedido()), p.getData(), p.getCliente(),status, p.getNomeProduto(), qtd});
     }
 
     conteudo = table.toString();

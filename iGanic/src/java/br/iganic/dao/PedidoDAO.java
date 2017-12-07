@@ -82,7 +82,7 @@ public class PedidoDAO implements DAO {
 
         try {
             conn = ConnectionDAO.getConnection();
-            ps = conn.prepareStatement(" SELECT Pedidos.idPedido, Pedidos.data, Pedidos.quantidade, Pedidos.status, Pedidos.idUsuario, Pedidos.idProduto, Produtos.nome, Usuarios.nome "
+            ps = conn.prepareStatement(" SELECT Pedidos.idPedido, Pedidos.data, Pedidos.quantidade, Pedidos.status, Pedidos.idUsuario, Pedidos.idProduto, Produtos.nome, Usuarios.nome, Produtos.unidade "
                     + "FROM `Pedidos` "
                     + "INNER JOIN Usuarios on "
                     + "Pedidos.idUsuario = Usuarios.idUsuario "
@@ -101,7 +101,7 @@ public class PedidoDAO implements DAO {
                 p.setIdProduto(rs.getInt(6));
                 p.setNomeProduto(rs.getString(7));
                 p.setCliente(rs.getString(8));
-
+                p.setUnidadeProduto(rs.getString(9));
                 pedidos.add(p);
             }
         } catch (Exception ex) {
