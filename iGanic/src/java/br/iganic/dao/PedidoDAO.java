@@ -158,7 +158,7 @@ public class PedidoDAO implements DAO {
 
         try {
             conn = ConnectionDAO.getConnection();
-            ps = conn.prepareStatement("select * from Pedidos where ?");
+            ps = conn.prepareStatement("select * from Pedidos where idPedido = ?");
 
             ps.setInt(1, idPedido);
 
