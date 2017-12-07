@@ -11,9 +11,12 @@ import br.iganic.model.Pedido;
 import br.iganic.model.PedidoCliente;
 import br.iganic.model.Pedidoo;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -195,12 +198,18 @@ public class PedidoDAO implements DAO {
         try {
 
             conn = ConnectionDAO.getConnection();
-            ps = conn.prepareStatement("INSERT INTO `iGanic`.`Pedidos`(`quantidade`, `status`, `idUsuario`, `idProduto`) VALUES ((?),(?),(?),(?)");
+            ps = conn.prepareStatement("INSERT INTO `iGanic`.`Pedidos`(`data`,`quantidade`, `status`, `idUsuario`, `idProduto`) VALUES ((?),(?),(?),(?),(?)");
 
-            ps.setDouble(1, pedido.getQuantidade());
-            ps.setString(2, pedido.getStatus());
-            ps.setInt(3, pedido.getIdUsuario());
-            ps.setInt(4, pedido.getIdProduto());
+            ps.setDate(1, Date.valueOf(LocalDate.now()));
+            JOptionPane.showMessageDialog(null, pedido.getData());
+            ps.setFloat(2, pedido.getQuantidade());
+            JOptionPane.showMessageDialog(null, pedido.getQuantidade());
+            ps.setString(3, pedido.getStatus());
+            JOptionPane.showMessageDialog(null, pedido.getStatus());
+            ps.setInt(4, pedido.getIdUsuario());
+            JOptionPane.showMessageDialog(null, pedido.getIdUsuario());
+            ps.setInt(5, pedido.getIdProduto());
+            JOptionPane.showMessageDialog(null, pedido.getIdProduto());
 
             ps.executeUpdate();
 

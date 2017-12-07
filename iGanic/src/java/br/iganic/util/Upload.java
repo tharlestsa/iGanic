@@ -11,10 +11,12 @@ package br.iganic.util;
  * and open the template in the editor.
  */
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -25,6 +27,18 @@ import org.apache.commons.io.FilenameUtils;
  * @author vanilson
  */
 public class Upload {
+    
+    public ArrayList dados = new ArrayList();
+    private String idProduto;
+    private String name;
+    
+    public Integer getIdProduto(){
+        return Integer.parseInt(this.idProduto);
+    }
+    
+    public String getNameImg(){
+        return this.name;
+    }
     
     public boolean anexos(HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (ServletFileUpload.isMultipartContent(request)) {
@@ -45,6 +59,8 @@ public class Upload {
                 if (fileItemTemp.isFormField()) {
                     if (fileItemTemp.getFieldName().equals("file")) {
                         optionalFileName = fileItemTemp.getString();
+                    }else if(fileItemTemp.getFieldName().equals("idProduto")){
+                        this.idProduto = fileItemTemp.getString();
                     }
                 } else {
                     fileItem = fileItemTemp;
@@ -58,8 +74,10 @@ public class Upload {
                             } else {
                                 fileName = optionalFileName;
                             }
+                            
                             String dirName = request.getServletContext().getRealPath("/img/");
                             File saveTo = new File(dirName + fileName);
+                            name = fileName;
                             //System.out.println("caminho: " + saveTo.toString() );
                             try {
                                 fileItem.write(saveTo);

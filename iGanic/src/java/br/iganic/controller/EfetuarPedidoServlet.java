@@ -50,15 +50,12 @@ public class EfetuarPedidoServlet extends HttpServlet {
 
         Sessao.trataSessao(request, response);
 
-        //JOptionPane.showMessageDialog(null, "DAta: " + data + "Quantidade:" + quantidade);
-        //Date data = Date.valueOf(LocalDate.MAX);
-
-        Double quantidade = Double.parseDouble(request.getParameter("quantidade"));
+        Float quantidade = Float.parseFloat(request.getParameter("quantidade"));
         String status = "A";
         int idUsuario = (int) request.getSession().getAttribute("idUsuario");
-        JOptionPane.showMessageDialog(null, idUsuario);
         PedidoDAO pedidoDao = new PedidoDAO();
-        LocalDate data = LocalDate.now();
+        LocalDateTime data = LocalDateTime.now();
+       
         Pedidoo pedido = new Pedidoo(data, quantidade, status, idUsuario, 3);
 
         try {
@@ -66,7 +63,6 @@ public class EfetuarPedidoServlet extends HttpServlet {
             try {
                 ProdutoDAO produtoDAO = new ProdutoDAO();
                 Produto prod = produtoDAO.buscaProduto(idUsuario);
-                JOptionPane.showMessageDialog(null, "vim aqui");
                 if (quantidade > prod.getQuantidade()) {
 
                     request.setAttribute("tipo", "erro");
@@ -74,7 +70,7 @@ public class EfetuarPedidoServlet extends HttpServlet {
                     request.getRequestDispatcher("/principal.jsp").forward(request, response);
                 }
 
-                //pedidoDao.salvarPedido(pedido);
+                pedidoDao.salvarPedido(pedido);
                 JOptionPane.showMessageDialog(null, "eieiie");
                 request.setAttribute("tipo", "suce");
                 request.setAttribute("mensagem", "Pedido realizado!");

@@ -12,12 +12,20 @@ import static java.awt.SystemColor.text;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -41,15 +49,35 @@ public class NewServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         ImagemDAO imgDAO = new ImagemDAO();
-        String dirName = request.getServletContext().getRealPath("/img/");
+      
         String idProduto = request.getParameter("idProduto");
-        JOptionPane.showMessageDialog(null, idProduto);
+        
 
-        Imagem img = new Imagem(dirName, Integer.parseInt(idProduto));
+//        
+//        
+//        ServletFileUpload servletFileUpload = new ServletFileUpload(new DiskFileItemFactory());
+//        try {
+//            List fileItemsList = servletFileUpload.parseRequest(request);
+//            Iterator i = fileItemsList.iterator();
+//            while(i.hasNext()){
+//                FileItem fi = (FileItem) i.next();
+//                if(fi.isFormField()){
+//                    if(fi.getFieldName().equals("idProduto"))
+//                       idProduto = fi.getString();
+//                }
+//            }
+//        } catch (FileUploadException ex) {
+//            Logger.getLogger(NewServlet.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
+        Upload upload = new Upload();
+        
         
         try (PrintWriter out = response.getWriter()) {
             try {
-                if (new Upload().anexos(request, response)) {
+                if (upload.anexos(request, response)) {
+                    
+                    Imagem img = new Imagem(upload.getNameImg(), upload.getIdProduto());
                     imgDAO.salvarImagem(img);
 
                     out.print("Ficheiro enviado!");

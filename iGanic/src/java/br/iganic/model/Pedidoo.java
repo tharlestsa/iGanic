@@ -7,6 +7,7 @@ package br.iganic.model;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javafx.scene.chart.PieChart;
 
 /**
@@ -16,8 +17,8 @@ import javafx.scene.chart.PieChart;
 public class Pedidoo {
 
     private int idPedido;
-    private LocalDate data;
-    private Double quantidade;
+    private LocalDateTime data;
+    private Float quantidade;
     private String status;
     private int idUsuario;
     private int idProduto;
@@ -25,7 +26,7 @@ public class Pedidoo {
     public Pedidoo() {
     }
 
-    public Pedidoo(int idPedido, LocalDate data, Double quantidade, String status, int idUsuario, int idProduto) {
+    public Pedidoo(int idPedido, LocalDateTime data, Float quantidade, String status, int idUsuario, int idProduto) {
         this.idPedido = idPedido;
         this.data = data;
         this.quantidade = quantidade;
@@ -34,7 +35,7 @@ public class Pedidoo {
         this.idProduto = idProduto;
     }
 
-    public Pedidoo(LocalDate data, Double quantidade, String status, int idUsuario, int idProduto) {
+    public Pedidoo(LocalDateTime data, Float quantidade, String status, int idUsuario, int idProduto) {
         this.data = data;
         this.quantidade = quantidade;
         this.status = status;
@@ -50,19 +51,19 @@ public class Pedidoo {
         this.idPedido = idPedido;
     }
 
-    public LocalDate getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 
-    public Double getQuantidade() {
+    public Float getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(Double quantidade) {
+    public void setQuantidade(Float quantidade) {
         this.quantidade = quantidade;
     }
 
