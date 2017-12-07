@@ -10,6 +10,11 @@ public class Fornecedor {
     private Produto produto; 
     private Imagem imagem; 
 
+    public Fornecedor(Usuario usuario, Produto produto) {
+        this.usuario = usuario;
+        this.produto = produto;
+    }
+    
     public Fornecedor(Usuario usuario, Produto produto, Imagem imagem) {
         this.usuario = usuario;
         this.produto = produto;

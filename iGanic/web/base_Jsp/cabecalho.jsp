@@ -74,11 +74,11 @@
                     <c:when test="${sessionScope.tipoUsuario == 'C'}">
                         <ul class="navbar-nav ml-sm-auto" >
                             <li id="busca-produto" class="nav-item" >
-                                <form class="form-inline" action="./busca_produtos.jsp" method="POST">
+                                <form class="form-inline" action="./buscaprodutos" method="POST">
                                     <div class="input-group input-group-md">
-                                        <input class="form-control" type="text" placeholder="Digite o nome do alimento...">
+                                        <input class="form-control" type="text" id="buscaProduto" name="buscaProduto" placeholder="Digite o nome do alimento...">
                                         <span class="input-group-btn">
-                                            <button class="btn btn-success" name="acao" value="pesquisar" type="submit">
+                                            <button class="btn btn-success" id="acao" name="acao" value="buscar" type="submit">
                                                 <i class="fa fa-search"></i>
                                             </button>
                                         </span>

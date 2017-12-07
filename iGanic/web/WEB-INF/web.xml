@@ -20,6 +20,10 @@
         <servlet-name>Upload</servlet-name>
         <servlet-class>Upload</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BuscaProdutosServlet</servlet-name>
+        <servlet-class>br.iganic.controller.BuscaProdutosServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DadosServlet</servlet-name>
         <url-pattern>/dados</url-pattern>
@@ -35,6 +39,10 @@
     <servlet-mapping>
         <servlet-name>CadastraProdutoServlet</servlet-name>
         <url-pattern>/cadastraProdutos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuscaProdutosServlet</servlet-name>
+        <url-pattern>/buscaprodutos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
