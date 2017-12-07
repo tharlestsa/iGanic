@@ -433,3 +433,26 @@ footer.sticky-footer {
     margin-right: 13%;
     height: 330px;
 }
+
+.label-produto{
+    font-family: 'Abhaya Libre';
+    font-size: 25px;
+    
+}
+
+.label-produto-corpo{
+    font-family: 'Abhaya Libre';
+    font-size: 15px;
+}
+
+.p-label{
+    margin:0;
+}
+
+#preco{
+    font-weight: bold; 
+}
+
+.button-pedido{
+    margin-left: 20%;
+}

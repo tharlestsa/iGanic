@@ -32,6 +32,7 @@
         <link href="./template/admin/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css"/>
         <!-- Custom styles for this template-->
         <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet">
+         <link href="https://fonts.googleapis.com/css?family=Abhaya+Libre" rel="stylesheet">
         <link href="./template/admin/css/sb-admin.css" rel="stylesheet" type="text/css"/>
 
     </head>

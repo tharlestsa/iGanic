@@ -87,18 +87,20 @@
                             + "<div class='card mb-3'>"
                             + "     <img class='card-img-top img-fluid w-100' src='./img_produtos/" + forn.getImagem().getNome() + "'>"
                             + "<div class='card-body'>"
-                            + "      <h6 class='card-title mb-1'><a href=''>David Miller</a></h6>"
-                            + "      <p class='card-text small'>These waves are looking pretty good today!"
-                            + "             <a href='' class='modal-produtos' rule='button' data-toggle='modal' data-target='#modal-pro'>Saiba mais ..."
+                            + "      <label class='label-produto'>" + forn.getProduto().getNome() + "</label><p class='p-label'>"
+                            + "      <label class='label-produto-corpo'>Produtor(a): " + forn.getUsuario().getNome() + "</label><pclass='p-label'>"
+                            + "      <label id ='preco' class='label-produto-corpo'>Preço: R$ " + String.valueOf(forn.getProduto().getPreco()).replace(".", ",") + "</label><p class='p-label'>"
+                            + "      <label class='label-produto-corpo'><a href='' class='modal-produtos' rule='button' data-toggle='modal' data-target='#modal-pro'>  Saiba mais ..."
                             + "<input type='hidden' name='nome' id='nome' value='" + forn.getProduto().getNome() + "'>"
                             + "<input type='hidden' name='modo' id='modo' value='" + forn.getProduto().getModoProducao() + "'>"
-                            + "</a>"
-                            + "      </p>"
+                            + "</a></label>"
+                            + "  <button class='btn btn-success button-pedido' id='acao' name='acao' value='pedir' type='submit'>"
+                            + "          <i class='fa fa-cart-arrow-down'></i>"
+                            + "  </button>"
                             + "</div>"
                             + "</div>"
                             + "</form>");
                 }
-
             %>
 
         </div>
