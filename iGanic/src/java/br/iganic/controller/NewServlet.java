@@ -46,7 +46,7 @@ public class NewServlet extends HttpServlet {
         JOptionPane.showMessageDialog(null, idProduto);
 
         Imagem img = new Imagem(dirName, Integer.parseInt(idProduto));
-
+        
         try (PrintWriter out = response.getWriter()) {
             try {
                 if (new Upload().anexos(request, response)) {

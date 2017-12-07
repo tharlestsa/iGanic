@@ -15,9 +15,9 @@
         </a>
     </li>
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="./pedidos.jsp">
             <i class="fa fa-fw fa-area-chart"></i>
-            <span class="nav-link-text">Conta</span>
+            <span class="nav-link-text">Efetuar Pedido</span>
         </a>
     </li>
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">

@@ -79,17 +79,19 @@ public class ProdutoDAO implements DAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void salvarProduto(Object ob) throws Exception {
+    public int salvarProduto(Object ob) throws Exception {
         Produto produto = (Produto) ob;
 
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
+        
+        int idInserido = 0;
 
         try {
 
             conn = ConnectionDAO.getConnection();
-            ps = conn.prepareStatement("INSERT INTO `iGanic`.`Produtos` (`nome`, `unidade`, `preco`, `quantidade`, `modoProducao`, `idUsuario`) VALUES ((?),(?),(?),(?),(?),(?))");
+            ps = conn.prepareStatement(" select cadastraProduto(?, ?, ?, ?, ?, ?) ");
             ps.setString(1, produto.getNome());
             ps.setString(2, produto.getUnidade());
             ps.setDouble(3, produto.getPreco());
@@ -97,15 +99,21 @@ public class ProdutoDAO implements DAO {
             ps.setString(5, produto.getModoProducao());
             ps.setInt(6, produto.getIdUsuario());
 
-            ps.executeUpdate();
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                idInserido = rs.getInt(1);
+            }
 
         } catch (SQLException sqle) {
             throw new Exception(sqle);
         } finally {
             ConnectionDAO.closeConnection(conn, ps);
         }
+        
+        return idInserido;
     }
-
+    
     public Produto buscaProduto(int idProduto) throws Exception {
         Produto p = new Produto();
 

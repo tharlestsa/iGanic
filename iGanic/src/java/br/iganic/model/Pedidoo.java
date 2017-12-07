@@ -16,7 +16,7 @@ import javafx.scene.chart.PieChart;
 public class Pedidoo {
 
     private int idPedido;
-
+    private LocalDate data;
     private Double quantidade;
     private String status;
     private int idUsuario;
@@ -25,17 +25,17 @@ public class Pedidoo {
     public Pedidoo() {
     }
 
-    public Pedidoo(int idPedido, Double quantidade, String status, int idUsuario, int idProduto) {
+    public Pedidoo(int idPedido, LocalDate data, Double quantidade, String status, int idUsuario, int idProduto) {
         this.idPedido = idPedido;
-
+        this.data = data;
         this.quantidade = quantidade;
         this.status = status;
         this.idUsuario = idUsuario;
         this.idProduto = idProduto;
     }
 
-    public Pedidoo(Double quantidade, String status, int idUsuario, int idProduto) {
-
+    public Pedidoo(LocalDate data, Double quantidade, String status, int idUsuario, int idProduto) {
+        this.data = data;
         this.quantidade = quantidade;
         this.status = status;
         this.idUsuario = idUsuario;
@@ -48,6 +48,14 @@ public class Pedidoo {
 
     public void setIdPedido(int idPedido) {
         this.idPedido = idPedido;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
     }
 
     public Double getQuantidade() {
@@ -81,5 +89,6 @@ public class Pedidoo {
     public void setIdProduto(int idProduto) {
         this.idProduto = idProduto;
     }
-
+    
+    
 }

@@ -18,7 +18,10 @@
                 <div class="form-row">
                     <div class="col-md-12">
                         <input type ="file" name ="file"/>
-                        <input type="hidden" name="idProduto" value="idProduto"/> 
+                        <%
+                            String idProduto = request.getAttribute("idProduto").toString();
+                        %>
+                        <input type="hidden" name="idProduto" value="<%= idProduto %>"/> 
                         <button type="submit" id="acao" name="acao" value="enviar" class="btn btn-success btn-block">Enviar</button>
                     </div>
                 </div>

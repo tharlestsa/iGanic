@@ -56,10 +56,10 @@ public class EfetuarPedidoServlet extends HttpServlet {
         Double quantidade = Double.parseDouble(request.getParameter("quantidade"));
         String status = "A";
         int idUsuario = (int) request.getSession().getAttribute("idUsuario");
-        //int idProduto = Integer.parseInt(request.getParameter("idProduto"));
         JOptionPane.showMessageDialog(null, idUsuario);
         PedidoDAO pedidoDao = new PedidoDAO();
-        Pedidoo pedido = new Pedidoo(quantidade, status, idUsuario, 3);
+        LocalDate data = LocalDate.now();
+        Pedidoo pedido = new Pedidoo(data, quantidade, status, idUsuario, 3);
 
         try {
 
@@ -74,7 +74,7 @@ public class EfetuarPedidoServlet extends HttpServlet {
                     request.getRequestDispatcher("/principal.jsp").forward(request, response);
                 }
 
-                pedidoDao.salvarPedido(pedido);
+                //pedidoDao.salvarPedido(pedido);
                 JOptionPane.showMessageDialog(null, "eieiie");
                 request.setAttribute("tipo", "suce");
                 request.setAttribute("mensagem", "Pedido realizado!");

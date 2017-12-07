@@ -49,7 +49,6 @@ public class CadastraProdutoServlet extends HttpServlet {
         String acao = request.getParameter("acao");
 
         Sessao.trataSessao(request, response);
-        JOptionPane.showMessageDialog(null, acao);
         switch (acao) {
             case "cadastrar":
                 cadastrarProduto(request, response);
@@ -64,8 +63,7 @@ public class CadastraProdutoServlet extends HttpServlet {
         Double preco = Double.parseDouble(request.getParameter("preco"));
         Double quantidade = Double.parseDouble(request.getParameter("quantidade"));
         String modo = request.getParameter("modo");
-        //String idProduto = request.getParameter("id-produto");
-        //JOptionPane.showMessageDialog(null, idProduto);
+       
         int idUsuario = (int) request.getSession().getAttribute("idUsuario");
 
         ProdutoDAO produtoDAO = new ProdutoDAO();
@@ -82,8 +80,9 @@ public class CadastraProdutoServlet extends HttpServlet {
             }
 
             try {
-                produtoDAO.salvarProduto(produto);
-               // request.setAttribute("idProdutoo", idproduto);
+                int idProdu = produtoDAO.salvarProduto(produto);
+                JOptionPane.showMessageDialog(null, idProdu);
+               request.setAttribute("idProduto", idProdu);
                 request.setAttribute("tipo", "suce");
                 request.setAttribute("mensagem", "Produto Cadastrado!");
                 request.getRequestDispatcher("/newjsp.jsp").forward(request, response);
