@@ -13,6 +13,8 @@ BEGIN
     FROM `iGanic`.`Usuarios`
     INNER JOIN `iGanic`.`Produtos`
         ON `iGanic`.`Usuarios`.`idUsuario` = `iGanic`.`Produtos`.`idUsuario`
+    INNER JOIN `iGanic`.`Imagens`
+        ON `iGanic`.`Imagens`.`idProduto` = `iGanic`.`Produtos`.`idProduto`
     ORDER BY distancia ASC
     LIMIT 10;
     

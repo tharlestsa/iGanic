@@ -51,10 +51,10 @@
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-             ${sessionScope.tipoUsuario}
+
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <c:choose>
-                   
+
                     <c:when test="${sessionScope.tipoUsuario == 'C'}">
                         <jsp:include page="./area_cliente.jsp" />
                     </c:when>
@@ -143,7 +143,7 @@
                     <div class="modal-body">Selecione "Sair" somente se estiver pronto para finalizar essa sessão.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <form action="./index.jsp" method="POST"> <button class="btn btn-success" name="acao" value="sair" type="submit">Sair</button></form>
+                        <a href="./index.jsp" class="btn btn-success " role="button" aria-disabled="true">Sair</a>
                     </div>
                 </div>
             </div>

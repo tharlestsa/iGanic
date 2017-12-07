@@ -78,6 +78,8 @@ public class LoginServlet extends HttpServlet {
             HttpSession sessao = request.getSession(true);
             sessao.setAttribute("idUsuario", usu.get(0).getIdUsuario());
             sessao.setAttribute("tipoUsuario", usu.get(0).getTipo());
+            sessao.setAttribute("lat", usu.get(0).getLat());
+            sessao.setAttribute("lng", usu.get(0).getLng());
             request.getRequestDispatcher("/principal.jsp").forward(request, response);
         } catch (Exception ex) {
             request.setAttribute("tipo", "erro");

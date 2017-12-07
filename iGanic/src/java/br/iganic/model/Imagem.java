@@ -48,4 +48,10 @@ public class Imagem {
     public void setIdProduto(int idProduto) {
         this.idProduto = idProduto;
     }
+
+    @Override
+    public String toString() {
+        return "Imagem{" + "idImagem=" + idImagem + ", nome=" + nome + ", idProduto=" + idProduto + '}';
+    }
+    
 }

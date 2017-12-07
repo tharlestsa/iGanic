@@ -216,13 +216,13 @@ public class UsuarioServlet extends HttpServlet {
             try {
 
                 Integer idUsuario = usuDao.salvarUsuario(new Usuario(nome, cpf, cel, email, endereco, lat, lng, tipo, usuario, senha, idCidade));
-                
 
                 if (idUsuario > 0) {
                     HttpSession sessao = request.getSession(true);
                     sessao.setAttribute("idUsuario", idUsuario);
-                    JOptionPane.showMessageDialog(null,tipo);
                     sessao.setAttribute("tipoUsuario", tipo);
+                    sessao.setAttribute("lat", lat);
+                    sessao.setAttribute("lng", lng);
                     request.getRequestDispatcher("/principal.jsp").forward(request, response);
                 }
 
