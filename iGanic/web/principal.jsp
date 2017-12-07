@@ -31,7 +31,7 @@
 
     %>
     
-    <div class="barra-titulo"><label class="label-titulo" >Promoções dos fornecedores mais próximos de você</label></div>
+    <div class="barra-titulo"><center><label class="label-titulo" >Promoções dos fornecedores mais próximos de você</label></center></div>
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <%                for (int i = 0; i < fornecedores.size(); i++) {

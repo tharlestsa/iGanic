@@ -206,7 +206,7 @@ public class DadosServlet extends HttpServlet {
             
             UsuarioDAO usuDao = new UsuarioDAO(); 
 
-            Object obj = JSONValue.parse(new FileReader("/home/tharles/Documentos/Arquivos Curso Sistemas de Informação/6º Período/DW II/Projetos/iGanic/web/adm/city.json"));
+            Object obj = JSONValue.parse(new FileReader("/home/rafael/NetBeansProjects/iGanic/iGanic/web/adm/city.json"));
 
             JSONArray array2 = (JSONArray) obj;
             ArrayList<Usuario> usuarios = new ArrayList<>(); 
