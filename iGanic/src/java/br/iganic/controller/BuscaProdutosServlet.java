@@ -123,7 +123,7 @@ public class BuscaProdutosServlet extends HttpServlet {
                 file.write(pai.toJSONString());
                 System.out.println("Successfully Copied JSON Object to File...");
                 System.out.println("\nJSON Object: " + pai);
-
+                request.getSession().setAttribute("fornecedores", fornecedores);
                 request.getRequestDispatcher("/busca_produtos.jsp").forward(request, response);
 
             }

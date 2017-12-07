@@ -218,12 +218,18 @@ public class UsuarioServlet extends HttpServlet {
                 Integer idUsuario = usuDao.salvarUsuario(new Usuario(nome, cpf, cel, email, endereco, lat, lng, tipo, usuario, senha, idCidade));
 
                 if (idUsuario > 0) {
+
                     HttpSession sessao = request.getSession(true);
                     sessao.setAttribute("idUsuario", idUsuario);
                     sessao.setAttribute("tipoUsuario", tipo);
                     sessao.setAttribute("lat", lat);
                     sessao.setAttribute("lng", lng);
-                    request.getRequestDispatcher("/principal.jsp").forward(request, response);
+                    if (tipo.equals("C")) {
+                        request.getRequestDispatcher("/principal.jsp").forward(request, response);
+                    } else {
+                        request.getRequestDispatcher("/pedidosFornecedor.jsp").forward(request, response);
+                    }
+
                 }
 
             } catch (Exception e) {

@@ -82,7 +82,7 @@ public class Tabela {
 
         String tabela;
 
-        tabela = "<div class=\"card mb-3\">\n"
+        tabela = "<div id='tabela-busca' class=\"card mb-3\">\n"
                 + " <div class=\"card-header\">\n"
                 + "     <i class=\"fa fa-table\"></i> "+ this.nomeDaTabela
                 + " </div>\n"

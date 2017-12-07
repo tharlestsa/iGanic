@@ -354,7 +354,8 @@ footer.sticky-footer {
 }
 
 #mapa{
-    height: 510px; width: 100%; background-color: grey;
+    margin-top: 1.5%;
+    height: 490px; width: 100%; background-color: grey;
 }
 
 .imagem-produto-10{
@@ -393,14 +394,36 @@ footer.sticky-footer {
 
 .label-titulo{
     font-size: 100%;
-    margin-left: 20%;
-    margin-right: 20%;
+    margin: auto;
+    float: none;
 }
 
 .barra-titulo{
     margin-top: 1.5%;
     margin-bottom: 1.5%;
-    background-color: aquamarine;
-    background-image: url('/img/barra_back.jpeg');
+    /*    background-color: ;
+        background-image: url('../../../img/barra_back.jpeg');*/
     font: cursive;
+    color: white;
+    font-weight: bold;
+    border-radius: 3px;
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background: red; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left, red , black); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, red, black); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, red, black); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, red , black); /* Standard syntax */
+}
+
+#tabela-busca{
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;  
+}
+
+.card-map{
+    margin: 0;
+    margin-right: 13%;
+    height: 330px;
 }
