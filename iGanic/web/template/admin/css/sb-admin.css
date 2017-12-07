@@ -354,7 +354,7 @@ footer.sticky-footer {
 }
 
 #mapa{
-    height: 500px; width: 100%; background-color: grey;
+    height: 510px; width: 100%; background-color: grey;
 }
 
 .imagem-produto-10{
@@ -384,9 +384,23 @@ footer.sticky-footer {
 
 
 .margem{
-     margin-top: 1.5%;
+    margin-top: 1.5%;
 }
 #promocao{
     margin-top: 1.5%;
     margin-bottom: 1.5%;
+}
+
+.label-titulo{
+    font-size: 100%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.barra-titulo{
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    background-color: aquamarine;
+    background-image: url('/img/barra_back.jpeg');
+    font: cursive;
 }

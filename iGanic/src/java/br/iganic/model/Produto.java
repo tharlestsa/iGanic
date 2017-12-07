@@ -98,4 +98,9 @@ public class Produto {
         this.idUsuario = idUsuario;
     }
 
+    @Override
+    public String toString() {
+        return "Produto{" + "idProduto=" + idProduto + ", nome=" + nome + ", unidade=" + unidade + ", preco=" + preco + ", quantidade=" + quantidade + ", modoProducao=" + modoProducao + ", idUsuario=" + idUsuario + '}';
+    }
+
 }

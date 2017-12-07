@@ -1,0 +1,40 @@
+INSERT INTO `iGanic`.`Produtos` (`idProduto`, `nome`, `unidade`, `preco`, `quantidade`, `modoProducao`, `idUsuario`) 
+VALUES (NULL, 'Alface', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '1'), 
+       (NULL, 'Blocolis', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '2'),
+       (NULL, 'Cenoura', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '3'), 
+       (NULL, 'Abacaxi', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '4'),
+       (NULL, 'Uva', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '26'),
+       (NULL, 'Laranja', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '6'),
+       (NULL, 'Manga', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '7'),
+       (NULL, 'Goiaba', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '8'),
+       (NULL, 'Milho', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '9'),
+       (NULL, 'Tomate', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '10'),
+       (NULL, 'Rabanete', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '11'),
+       (NULL, 'Cheiro-verde', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '12'),
+       (NULL, 'Limão', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '13'),
+       (NULL, 'Repolho', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '14'),
+       (NULL, 'Ovos', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '15'),
+       (NULL, 'Repolho', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '16'),
+       (NULL, 'Alface', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '17'),
+       (NULL, 'Alface', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '18'),
+       (NULL, 'Alface', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '19'),
+       (NULL, 'Alface', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '20'),
+       (NULL, 'Alface', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '21'),
+       (NULL, 'Alface', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '22'),
+       (NULL, 'Alface', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '23'),
+       (NULL, 'Alface', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '24'),
+       (NULL, 'Alface', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '25');
+       
+INSERT INTO `iGanic`.`Imagens` (`idImagem`, `nome`, `idProduto`) 
+VALUES (NULL, '01.jpeg', '28'),
+       (NULL, '02.jpeg', '29'),
+       (NULL, '03.jpeg', '27'),
+       (NULL, '03.jpeg', '29'),
+       (NULL, '05.jpeg', '30'),
+       (NULL, '06.jpeg', '31'),
+       (NULL, '07.jpeg', '32'),
+       (NULL, '08.jpeg', '33'),
+       (NULL, '09.jpeg', '34'),
+       (NULL, '10.jpeg', '35');
+      
+       

@@ -9,13 +9,16 @@ import br.iganic.base.ConnectionDAO;
 import br.iganic.base.DAO;
 import br.iganic.model.Pedido;
 import br.iganic.model.PedidoCliente;
+import br.iganic.model.Pedidoo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -181,5 +184,31 @@ public class PedidoDAO implements DAO {
         return p;
     }
 
+        public void salvarPedido(Object ob) throws Exception {
 
+        Pedidoo pedido = (Pedidoo) ob;
+
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+
+        try {
+
+            conn = ConnectionDAO.getConnection();
+            ps = conn.prepareStatement("INSERT INTO `iGanic`.`Pedidos`(`quantidade`, `status`, `idUsuario`, `idProduto`) VALUES ((?),(?),(?),(?)");
+
+            ps.setDouble(1, pedido.getQuantidade());
+            ps.setString(2, pedido.getStatus());
+            ps.setInt(3, pedido.getIdUsuario());
+            ps.setInt(4, pedido.getIdProduto());
+
+            ps.executeUpdate();
+
+        } catch (SQLException sqle) {
+            JOptionPane.showMessageDialog(null, sqle.getMessage());
+            throw new Exception(sqle);
+        } finally {
+            ConnectionDAO.closeConnection(conn, ps);
+        }
+    }
 }

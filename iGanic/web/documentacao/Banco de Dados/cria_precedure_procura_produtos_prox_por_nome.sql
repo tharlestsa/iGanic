@@ -1,7 +1,7 @@
     
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` 
-PROCEDURE `procedure_procura_produtos_prox_cliente`( IN latCliente double, IN lngCliente double)
+PROCEDURE `procedure_procura_produtos`( IN latCliente double, IN lngCliente double, IN produtoNome VARCHAR(80))
 
 BEGIN
     SELECT *, 
@@ -15,6 +15,7 @@ BEGIN
         ON `iGanic`.`Usuarios`.`idUsuario` = `iGanic`.`Produtos`.`idUsuario`
     INNER JOIN `iGanic`.`Imagens`
         ON `iGanic`.`Imagens`.`idProduto` = `iGanic`.`Produtos`.`idProduto`
+    WHERE `iGanic`.`Produtos`.`nome` = produtoNome
     ORDER BY distancia ASC
     LIMIT 10;
     
