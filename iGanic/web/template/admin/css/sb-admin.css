@@ -421,3 +421,9 @@ footer.sticky-footer {
     margin-top: 1.5%;
     margin-bottom: 1.5%;  
 }
+
+.card-map{
+    margin: 0;
+    margin-right: 13%;
+    height: 330px;
+}

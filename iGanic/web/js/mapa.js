@@ -17,7 +17,14 @@ $(document).ready(function () {
                 lng: ponto.lng,
                 title: 'Marker with InfoWindow',
                 infoWindow: {
-                    content: ' <img width="60%" style="margin: auto;"class="img-responsive" src="./img_produtos/'+ponto.img+'"/><p>'+ponto.nomeProduto+'</p>'
+                     content: '<div class="card mb-3 card-map">\n\
+                                    <a href="#">\n\
+                                        <img class="card-img-top img-fluid w-100" src="./img_produtos/'+ponto.img+'">\n\
+                                    </a><div class="card-body">   \n\
+                                   <h6 class="card-title mb-1"><a href="#">David Miller</a></h6>  \n\
+                                   <p class="card-text small">These waves are looking pretty good today!     \n\
+                                   <a href="#">#surfsup</a>      </p></div></div>'
+//                    content: ' <img width="60%" style="margin: auto;"class="img-responsive" src="./img_produtos/'+ponto.img+'"/><p>'+ponto.nomeProduto+'</p>'
                 }
             });
         });
