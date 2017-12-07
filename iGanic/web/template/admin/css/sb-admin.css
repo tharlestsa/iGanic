@@ -352,6 +352,12 @@ footer.sticky-footer {
     font-size: 30px;
 
 }
+#logo-corpo{
+    color: #ffffff; 
+    font-weight: bold;
+    font-family: 'Berkshire Swash', cursive;
+    font-size: 20px;
+}
 
 #mapa{
     margin-top: 1.5%;

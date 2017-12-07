@@ -45,6 +45,7 @@
 </script>-->
 <script src="./js/mapa.js" type="text/javascript"></script>
 <script src="./js/editaIdiomaDataTable.js" type="text/javascript"></script>
+<script src="./js/principal.js" type="text/javascript"></script>
 </body>
 
 </html>

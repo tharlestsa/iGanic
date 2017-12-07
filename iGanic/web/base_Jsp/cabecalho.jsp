@@ -130,25 +130,43 @@
 
             </div>
         </nav>
-        <!-- Logout Modal-->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal-pro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja sair?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
+                        <h5 class="modal-title" id="modal-prod-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">Selecione "Sair" somente se estiver pronto para finalizar essa sessão.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <a href="./index.jsp" class="btn btn-success " role="button" aria-disabled="true">Sair</a>
+                    <div id="modal-prod-body" class="modal-body">
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /Logout Modal-->
-        <div id="background-tela" class="content-wrapper">
-            <div class="container-fluid" style="opacity: 0.85;">
+    </div>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja sair?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Selecione "Sair" somente se estiver pronto para finalizar essa sessão.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a href="./index.jsp" class="btn btn-success " role="button" aria-disabled="true">Sair</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Logout Modal-->
+    <div id="background-tela" class="content-wrapper">
+        <div class="container-fluid" style="opacity: 0.85;">
 
