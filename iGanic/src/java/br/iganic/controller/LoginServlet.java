@@ -80,7 +80,13 @@ public class LoginServlet extends HttpServlet {
             sessao.setAttribute("tipoUsuario", usu.get(0).getTipo());
             sessao.setAttribute("lat", usu.get(0).getLat());
             sessao.setAttribute("lng", usu.get(0).getLng());
-            request.getRequestDispatcher("/principal.jsp").forward(request, response);
+            if (usu.get(0).getTipo().equals("C")) {
+                request.getRequestDispatcher("/principal.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("/pedidosFornecedor.jsp").forward(request, response);
+            }
+
+            
         } catch (Exception ex) {
             request.setAttribute("tipo", "erro");
             request.setAttribute("mensagem", "Ao buscar os dados do usuário!");

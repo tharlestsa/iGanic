@@ -354,7 +354,8 @@ footer.sticky-footer {
 }
 
 #mapa{
-    height: 510px; width: 100%; background-color: grey;
+     margin-top: 1.5%;
+    height: 490px; width: 100%; background-color: grey;
 }
 
 .imagem-produto-10{
@@ -403,4 +404,9 @@ footer.sticky-footer {
     background-color: aquamarine;
     background-image: url('/img/barra_back.jpeg');
     font: cursive;
+}
+
+#tabela-busca{
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;  
 }

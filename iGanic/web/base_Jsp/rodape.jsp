@@ -20,7 +20,7 @@
     <i class="fa fa-angle-up"></i>
 </a>
 </div>
-</div>
+<!--</div>-->
 <!-- Bootstrap core JavaScript-->
 <script src="./template/admin/vendor/jquery/jquery.min.js" type="text/javascript"></script>
 <script src="./template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
@@ -38,7 +38,7 @@
 <script src="./mask-plugin/jquery.mask.min.js" type="text/javascript"></script>
 <script src="./jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
 <script src="./js/cadastro_usuario.js" type="text/javascript"></script>
- <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&key=AIzaSyAKRNk-dKdR-ahbI7IQcfRS-FedpmFQOLg"></script>
+ <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&key=AIzaSyAKRNk-dKdR-ahbI7IQcfRS-FedpmFQOLg&language=pt_br"></script>
  <script src="./js/gmaps.js" type="text/javascript"></script>
 <!--<script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKRNk-dKdR-ahbI7IQcfRS-FedpmFQOLg&callback=initMap&language=pt_br">

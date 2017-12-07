@@ -5,7 +5,8 @@ $(document).ready(function () {
     map = new GMaps({
         el: '#mapa',
         lat: -16.372137,
-        lng: -49.4998514
+        lng: -49.4998514,
+        zoom: 4
     });
 
     $.getJSON('./data/fornecedores.json', function (pontos) {
