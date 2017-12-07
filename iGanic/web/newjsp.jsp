@@ -18,10 +18,7 @@
                 <div class="form-row">
                     <div class="col-md-12">
                         <input type ="file" name ="file"/>
-                        <%
-                            int idProduto = (int) request.getAttribute("idProdutoo");
-                        %>
-                        <input type="hidden" name="idProduto" value="${idProduto}"/> 
+                        <input type="hidden" name="idProduto" value="idProduto"/> 
                         <button type="submit" id="acao" name="acao" value="enviar" class="btn btn-success btn-block">Enviar</button>
                     </div>
                 </div>
