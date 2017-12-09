@@ -51,30 +51,31 @@ public class EfetuarPedidoServlet extends HttpServlet {
         Sessao.trataSessao(request, response);
 
         Float quantidade = Float.parseFloat(request.getParameter("quantidade"));
+        
         String status = "A";
         int idUsuario = (int) request.getSession().getAttribute("idUsuario");
         PedidoDAO pedidoDao = new PedidoDAO();
         LocalDateTime data = LocalDateTime.now();
        
-        Pedidoo pedido = new Pedidoo(data, quantidade, status, idUsuario, 3);
+        Pedidoo pedido = new Pedidoo(data, quantidade, status, idUsuario, 18);
 
         try {
 
             try {
                 ProdutoDAO produtoDAO = new ProdutoDAO();
-                Produto prod = produtoDAO.buscaProduto(idUsuario);
+                Produto prod = produtoDAO.buscaProduto(18);
                 if (quantidade > prod.getQuantidade()) {
-
                     request.setAttribute("tipo", "erro");
                     request.setAttribute("mensagem", "Quantidade de produto nao disponivel!!");
-                    request.getRequestDispatcher("/principal.jsp").forward(request, response);
+                    request.getRequestDispatcher("/pedidos.jsp").forward(request, response);
                 }
 
                 pedidoDao.salvarPedido(pedido);
-                JOptionPane.showMessageDialog(null, "eieiie");
+                prod.setQuantidade(prod.getQuantidade() - quantidade);
+                produtoDAO.atualizar(prod);
                 request.setAttribute("tipo", "suce");
                 request.setAttribute("mensagem", "Pedido realizado!");
-                request.getRequestDispatcher("/principal.jsp").forward(request, response);
+                request.getRequestDispatcher("/pedidos.jsp").forward(request, response);
 
             } catch (Exception ex) {
                 request.setAttribute("tipo", "erro");

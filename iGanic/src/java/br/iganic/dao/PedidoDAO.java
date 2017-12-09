@@ -198,18 +198,13 @@ public class PedidoDAO implements DAO {
         try {
 
             conn = ConnectionDAO.getConnection();
-            ps = conn.prepareStatement("INSERT INTO `iGanic`.`Pedidos`(`data`,`quantidade`, `status`, `idUsuario`, `idProduto`) VALUES ((?),(?),(?),(?),(?)");
+            ps = conn.prepareStatement("INSERT INTO `iGanic`.`Pedidos`(`data`,`quantidade`, `status`, `idUsuario`, `idProduto`) VALUES ((?),(?),(?),(?),(?))");
 
             ps.setDate(1, Date.valueOf(LocalDate.now()));
-            JOptionPane.showMessageDialog(null, pedido.getData());
             ps.setFloat(2, pedido.getQuantidade());
-            JOptionPane.showMessageDialog(null, pedido.getQuantidade());
             ps.setString(3, pedido.getStatus());
-            JOptionPane.showMessageDialog(null, pedido.getStatus());
             ps.setInt(4, pedido.getIdUsuario());
-            JOptionPane.showMessageDialog(null, pedido.getIdUsuario());
             ps.setInt(5, pedido.getIdProduto());
-            JOptionPane.showMessageDialog(null, pedido.getIdProduto());
 
             ps.executeUpdate();
 

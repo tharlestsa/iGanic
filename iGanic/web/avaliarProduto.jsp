@@ -1,46 +1,46 @@
 <%-- 
-   Document   : efetuarPedido
-   Created on : 24/11/2017, 18:58:35
-   Author     : guilherme
+    Document   : avaliarProduto
+    Created on : 07/12/2017, 17:03:52
+    Author     : guilherme
 --%>
 
 <%@page import="javax.swing.JOptionPane"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="br.iganic.model.Usuario"%>
+<%@page import="br.iganic.model.Usuario"%>
+<%@page import="br.iganic.dao.UsuarioDAO"%>
+<%@page import="br.iganic.model.Produto"%>
 <%@page import="br.iganic.model.Produto"%>
 <%@page import="br.iganic.dao.ProdutoDAO"%>
-<%@page import="br.iganic.model.Usuario"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="br.iganic.dao.UsuarioDAO"%>
+<%@page import="br.iganic.dao.ProdutoDAO"%>
+<%@page import="br.iganic.dao.ProdutoDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="br.iganic.view.Mensagem"%>
 
 <jsp:include page="./base_Jsp/cabecalho.jsp">
-    <jsp:param name="titulo" value="Efetuar Pedido" />
+    <jsp:param name="titulo" value="Avaliar Produtos" />
 </jsp:include>
 
 <div class="container">
     <div class="card mx-auto mt-5">
-        <div class="card-header" style='font-weight:bold;' >Efetuar Pedido</div>
+        <div class="card-header" style='font-weight:bold;' >Avaliar Produto</div>
         <div class="card-body ">
-            <% if (request.getAttribute("mensagem") != null) {
-                    out.print(new Mensagem(String.valueOf(request.getAttribute("tipo")), String.valueOf(request.getAttribute("mensagem"))));
-                }
-            %>
-            <form id="form-produto" action="./efetuarPedidos" method="post">
-
+            <form id="form-avaliacao" action="./avaliarProduto" method="post">
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-12">
-                            <label>Nome Fornecedor</label>
-
+                            <label>Nome produto</label>
                             <%
                                 ProdutoDAO produtoDao = new ProdutoDAO();
-                                Produto produto = produtoDao.buscaProduto(18);
+                                int idProd = (int) request.getAttribute("idProduto");
+                                Produto produto = produtoDao.buscaProduto(idProd);
                                 UsuarioDAO usuarioDAO = new UsuarioDAO();
                                 Usuario usu = new Usuario(produto.getIdUsuario());
                                 ArrayList<Usuario> usuarios = null;
                                 String nomeFornecedor = "";
                                 String nomeProduto = produto.getNome();
-                                String modoProducao = produto.getModoProducao();
+                                int idProduto = produto.getIdProduto();
+
                                 try {
 
                                     usuarios = (ArrayList<Usuario>) usuarioDAO.buscaUsuPeloId(usu);
@@ -53,37 +53,33 @@
 
                                 }
                             %>
+                            <input class="form-control" type="text" id="nome" name="nome" value="<%=nomeProduto%>" disabled="">
+                        </div>
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <label>Nome Fornecedor</label>
                             <input class="form-control" type="text" id="nomeFornecedor" name="nomeFornecedor" value="<%=nomeFornecedor%>" disabled="">
                         </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-row">
                         <div class="col-md-4">
-                            <label >Nome do Produto</label>
-                            <input class="form-control" type="text" id="nomeProduto" name="nomeProduto" value="<%=nomeProduto%>" disabled="">
+                            <label>Nota</label>
+                            <input class="form-control" type="text" id="nota" name="nota" placeholder="Informe a nota do produto" required="">
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-row">
-                        <div class="col-md-4">
-                            <label >Modo de produçao</label>
-                            <input class="form-control" type="text" id="nomeProduto" name="nomeProduto" value="<%=modoProducao%>" disabled="">
+                        <div class="col-md-12">
+                            <label>Comentario</label>
+                            <textarea class="form-control" rows="6" type="text" id="comentario" name="comentario" placeholder="Comente sobre essa nota" required=""></textarea>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <label>Quantidade</label>
-                            <input class="form-control" type="text" id="quantidade" name="quantidade" placeholder="Informe a quantidade do pedido" required="">
-                        </div>
-                    </div>
-                </div>
-
-                <button type="submit" id="acao" name="acao" value="efetuar" class="btn btn-success btn-block">Efetuar Pedido</button>
+                <input type="hidden" name="idProduto" value="<%= idProduto%>"/> 
+                <button type="submit" id="acao" name="acao" value="avaliar" class="btn btn-success btn-block">Avaliar</button>
             </form>
 
         </div>
@@ -101,3 +97,4 @@
 
 
 <jsp:include page="./base_Jsp/rodape.jsp" />
+

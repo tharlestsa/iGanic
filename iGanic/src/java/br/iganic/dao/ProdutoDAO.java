@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -85,7 +86,7 @@ public class ProdutoDAO implements DAO {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
-        
+
         int idInserido = 0;
 
         try {
@@ -93,8 +94,9 @@ public class ProdutoDAO implements DAO {
             conn = ConnectionDAO.getConnection();
             ps = conn.prepareStatement(" select cadastraProduto(?, ?, ?, ?, ?, ?) ");
             ps.setString(1, produto.getNome());
-            ps.setString(2, produto.getUnidade());
             ps.setDouble(3, produto.getPreco());
+            ps.setString(2, produto.getUnidade());
+//            JOptionPane.showMessageDialog(null, produto.getUnidade());
             ps.setDouble(4, produto.getQuantidade());
             ps.setString(5, produto.getModoProducao());
             ps.setInt(6, produto.getIdUsuario());
@@ -106,14 +108,15 @@ public class ProdutoDAO implements DAO {
             }
 
         } catch (SQLException sqle) {
+            JOptionPane.showMessageDialog(null, sqle.getMessage());
             throw new Exception(sqle);
         } finally {
             ConnectionDAO.closeConnection(conn, ps);
         }
-        
+
         return idInserido;
     }
-    
+
     public Produto buscaProduto(int idProduto) throws Exception {
         Produto p = new Produto();
 
