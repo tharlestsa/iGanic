@@ -361,7 +361,7 @@ footer.sticky-footer {
 
 #mapa{
     margin-top: 1.5%;
-    height: 490px; width: 100%; background-color: grey;
+    height: 480px; width: 100%; background-color: grey;
 }
 
 .imagem-produto-10{
@@ -454,5 +454,15 @@ footer.sticky-footer {
 }
 
 .button-pedido{
-    margin-left: 20%;
+    margin:0;
+    float: right;
+}
+
+.material-icons{
+    color: white;
+}
+
+.label-produto-corpo-posicao{
+    margin:0;
+    float: right;
 }

@@ -82,20 +82,20 @@
 
             <%
                 for (Fornecedor forn : fornecedores) {
-                    out.print("<form method='POST' action=''>"
+                    out.print("<form method='POST' action='./efetuarPedidos'>"
                             + "<input type='hidden' name='idProduto' id='idProduto' value='" + forn.getProduto().getIdProduto() + "'>"
                             + "<div class='card mb-3'>"
                             + "     <img class='card-img-top img-fluid w-100' src='./img_produtos/" + forn.getImagem().getNome() + "'>"
                             + "<div class='card-body'>"
                             + "      <label class='label-produto'>" + forn.getProduto().getNome() + "</label><p class='p-label'>"
-                            + "      <label class='label-produto-corpo'>Produtor(a): " + forn.getUsuario().getNome() + "</label><pclass='p-label'>"
                             + "      <label id ='preco' class='label-produto-corpo'>Preço: R$ " + String.valueOf(forn.getProduto().getPreco()).replace(".", ",") + "</label><p class='p-label'>"
-                            + "      <label class='label-produto-corpo'><a href='' class='modal-produtos' rule='button' data-toggle='modal' data-target='#modal-pro'>  Saiba mais ..."
+                            + "      <label class='label-produto-corpo'><button type='button' class='modal-produtos btn btn-success' data-toggle='modal' data-target='#modal-pro'> <i class='material-icons'>info</i> "
                             + "<input type='hidden' name='nome' id='nome' value='" + forn.getProduto().getNome() + "'>"
+                            + "<input type='hidden' name='nome' id='fornecedor' value='" + forn.getUsuario().getNome() + "'>"
                             + "<input type='hidden' name='modo' id='modo' value='" + forn.getProduto().getModoProducao() + "'>"
-                            + "</a></label>"
+                            + "</button></label>"
                             + "  <button class='btn btn-success button-pedido' id='acao' name='acao' value='pedir' type='submit'>"
-                            + "          <i class='fa fa-cart-arrow-down'></i>"
+                            + "         <i class='material-icons'>add_shopping_cart</i>"
                             + "  </button>"
                             + "</div>"
                             + "</div>"
@@ -106,6 +106,7 @@
         </div>
     </section>
     <!--//Produtos mais proxóximos usuarios--> 
+
 
     <jsp:include page="./base_Jsp/rodape.jsp" />
 

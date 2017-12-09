@@ -4,6 +4,7 @@
     Author     : tharles
 --%>
 
+<%@page import="br.iganic.model.Produto"%>
 <%@page import="br.iganic.dao.ProdutoDAO"%>
 <%@page import="br.iganic.model.Usuario"%>
 <%@page import="br.iganic.model.Fornecedor"%>
@@ -16,28 +17,28 @@
 </jsp:include>
 
 <section id="mapa-produtos">
-    <div class="card-header">
-        <i class="fa fa-table"></i> PRODUTOS PRÓXIMOS DE VOCÊ EXIBIDOS NA MAPA
-    </div>
+    <div class="barra-titulo"><center><label class="label-titulo" >Alimentos dispostos no mapa pelo <a id="logo-corpo">iGanic</a>!</label> </center></div>
     <!-- Mapa -->
     <div id="mapa">   
     </div>
     <!-- /Mapa -->
 </section>
 <%
-    String conteudo;
+    String conteudo = ""; 
+    conteudo += "<div class='barra-titulo'><center><label class='label-titulo' >TABELA DE PRODUTOS PESQUISADOS</label> </center></div>";
 
     ProdutoDAO prodDao = new ProdutoDAO();
     ArrayList<Fornecedor> fornecedores = new ArrayList<>();
 
     try {
+        String produto = request.getSession().getAttribute("nomeProduto").toString();
+
         Double lat = Double.parseDouble(request.getSession().getAttribute("lat").toString());
         Double lng = Double.parseDouble(request.getSession().getAttribute("lng").toString());
         Usuario usu = new Usuario(null, null, null, null, null, lat, lng, null, null, null, 0);
 
-        fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedoresProxDoCliente(usu);
-
-//                fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedores(new Fornecedor(usu, new Produto(produto, null, null, null, null, 0)));
+//        fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedoresProxDoCliente(usu);
+        fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedores(new Fornecedor(usu, new Produto(produto, null, null, null, null, 0)));
     } catch (Exception e) {
         System.out.println("Exceção na busca dos fornecedores: " + e.getMessage());
     }
@@ -47,11 +48,11 @@
         request.getRequestDispatcher("./principal.jsp").forward(request, response);
     }
 
-    Tabela table = new Tabela("Produtos mais próximos de você", new String[]{"#", "Fornecedor", "Alimento", "Preço", "Ação"});
+    Tabela table = new Tabela("", new String[]{"#", "Fornecedor", "Alimento", "Preço", "Ação"});
     table.setId("tabela-busca");
 
     for (Fornecedor forn : fornecedores) {
-        String pedir = "    <form class='form-inline' action='./pedidos.jsp' method='POST'>"
+        String pedir = "    <form class='form-inline' action='./efetuarPedidos' method='POST'>"
                 + "        <div class='input-group input-group-md'>"
                 + "           <input class='form-control' type='hidden' name='idProduto' id='idProduto' value='" + String.valueOf(forn.getProduto().getIdProduto()) + "'>"
                 + "               <span class='input-group'>"
@@ -64,7 +65,7 @@
         table.addLinha(new String[]{String.valueOf(forn.getProduto().getIdProduto()), forn.getUsuario().getNome(), forn.getProduto().getNome(), String.valueOf(forn.getProduto().getPreco()), pedir});
     }
 
-    conteudo = table.toString();
+    conteudo += table.toString();
 
     out.print(conteudo);
 %>
