@@ -18,13 +18,15 @@
 <style>.tabledit-toolbar{width: 130px;} .botao{margin-left: 5px;}</style>
 <div class="container cont">
 <%
-    String conteudo;
+    String conteudo = "";
 
     ArrayList<Pedido> pedidos = (ArrayList<Pedido>) request.getAttribute("pedidos");
 
     if (pedidos == null) {
         request.getRequestDispatcher("./pedidosFornecedor").forward(request, response);
     }
+    
+    if(request.getAttribute("mensagem") != null) conteudo += request.getAttribute("mensagem");
 
     Tabela table = new Tabela("Pedidos", new String[]{"#", "Data", "Cliente", "Status", "Produto", "Quantidade"});
     table.setId("tabela");
@@ -48,7 +50,7 @@
         table.addLinha(new String[]{String.valueOf(p.getIdPedido()), p.getData(), p.getCliente(),status, p.getNomeProduto(), qtd});
     }
 
-    conteudo = table.toString();
+    conteudo += table.toString();
 
     out.print(conteudo);
 %>

@@ -125,7 +125,7 @@ public class PedidoDAO implements DAO {
 
         try {
             conn = ConnectionDAO.getConnection();
-            ps = conn.prepareStatement("SELECT Pedidos.data, Produtos.nome,Pedidos.quantidade, Pedidos.status, Usuarios.nome, Produtos.unidade, (Pedidos.quantidade * Produtos.preco) AS total, Pedidos.idPedido "
+            ps = conn.prepareStatement("SELECT Pedidos.data, Produtos.nome,Pedidos.quantidade, Pedidos.status, Usuarios.nome, Produtos.unidade, format((Pedidos.quantidade * Produtos.preco), 2, 'de_DE') AS total, Pedidos.idPedido "
                     + "from Pedidos "
                     + "INNER JOIN Produtos ON Pedidos.idProduto = Produtos.idProduto "
                     + "INNER JOIN Usuarios ON Usuarios.idUsuario = Produtos.idUsuario WHERE Pedidos.idUsuario = ? ORDER BY Pedidos.data DESC");

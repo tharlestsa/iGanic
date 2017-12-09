@@ -8,6 +8,7 @@ package br.iganic.controller;
 import br.iganic.dao.PedidoDAO;
 import br.iganic.model.Pedido;
 import br.iganic.util.Sessao;
+import br.iganic.view.Mensagem;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -66,6 +67,8 @@ public class PedidosFornecedorServlet extends HttpServlet {
                 }
                 break;
         }
+        
+        if(pedidos.isEmpty()) request.setAttribute("mensagem", new Mensagem("info", "Nenhum pedido encontrado!"));
 
         request.setAttribute("pedidos", pedidos);
         request.getRequestDispatcher("./pedidosFornecedor.jsp").forward(request, response);

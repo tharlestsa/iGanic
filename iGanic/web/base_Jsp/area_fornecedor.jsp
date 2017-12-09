@@ -8,13 +8,13 @@
 
 <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Buscar Produtos">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="./pedidosFornecedor">
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Pedidos</span>
         </a>
     </li>
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="./vendas">
             <i class="fa fa-fw fa-area-chart"></i>
             <span class="nav-link-text">Histórico de Vendas</span>
         </a>

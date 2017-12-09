@@ -10,6 +10,7 @@ import br.iganic.dao.ProdutoDAO;
 import br.iganic.model.Pedido;
 import br.iganic.model.PedidoCliente;
 import br.iganic.model.Produto;
+import br.iganic.view.Mensagem;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -85,6 +86,9 @@ public class PedidosClienteServlet extends HttpServlet {
 
         }
 
+        if(pedidos.isEmpty()){
+            request.setAttribute("mensagem", new Mensagem("info", "Nenhum pedido foi encontrado!"));
+        }
         request.setAttribute("pedidos", pedidos);
         request.getRequestDispatcher("./pedidosCliente.jsp").forward(request, response);
     }
