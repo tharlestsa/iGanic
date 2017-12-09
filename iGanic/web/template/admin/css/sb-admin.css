@@ -436,13 +436,13 @@ footer.sticky-footer {
 
 .label-produto{
     font-family: 'Abhaya Libre';
-    font-size: 25px;
+    font-size: 150%;
     
 }
 
 .label-produto-corpo{
     font-family: 'Abhaya Libre';
-    font-size: 15px;
+    font-size: 100%;
 }
 
 .p-label{
