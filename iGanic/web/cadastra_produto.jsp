@@ -65,11 +65,11 @@
 
         </div>
     </div>
-            
+
 </div>
- <!-- Bootstrap core JavaScript-->
-    <script src="./template/admin/vendor/jquery/jquery.min.js" type="text/javascript"></script>
-    <script src="./template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="./template/admin/vendor/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="./template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
 <!-- Core plugin JavaScript-->
 <script src="./template/admin/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
 <script src="./mask-plugin/jquery.mask.min.js" type="text/javascript"></script>

@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,7 +36,7 @@ public class PedidosClienteServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException{
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
         PedidoDAO dao = new PedidoDAO();
@@ -48,36 +49,40 @@ public class PedidosClienteServlet extends HttpServlet {
         if (acao == null) {
             acao = "listar";
         }
-        
+
         if (acao.equals("alt")) {
             String idPedido = request.getParameter("idPedido");
             ProdutoDAO produtoDAO = new ProdutoDAO();
-            
-            try{
+
+            try {
                 System.out.println(idPedido);
                 PedidoCliente p = dao.buscaPedido(Integer.parseInt(idPedido));
                 Produto produto = produtoDAO.buscaProduto(Integer.parseInt(p.getIdProduto()));
-                
+
                 produto.setQuantidade(produto.getQuantidade() + Double.parseDouble(p.getQtd()));
                 produtoDAO.atualizar(produto);
-                
+
                 Pedido ped = new Pedido();
                 ped.setIdPedido(Integer.parseInt(p.getIdPedido()));
                 ped.setStatus("C");
                 dao.atualizar(ped);
-                
-            }catch (Exception e){
+
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            
-            
+
         }
-        
-        try{
+
+        //guilherme
+        if (acao.equals("avaliar")) {
+            request.getRequestDispatcher("./avaliarProduto.jsp").forward(request, response);
+        }
+
+        try {
             pedidos = dao.buscaPedidosDoCliente(idUsuario);
-            
-        }catch(Exception e){
-        
+
+        } catch (Exception e) {
+
         }
 
         request.setAttribute("pedidos", pedidos);

@@ -5,15 +5,13 @@
  */
 package br.iganic.controller;
 
-import br.iganic.dao.ImagemDAO;
-import br.iganic.model.Imagem;
-import br.iganic.util.Upload;
-import static java.awt.SystemColor.text;
-import java.io.File;
+import br.iganic.dao.AvaliarProdutoDAO;
+import br.iganic.dao.ProdutoDAO;
+import br.iganic.model.AvaliarProduto;
+import br.iganic.model.Produto;
+import br.iganic.util.Sessao;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -22,17 +20,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
  * @author guilherme
  */
-@WebServlet(name = "NewServlet", urlPatterns = {"/newServlet"})
-public class NewServlet extends HttpServlet {
+@WebServlet(name = "AvaliarProdutoServlet", urlPatterns = {"/avaliarProduto"})
+public class AvaliarProdutoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,38 +39,51 @@ public class NewServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         response.setContentType("text/html;charset=UTF-8");
+        String acao = request.getParameter("acao");
+        
+        Sessao.trataSessao(request, response);
+        switch (acao) {
+            case "avaliar":
 
-        ImagemDAO imgDAO = new ImagemDAO();
-
-        String idProduto = request.getParameter("idProduto");
-
-        Upload upload = new Upload();
-
-        try (PrintWriter out = response.getWriter()) {
-            try {
-                if (upload.anexos(request, response)) {
-
-                    Imagem img = new Imagem(upload.getNameImg(), upload.getIdProduto());
-                    imgDAO.salvarImagem(img);
-
-                    out.print("Ficheiro enviado!");
-                    request.setAttribute("tipo", "suce");
-                    request.setAttribute("mensagem", "Imagem inserida!");
-                    request.getRequestDispatcher("/cadastra_produto.jsp").forward(request, response);
-                } else {
-                    request.setAttribute("tipo", "erro");
-                    request.setAttribute("mensagem", "Nao foi possivel inserir a imagem!");
-                    request.getRequestDispatcher("/cadastra_produto.jsp").forward(request, response);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                avaliar(request, response);
+                break;
         }
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    public void avaliar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int nota = Integer.parseInt(request.getParameter("nota"));
+        String comentario = request.getParameter("comentario");
+        int idProduto = Integer.parseInt(request.getParameter("idProduto"));
+        int idUsuario = (int) request.getSession().getAttribute("idUsuario");
+
+        AvaliarProdutoDAO avaliarDAO = new AvaliarProdutoDAO();
+        AvaliarProduto avaliar = new AvaliarProduto(nota, comentario, idProduto);
+
+        try {
+            try {
+                avaliarDAO.salvarAvaliacao(avaliar);
+                
+                request.setAttribute("tipo", "suce");
+                request.setAttribute("mensagem", "Avaliaçao Realizada!");
+                request.getRequestDispatcher("/avaliarProduto.jsp").forward(request, response);
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+                request.setAttribute("tipo", "erro");
+                request.setAttribute("mensagem", "Nao foi possivel avaliar esse produto!!");
+                request.getRequestDispatcher("/avaliarProduto.jsp").forward(request, response);
+            }
+
+        } catch (Exception ex) {
+            response.getWriter().println(ex.getMessage());
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

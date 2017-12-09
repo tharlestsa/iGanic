@@ -18,46 +18,50 @@
 
 <div class="container cont">
     <%
-    ArrayList<PedidoCliente> pedidos = (ArrayList<PedidoCliente>) request.getAttribute("pedidos");
+        ArrayList<PedidoCliente> pedidos = (ArrayList<PedidoCliente>) request.getAttribute("pedidos");
 
-    if (pedidos == null) {
-        request.getRequestDispatcher("./pedidosCliente").forward(request, response);
-    }
-    String conteudo = "";
-    
-    
-    if(request.getAttribute("mensagem") != null) conteudo += request.getAttribute("mensagem");
-    
-
-    Tabela table = new Tabela("Pedidos", new String[]{"Data", "Produto", "Quantidade", "Status", "Total", "Fornecedor", "Ação"});
-    String qtd;
-    for (PedidoCliente p : pedidos) {
-        qtd = p.getQtd() + " " + p.getUnidade();
-        
-        String acao = "";
-        String status = "";
-        switch (p.getStatus()){
-            case "A":
-                status = "Em andamento";
-                acao = "<form action='./pedidosCliente' method='POST'>"
-                        + new Input("hidden", p.getIdPedido(), "idPedido", null, new Label(""))
-                        + new Button("submit", "alt", "action", null, "Cancelar", "btn-danger")
-                        + "</form>";
-                break;
-            case "C":
-                status = "Cancelado";
-                break;
-            case "F":
-                status = "Finalizado";
-                break;
+        if (pedidos == null) {
+            request.getRequestDispatcher("./pedidosCliente").forward(request, response);
         }
-        
-        table.addLinha(new String[]{p.getData(), p.getProduto(), qtd, status, p.getTotal(), p.getFornecedor(), acao});
-        
-    }
+        String conteudo = "";
 
-    conteudo += table.toString();
-    out.println(conteudo);
+        if (request.getAttribute("mensagem") != null) {
+            conteudo += request.getAttribute("mensagem");
+        }
 
-%>
+        Tabela table = new Tabela("Pedidos", new String[]{"Data", "Produto", "Quantidade", "Status", "Total", "Fornecedor", "Ação"});
+        String qtd;
+        for (PedidoCliente p : pedidos) {
+            qtd = p.getQtd() + " " + p.getUnidade();
+
+            String acao = "";
+            String status = "";
+            switch (p.getStatus()) {
+                case "A":
+                    status = "Em andamento";
+                    acao = "<form action='./pedidosCliente' method='POST'>"
+                            + new Input("hidden", p.getIdPedido(), "idPedido", null, new Label(""))
+                            + new Button("submit", "alt", "action", null, "Cancelar", "btn-danger")
+                            + "</form>";
+                    break;
+                case "C":
+                    status = "Cancelado";
+                    break;
+                case "F":
+                    status = "Finalizado";
+                    acao = "<form action='./pedidosCliente' method='POST'>"
+                            + new Input("hidden", p.getIdProduto(), "idProduto", null, new Label(""))
+                            + new Button("submit", "avaliar", "action", null, "Avaliar", "btn btn-warning")
+                            + "</form>";
+                    break;
+            }
+
+            table.addLinha(new String[]{p.getData(), p.getProduto(), qtd, status, p.getTotal(), p.getFornecedor(), acao});
+
+        }
+
+        conteudo += table.toString();
+        out.println(conteudo);
+
+    %>
 </div>

@@ -64,11 +64,13 @@ public class CadastraProdutoServlet extends HttpServlet {
         Double quantidade = Double.parseDouble(request.getParameter("quantidade"));
         String modo = request.getParameter("modo");
        
+        //JOptionPane.showMessageDialog(null, preco);
         int idUsuario = (int) request.getSession().getAttribute("idUsuario");
 
         ProdutoDAO produtoDAO = new ProdutoDAO();
+       
         Produto produto = new Produto(nome, unidade, preco, quantidade, modo, idUsuario);
-
+        JOptionPane.showMessageDialog(null, produto.getPreco());
         try {
 
             if (nome.equals("") || modo.equals("")) {
@@ -81,14 +83,13 @@ public class CadastraProdutoServlet extends HttpServlet {
 
             try {
                 int idProdu = produtoDAO.salvarProduto(produto);
-                JOptionPane.showMessageDialog(null, idProdu);
+               
                request.setAttribute("idProduto", idProdu);
                 request.setAttribute("tipo", "suce");
                 request.setAttribute("mensagem", "Produto Cadastrado!");
                 request.getRequestDispatcher("/newjsp.jsp").forward(request, response);
 
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
                 request.setAttribute("tipo", "erro");
                 request.setAttribute("mensagem", "Nao foi possivel cadastrar esse produto!!");
                 request.getRequestDispatcher("/cadastra_produto.jsp").forward(request, response);
