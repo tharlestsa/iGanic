@@ -1,59 +1,48 @@
 var map;
-
 $(document).ready(function () {
 
     map = new GMaps({
         el: '#mapa',
         lat: -16.372137,
         lng: -49.4998514,
-        zoom: 4
+        zoom: 6
     });
-
     $.getJSON('./data/fornecedores.json', function (pontos) {
         var dados = pontos.dados;
         $.each(dados, function (index, ponto) {
             map.addMarker({
                 lat: ponto.lat,
                 lng: ponto.lng,
-                title: 'Marker with InfoWindow',
+                title: 'Alimentos',
                 infoWindow: {
-                     content: '<div class="card mb-3 card-map">\n\
-                                    <a href="#">\n\
-                                        <img class="card-img-top img-fluid w-100" src="./img_produtos/'+ponto.img+'">\n\
-                                    </a><div class="card-body">   \n\
-                                   <h6 class="card-title mb-1"><a href="#">David Miller</a></h6>  \n\
-                                   <p class="card-text small">These waves are looking pretty good today!     \n\
-                                   <a href="#">#surfsup</a>      </p></div></div>'
-//                    content: ' <img width="60%" style="margin: auto;"class="img-responsive" src="./img_produtos/'+ponto.img+'"/><p>'+ponto.nomeProduto+'</p>'
+                    content: montaJanelaNoMapa(ponto.idProduto, ponto.img, ponto.nomeProduto, ponto.nomeFornecedor, ponto.preco, ponto.modo)
                 }
             });
         });
-
     });
-
 });
+function montaJanelaNoMapa(idProduto, imagem, nomeProduto, nomeUsuario, preco, modoProducao) {
 
+    var janela = '<form method="POST" action="./efetuarPedidos">'
+            + '     <div class="card" style="width: 20rem;">'
+            + '         <img class="card-img-top" src="./img_produtos/' + imagem + '">'
+            + '     <div class="card-block">'
+            + '     <br><label class=" label-produto">' + nomeProduto + '</label>'
+            + '     <label class="label-produto label-produto-corpo-posicao">R$ ' + preco + '<label>'
+            + ' </div>'
+            + '<div class="card-block">'
+            + '<button type="button" class="modal-produtos btn btn-success" data-toggle="modal" data-target="#modal-pro"> <i class="material-icons">info</i>'
+            + '<input type="hidden" name="nome" id="nome" value="' + nomeProduto + '">'
+            + '<input type="hidden" name="nome" id="fornecedor" value=" value="' + nomeUsuario + '">'
+            + '<input type="hidden" name="modo" id="modo" value=" value="' + modoProducao + '">'
+            + '</button>'
+            + '   <button class="btn btn-success button-pedido" id="acao" name="acao" value="pedir" type="submit">'
+            + '         <i class="material-icons">add_shopping_cart</i>'
+            + '  </button>'
+            + '</div>'
+            + '</div>'
+            + '</form>';
 
+    return janela;
 
-//$(document).ready(function () {
-//
-//    map.addMarker({
-//        lat: -12.043333,
-//        lng: -77.03,
-//        title: 'Lima',
-//        details: {
-//            database_id: 42,
-//            author: 'HPNeo'
-//        },
-//        click: function (e) {
-//            if (console.log)
-//                console.log(e);
-//            alert('You clicked in this marker');
-//        },
-//        mouseover: function (e) {
-//            if (console.log)
-//                console.log(e);
-//        }
-//    });
-//
-//});
+}

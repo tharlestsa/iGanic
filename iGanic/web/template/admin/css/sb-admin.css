@@ -352,10 +352,16 @@ footer.sticky-footer {
     font-size: 30px;
 
 }
+#logo-corpo{
+    color: #ffffff; 
+    font-weight: bold;
+    font-family: 'Berkshire Swash', cursive;
+    font-size: 20px;
+}
 
 #mapa{
     margin-top: 1.5%;
-    height: 490px; width: 100%; background-color: grey;
+    height: 480px; width: 100%; background-color: grey;
 }
 
 .imagem-produto-10{
@@ -426,4 +432,37 @@ footer.sticky-footer {
     margin: 0;
     margin-right: 13%;
     height: 330px;
+}
+
+.label-produto{
+    font-family: 'Abhaya Libre';
+    font-size: 25px;
+    
+}
+
+.label-produto-corpo{
+    font-family: 'Abhaya Libre';
+    font-size: 15px;
+}
+
+.p-label{
+    margin:0;
+}
+
+#preco{
+    font-weight: bold; 
+}
+
+.button-pedido{
+    margin:0;
+    float: right;
+}
+
+.material-icons{
+    color: white;
+}
+
+.label-produto-corpo-posicao{
+    margin:0;
+    float: right;
 }

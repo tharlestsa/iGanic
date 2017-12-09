@@ -80,6 +80,7 @@ public class BuscaProdutosServlet extends HttpServlet {
 
     public void buscaProdutos(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String produto = (request.getParameter("buscaProduto") != null) ? request.getParameter("buscaProduto").toLowerCase().toString() : "";
+        request.getSession().setAttribute("nomeProduto", produto);
         ArrayList<Fornecedor> fornecedores = null;
 
         try {
@@ -90,9 +91,9 @@ public class BuscaProdutosServlet extends HttpServlet {
                 Double lng = Double.parseDouble(request.getSession().getAttribute("lng").toString());
                 Usuario usu = new Usuario(null, null, null, null, null, lat, lng, null, null, null, 0);
 
-                fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedoresProxDoCliente(usu);
+//                fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedoresProxDoCliente(usu);
 
-//                fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedores(new Fornecedor(usu, new Produto(produto, null, null, null, null, 0)));
+                fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedores(new Fornecedor(usu, new Produto(produto, null, null, null, null, 0)));
             } catch (Exception e) {
                 System.out.println("Exceção na busca dos fornecedores: " + e.getMessage());
             }
@@ -109,7 +110,7 @@ public class BuscaProdutosServlet extends HttpServlet {
                 dados.put("idProduto", forn.getProduto().getIdProduto());
                 dados.put("nomeProduto", forn.getProduto().getNome());
                 dados.put("un", forn.getProduto().getUnidade());
-                dados.put("preco", forn.getProduto().getPreco());
+                dados.put("preco", String.valueOf(forn.getProduto().getPreco()).replace(".", ","));
                 dados.put("img", forn.getImagem().getNome());
                 dados.put("modo", forn.getProduto().getModoProducao());
                 filhos.add(dados);
