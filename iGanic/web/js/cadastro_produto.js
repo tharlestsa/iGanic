@@ -3,8 +3,8 @@
 
 
 $().ready(function () {
-    $('#preco').mask(" 00.00");
-    $('#quantidade').mask("000.00");
+    $('#preco').maskMoney();
+    $('#quantidade').mask("000.00",  {reverse: true});
 
 
 });

@@ -29,10 +29,17 @@ public class BuscaProdutosServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String acao = (request.getParameter("acao") != null) ? request.getParameter("acao").toLowerCase().toString() : "";
-
+            String produto = (request.getParameter("buscaProduto") != null) ? request.getParameter("buscaProduto").toLowerCase().toString() : "";
             switch (acao) {
                 case "buscar":
-                    this.buscaProdutos(request, response);
+                    if (produto.isEmpty()) {
+                        request.setAttribute("tipo", "aten");
+                        request.setAttribute("mensagem", "Informe o nome do alimento que você deseja procurar!");
+                        request.getRequestDispatcher("/principal.jsp").forward(request, response);
+                    }else{
+                         this.buscaProdutos(request, response);
+                    }
+                   
                     break;
 
             }
@@ -92,8 +99,11 @@ public class BuscaProdutosServlet extends HttpServlet {
                 Usuario usu = new Usuario(null, null, null, null, null, lat, lng, null, null, null, 0);
 
 //                fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedoresProxDoCliente(usu);
-
                 fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedores(new Fornecedor(usu, new Produto(produto, null, null, null, null, 0)));
+                if (fornecedores.isEmpty()) {
+                    request.setAttribute("tipo", "aten");
+                    request.setAttribute("mensagem", "Nenhum alimento econtrado com o nome informado!");
+                }
             } catch (Exception e) {
                 System.out.println("Exceção na busca dos fornecedores: " + e.getMessage());
             }

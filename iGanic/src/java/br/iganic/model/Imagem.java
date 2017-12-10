@@ -14,6 +14,11 @@ public class Imagem {
     private String nome;
     private int idProduto;
 
+    public Imagem(int idProduto) {
+        this.idProduto = idProduto;
+    }
+
+    
     public Imagem(String nome, int idProduto) {
         this.nome = nome;
         this.idProduto = idProduto;

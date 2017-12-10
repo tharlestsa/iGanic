@@ -45,49 +45,68 @@ public class EfetuarPedidoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        Sessao.trataSessao(request, response);
 
         String acao = request.getParameter("acao");
 
-        Sessao.trataSessao(request, response);
+        if ("pedir".equals(acao)) {
+            String idProduto = (request.getParameter("idProduto") != null) ? request.getParameter("idProduto").toLowerCase() : "";
+            request.setAttribute("idProduto", idProduto);
+            request.getRequestDispatcher("/pedidos.jsp").forward(request, response);
 
-        Float quantidade = Float.parseFloat(request.getParameter("quantidade"));
-        
-        String status = "A";
-        int idUsuario = (int) request.getSession().getAttribute("idUsuario");
-        PedidoDAO pedidoDao = new PedidoDAO();
-        LocalDateTime data = LocalDateTime.now();
-       
-        Pedidoo pedido = new Pedidoo(data, quantidade, status, idUsuario, 18);
+        } else if ("efetuar".equals(acao)) {
+            String status = "A";
 
-        try {
+            String idProduto = (request.getParameter("idProduto") != null) ? request.getParameter("idProduto").toLowerCase() : "";
 
-            try {
-                ProdutoDAO produtoDAO = new ProdutoDAO();
-                Produto prod = produtoDAO.buscaProduto(18);
-                if (quantidade > prod.getQuantidade()) {
-                    request.setAttribute("tipo", "erro");
-                    request.setAttribute("mensagem", "Quantidade de produto nao disponivel!!");
-                    request.getRequestDispatcher("/pedidos.jsp").forward(request, response);
-                }
-
-                pedidoDao.salvarPedido(pedido);
-                prod.setQuantidade(prod.getQuantidade() - quantidade);
-                produtoDAO.atualizar(prod);
-                request.setAttribute("tipo", "suce");
-                request.setAttribute("mensagem", "Pedido realizado!");
-                request.getRequestDispatcher("/pedidos.jsp").forward(request, response);
-
-            } catch (Exception ex) {
-                request.setAttribute("tipo", "erro");
+            if (idProduto.isEmpty()) {
+                request.setAttribute("erro", "aten");
                 request.setAttribute("mensagem", "Nao foi possivel realizar esse pedido!!");
                 request.getRequestDispatcher("/principal.jsp").forward(request, response);
+            } else {
+
+                PedidoDAO pedidoDao = new PedidoDAO();
+                LocalDateTime data = LocalDateTime.now();
+
+                Float quantidade = Float.parseFloat(request.getParameter("quantidade"));
+
+                int idUsuario = (int) request.getSession().getAttribute("idUsuario");
+
+                Pedidoo pedido = new Pedidoo(data, quantidade, status, idUsuario, Integer.parseInt(idProduto));
+
+                try {
+
+                    try {
+                        ProdutoDAO produtoDAO = new ProdutoDAO();
+                        Produto prod = produtoDAO.buscaProduto(Integer.parseInt(idProduto));
+                        if (quantidade > prod.getQuantidade()) {
+                            request.setAttribute("tipo", "aten");
+                            request.setAttribute("mensagem", "O fornecedor não tem essa quantidade de produto disponivel!!");
+                            request.getRequestDispatcher("/pedidos.jsp").forward(request, response);
+                        }
+
+                        pedidoDao.salvarPedido(pedido);
+                        prod.setQuantidade(prod.getQuantidade() - quantidade);
+                        produtoDAO.atualizar(prod);
+                        request.setAttribute("tipo", "suce");
+                        request.setAttribute("mensagem", "Pedido realizado!");
+                        request.getRequestDispatcher("/principal.jsp").forward(request, response);
+
+                    } catch (Exception ex) {
+                        request.setAttribute("tipo", "erro");
+                        request.setAttribute("mensagem", "Nao foi possivel realizar esse pedido!!");
+                        request.getRequestDispatcher("/principal.jsp").forward(request, response);
+                    }
+
+                } catch (Exception ex) {
+                    response.getWriter().println(ex.getMessage());
+                    Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+        } else {
+            request.getRequestDispatcher("/principal.jsp").forward(request, response);
 
-        } catch (Exception ex) {
-            response.getWriter().println(ex.getMessage());
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

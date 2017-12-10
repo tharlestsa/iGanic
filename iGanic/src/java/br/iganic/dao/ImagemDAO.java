@@ -42,6 +42,33 @@ public class ImagemDAO implements DAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public Imagem buscaImagem(Object ob) throws Exception {
+        Imagem img = (Imagem) ob;
+
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs;
+
+        try {
+            conn = ConnectionDAO.getConnection();
+
+            ps = conn.prepareStatement(" SELECT `idImagem`, `nome`, `idProduto` FROM `iGanic`.`Imagens` WHERE `idProduto` = ? ");
+            ps.setInt(1, img.getIdProduto());
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                img = new Imagem(rs.getInt(1), rs.getString(2),rs.getInt(3));
+            }
+
+        } catch (SQLException e) {
+            throw new Exception(e);
+        } finally {
+            ConnectionDAO.closeConnection(conn, ps);
+        }
+
+        return img;
+    }
+
     @Override
     public void salvar(Object ob) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

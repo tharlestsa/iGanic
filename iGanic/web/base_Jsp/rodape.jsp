@@ -41,6 +41,7 @@
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyAKRNk-dKdR-ahbI7IQcfRS-FedpmFQOLg&language=pt_br"></script>
 <script src="./js/gmaps.js" type="text/javascript"></script>
 <script src="./js/mapa.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 <script src="./js/editaIdiomaDataTable.js" type="text/javascript"></script>
 <script src="./js/principal.js" type="text/javascript"></script>
 </body>

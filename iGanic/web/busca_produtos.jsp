@@ -4,6 +4,7 @@
     Author     : tharles
 --%>
 
+<%@page import="br.iganic.view.Mensagem"%>
 <%@page import="br.iganic.model.Produto"%>
 <%@page import="br.iganic.dao.ProdutoDAO"%>
 <%@page import="br.iganic.model.Usuario"%>
@@ -16,15 +17,21 @@
     <jsp:param name="titulo" value="Busca de Produtos" />
 </jsp:include>
 
+
+
 <section id="mapa-produtos">
     <div class="barra-titulo"><center><label class="label-titulo" >Alimentos dispostos no mapa pelo <a id="logo-corpo">iGanic</a>!</label> </center></div>
+            <% if (request.getAttribute("mensagem") != null) {
+                    out.print(new Mensagem(request.getAttribute("tipo").toString(), String.valueOf(request.getAttribute("mensagem"))));
+                }
+            %>
     <!-- Mapa -->
     <div id="mapa">   
     </div>
     <!-- /Mapa -->
 </section>
 <%
-    String conteudo = ""; 
+    String conteudo = "";
     conteudo += "<div class='barra-titulo'><center><label class='label-titulo' >TABELA DE PRODUTOS PESQUISADOS</label> </center></div>";
 
     ProdutoDAO prodDao = new ProdutoDAO();

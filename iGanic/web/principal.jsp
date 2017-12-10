@@ -4,6 +4,7 @@
     Author     : tharles
 --%>
 
+<%@page import="br.iganic.view.Mensagem"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="br.iganic.model.Usuario"%>
 <%@page import="br.iganic.model.Fornecedor"%>
@@ -32,6 +33,10 @@
         %>
 
         <div class="barra-titulo"><center><label class="label-titulo" >Alimentos que você encontra no <a id="logo-corpo">iGanic</a>!</label> </center></div>
+                <% if (request.getAttribute("mensagem") != null) {
+                        out.print(new Mensagem(request.getAttribute("tipo").toString(), String.valueOf(request.getAttribute("mensagem"))));
+                    }
+                %>
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <%                for (int i = 0; i < fornecedores.size(); i++) {

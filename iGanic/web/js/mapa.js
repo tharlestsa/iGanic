@@ -54,21 +54,24 @@ function montaJanelaNoMapa(idProduto, imagem, nomeProduto, nomeUsuario, preco, m
             + '</div>';
 
     janela = '<div class="card" style=width: 20rem;">'
+            + '<form method="POST" action="./efetuarPedidos">'
             + '<img class="card-img-top" src="./img_produtos/' + imagem + '" alt="Alimento">'
             + '         <div class="card-body">'
             + '                 <br><label class=" label-produto">' + nomeProduto + '</label>'
             + '                 <label class="label-produto label-produto-corpo-posicao">R$ ' + preco + '<label>'
             + '         </div>'
             + '         <div class="card-footer">'
-                + '         <button type="button" class="modal-produtos btn btn-sm btn-success" data-toggle="modal" data-target="#modal-pro"> <i class="material-icons">info</i>'
-                + '             <input type="hidden" name="nome" id="nome" value="' + nomeProduto + '">'
-                + '             <input type="hidden" name="nome" id="fornecedor" value="' + nomeUsuario + '">'
-                + '             <input type="hidden" name="modo" id="modo" value="' + modoProducao + '">'
-                + '         </button>'
-                + '         <button class="btn btn-success btn-sm button-pedido" id="acao" name="acao" value="pedir" type="submit">'
-                + '             <i class="material-icons">add_shopping_cart</i>'
-                + '         </button>'
+            + '         <button type="button" class="modal-produtos btn btn-sm btn-success" data-toggle="modal" data-target="#modal-pro"> <i class="material-icons">info</i>'
+            + '             <input type="hidden" name="idProduto" id="idProduto" value="' + idProduto + '">'
+            + '             <input type="hidden" name="nome" id="nome" value="' + nomeProduto + '">'
+            + '             <input type="hidden" name="nome" id="fornecedor" value="' + nomeUsuario + '">'
+            + '             <input type="hidden" name="modo" id="modo" value="' + modoProducao + '">'
+            + '         </button>'
+            + '         <button class="btn btn-success btn-sm button-pedido" id="acao" name="acao" value="pedir" type="submit">'
+            + '             <i class="material-icons">add_shopping_cart</i>'
+            + '         </button>'
             + '         </div>'
+            + '</form>'
             + '</div>';
     return janela;
 

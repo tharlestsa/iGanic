@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-md-4">
                             <label>Preço</label>
-                            <input class="form-control" type="text" id="preco" name="preco" placeholder="Informe o preço do produto">
+                            <input class="form-control" data-affixes-stay="true" data-prefix="R$ " data-thousands="." data-decimal="," type="text" id="preco" name="preco" placeholder="Informe o preço do produto">
                         </div>
                         <div class="col-md-4">
                             <label>Quantidade</label>

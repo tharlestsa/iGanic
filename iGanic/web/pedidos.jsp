@@ -4,6 +4,8 @@
    Author     : guilherme
 --%>
 
+<%@page import="br.iganic.model.Imagem"%>
+<%@page import="br.iganic.dao.ImagemDAO"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="br.iganic.model.Produto"%>
 <%@page import="br.iganic.dao.ProdutoDAO"%>
@@ -25,42 +27,57 @@
                     out.print(new Mensagem(String.valueOf(request.getAttribute("tipo")), String.valueOf(request.getAttribute("mensagem"))));
                 }
             %>
-            <form id="form-produto" action="./efetuarPedidos" method="post">
+            <form id="form-produto" action="./efetuarPedidos" method="POST">
+                <%
+                    String idProduto = (request.getParameter("idProduto") != null) ? request.getParameter("idProduto").toLowerCase() : "";
+                    String nomeFornecedor = "";
+                    String nomeProduto = "";
+                    String modoProducao = "";
+                    Imagem imagem = null;
 
+                    if (idProduto.isEmpty()) {
+                        request.getRequestDispatcher("/principal.jsp").forward(request, response);
+                    } else {
+                        ProdutoDAO produtoDao = new ProdutoDAO();
+                        Produto produto = produtoDao.buscaProduto(Integer.parseInt(idProduto));
+                        UsuarioDAO usuarioDAO = new UsuarioDAO();
+                        Usuario usu = new Usuario(produto.getIdUsuario());
+                        ArrayList<Usuario> usuarios = null;
+                        nomeFornecedor = "";
+                        nomeProduto = produto.getNome();
+                        modoProducao = produto.getModoProducao();
+                        ImagemDAO imgDao = new ImagemDAO();
+                        try {
+
+                            usuarios = (ArrayList<Usuario>) usuarioDAO.buscaUsuPeloId(usu);
+                            imagem = (Imagem) imgDao.buscaImagem(new Imagem(Integer.parseInt(idProduto)));
+
+                            for (Usuario e : usuarios) {
+                                nomeFornecedor = e.getNome();
+
+                            }
+                        } catch (Exception e) {
+
+                        }
+                    }
+                %>
+                <input type="hidden" id="idProduto" name="idProduto" value="<%=idProduto%>">
                 <div class="form-group">
                     <div class="form-row">
-                        <div class="col-md-12">
-                            <label>Nome Fornecedor</label>
-
-                            <%
-                                ProdutoDAO produtoDao = new ProdutoDAO();
-                                Produto produto = produtoDao.buscaProduto(18);
-                                UsuarioDAO usuarioDAO = new UsuarioDAO();
-                                Usuario usu = new Usuario(produto.getIdUsuario());
-                                ArrayList<Usuario> usuarios = null;
-                                String nomeFornecedor = "";
-                                String nomeProduto = produto.getNome();
-                                String modoProducao = produto.getModoProducao();
-                                try {
-
-                                    usuarios = (ArrayList<Usuario>) usuarioDAO.buscaUsuPeloId(usu);
-
-                                    for (Usuario e : usuarios) {
-                                        nomeFornecedor = e.getNome();
-
-                                    }
-                                } catch (Exception e) {
-
-                                }
-                            %>
-
-                            <input class="form-control" type="text" id="nomeFornecedor" name="nomeFornecedor" value="<%=nomeFornecedor%>" disabled="">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4">
+                            <img  class="img-thumbnail" src="./img_produtos/<%=imagem.getNome()%>"  alt="...">
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
+                            <label>Nome Fornecedor</label>
+                            <input class="form-control" type="text" id="nomeFornecedor" name="nomeFornecedor" value="<%=nomeFornecedor%>" disabled="">
+                        </div>
+                        <div class="col-md-6">
                             <label >Nome do Produto</label>
                             <input class="form-control" type="text" id="nomeProduto" name="nomeProduto" value="<%=nomeProduto%>" disabled="">
                         </div>
@@ -68,15 +85,11 @@
                 </div>
                 <div class="form-group">
                     <div class="form-row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label >Modo de produçao</label>
-                            <input class="form-control" type="text" id="nomeProduto" name="nomeProduto" value="<%=modoProducao%>" disabled="">
+                            <textarea class="form-control" rows="4" type="text" id="modoProducao" name="modoProducao" value="<%=modoProducao%>" disabled=""></textarea>
                         </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label>Quantidade</label>
                             <input class="form-control" type="text" id="quantidade" name="quantidade" placeholder="Informe a quantidade do pedido" required="">
                         </div>
@@ -90,14 +103,5 @@
     </div>
 
 </div>
-<!-- Bootstrap core JavaScript-->
-<script src="./template/admin/vendor/jquery/jquery.min.js" type="text/javascript"></script>
-<script src="./template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
-<!-- Core plugin JavaScript-->
-<script src="./template/admin/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
-<script src="./mask-plugin/jquery.mask.min.js" type="text/javascript"></script>
-<script src="./jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
-<script src="./js/cadastro_produto.js" type="text/javascript"></script>
-
 
 <jsp:include page="./base_Jsp/rodape.jsp" />
