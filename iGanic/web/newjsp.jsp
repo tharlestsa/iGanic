@@ -27,7 +27,7 @@
                             <%
                                 String idProduto = request.getAttribute("idProduto").toString();
                             %>
-                            <input type="hidden" name="idProduto" value="<%= idProduto%>"/> 
+                            <input type="hidden" name="idProduto" value="<%= idProduto%>"/> <br>
                             <button type="submit" id="acao" name="acao" value="enviar" class="btn btn-success btn-block">Enviar</button>
                         </div>
                     </div>

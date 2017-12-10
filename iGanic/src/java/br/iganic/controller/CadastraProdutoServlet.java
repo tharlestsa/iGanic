@@ -60,17 +60,27 @@ public class CadastraProdutoServlet extends HttpServlet {
     public void cadastrarProduto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nome = request.getParameter("nome");
         String unidade = request.getParameter("unidade");
-        Double preco = Double.parseDouble(request.getParameter("preco"));
-        Double quantidade = Double.parseDouble(request.getParameter("quantidade"));
-        String modo = request.getParameter("modo");
+        String precoS = request.getParameter("preco");
+        String quantidadeS = request.getParameter("quantidade");
+
+        precoS = precoS.replace(".", "'");
+        precoS = precoS.replace(",", ".");
+        precoS = precoS.replace("'", "");
        
-        //JOptionPane.showMessageDialog(null, preco);
+        quantidadeS = quantidadeS.replace(".", "'");
+        quantidadeS = quantidadeS.replace(",", ".");
+        quantidadeS = quantidadeS.replace("'", "");
+
+        Double preco = Double.parseDouble(precoS);
+        Double quantidade = Double.parseDouble(quantidadeS);
+        
+        String modo = request.getParameter("modo");
+
         int idUsuario = (int) request.getSession().getAttribute("idUsuario");
 
         ProdutoDAO produtoDAO = new ProdutoDAO();
-       
+
         Produto produto = new Produto(nome, unidade, preco, quantidade, modo, idUsuario);
-        JOptionPane.showMessageDialog(null, produto.getPreco());
         try {
 
             if (nome.equals("") || modo.equals("")) {
@@ -83,8 +93,8 @@ public class CadastraProdutoServlet extends HttpServlet {
 
             try {
                 int idProdu = produtoDAO.salvarProduto(produto);
-               
-               request.setAttribute("idProduto", idProdu);
+
+                request.setAttribute("idProduto", idProdu);
                 request.setAttribute("tipo", "suce");
                 request.setAttribute("mensagem", "Produto Cadastrado!");
                 request.getRequestDispatcher("/newjsp.jsp").forward(request, response);

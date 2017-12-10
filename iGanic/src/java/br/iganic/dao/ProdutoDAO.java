@@ -96,7 +96,6 @@ public class ProdutoDAO implements DAO {
             ps.setString(1, produto.getNome());
             ps.setDouble(3, produto.getPreco());
             ps.setString(2, produto.getUnidade());
-//            JOptionPane.showMessageDialog(null, produto.getUnidade());
             ps.setDouble(4, produto.getQuantidade());
             ps.setString(5, produto.getModoProducao());
             ps.setInt(6, produto.getIdUsuario());
@@ -108,7 +107,7 @@ public class ProdutoDAO implements DAO {
             }
 
         } catch (SQLException sqle) {
-            JOptionPane.showMessageDialog(null, sqle.getMessage());
+            System.out.println("Erro ao cadastrar o produto: "+sqle.getMessage());
             throw new Exception(sqle);
         } finally {
             ConnectionDAO.closeConnection(conn, ps);

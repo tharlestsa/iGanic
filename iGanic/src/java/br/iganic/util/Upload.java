@@ -75,10 +75,10 @@ public class Upload {
                                 fileName = optionalFileName;
                             }
                             
-                            String dirName = request.getServletContext().getRealPath("/img/");
+                            String dirName = request.getServletContext().getRealPath("/img_produtos/");
                             File saveTo = new File(dirName + fileName);
                             name = fileName;
-                            //System.out.println("caminho: " + saveTo.toString() );
+                            System.out.println("caminho: " + saveTo.toString() );
                             try {
                                 fileItem.write(saveTo);
                             } catch (Exception e) {

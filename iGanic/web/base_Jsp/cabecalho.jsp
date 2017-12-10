@@ -44,8 +44,13 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
             <div id="div-logo">
-                <a id="logo" class="navbar-brand" href="<% if (Sessao.existeSessao(request)) {
+                <a id="logo" class="navbar-brand" href="<%
+                    String produto = (request.getSession().getAttribute("tipoUsuario") != null) ? request.getSession().getAttribute("tipoUsuario").toString() : "";
+
+                    if (Sessao.existeSessao(request) && produto.equals("C")) {
                         out.print("./principal.jsp");
+                    } else if (Sessao.existeSessao(request) && produto.equals("F")) {
+                        out.print("./pedidosFornecedor.jsp");
                     } else {
                         out.print("./index.jsp");
                     }%>">iGanic</a>

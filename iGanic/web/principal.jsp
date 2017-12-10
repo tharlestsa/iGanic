@@ -55,11 +55,11 @@
                     for (Fornecedor forn : fornecedores) {
                         if (i == 0) {
                             out.print("<div class='carousel-item active img-carousel'>"
-                                    + "      <img class='d-block img-fluid' src='./img_produtos/" + forn.getImagem().getNome() + "'/>"
+                                    + "      <img  class='d-block img-fluid' src='./img_produtos/" + forn.getImagem().getNome() + "' alt='Sem imagem'/>"
                                     + " </div>");
                         } else {
                             out.print("<div class='carousel-item img-carousel'>"
-                                    + "      <img class='d-block img-fluid' src='./img_produtos/" + forn.getImagem().getNome() + "'/>"
+                                    + "      <img  class='d-block img-fluid' src='./img_produtos/" + forn.getImagem().getNome() + "'alt='Sem imagem' />"
                                     + " </div>");
                         }
                         i++;

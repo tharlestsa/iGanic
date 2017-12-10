@@ -1,7 +1,7 @@
 
 DELIMITER $$
 CREATE FUNCTION `cadastraProduto`(
-	`nome` VARCHAR(45), 
+    `nome` VARCHAR(45), 
     `unidade ` VARCHAR(2),
     `preco` DOUBLE,
     `quantidade` DOUBLE,
@@ -9,7 +9,7 @@ CREATE FUNCTION `cadastraProduto`(
     `idUsuario` INT)
     RETURNS INT NOT DETERMINISTIC NO SQL SQL SECURITY DEFINER 
     BEGIN
-		INSERT INTO `iGanic`.`Produtos`(`idProduto`, `nome`, `unidade`, `preco`, `quantidade`, `modoProducao`, `idUsuario`)
+		INSERT INTO `iGanic`.`Produtos`(`nome`, `unidade`, `preco`, `quantidade`, `modoProducao`, `idUsuario`)
 			VALUES(nome, unidade, preco, quantidade, modoProducao, idUsuario);
 
 RETURN LAST_INSERT_ID(); 
