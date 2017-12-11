@@ -63,16 +63,13 @@ public class AvaliarProdutoDAO implements DAO {
             ps = conn.prepareStatement("INSERT INTO `iGanic`.`Avaliacoes`(`nota`, `comentario`, `idProduto`) VALUES ((?),(?),(?))");
             
             ps.setInt(1, avaliacao.getNota());
-            JOptionPane.showMessageDialog(null, avaliacao.getNota());
             ps.setString(2, avaliacao.getComentario());
-            JOptionPane.showMessageDialog(null, avaliacao.getComentario());
             ps.setInt(3, avaliacao.getIdProduto());
-            JOptionPane.showMessageDialog(null, avaliacao.getIdProduto());
 
             ps.executeUpdate();
 
         } catch (SQLException sqle) {
-            JOptionPane.showMessageDialog(null, sqle.getMessage());
+//            JOptionPane.showMessageDialog(null, sqle.getMessage());
             throw new Exception(sqle);
         } finally {
             ConnectionDAO.closeConnection(conn, ps);

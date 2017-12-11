@@ -70,7 +70,6 @@ public class AvaliarProdutoServlet extends HttpServlet {
                 request.getRequestDispatcher("/avaliarProduto.jsp").forward(request, response);
 
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
                 request.setAttribute("tipo", "erro");
                 request.setAttribute("mensagem", "Nao foi possivel avaliar esse produto!!");
                 request.getRequestDispatcher("/avaliarProduto.jsp").forward(request, response);

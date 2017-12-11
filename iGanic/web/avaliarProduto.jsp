@@ -31,9 +31,12 @@
                         <div class="col-md-12">
                             <label>Nome produto</label>
                             <%
+                                
                                 ProdutoDAO produtoDao = new ProdutoDAO();
+                                
                                 int idProd = (int) request.getAttribute("idProduto");
                                 Produto produto = produtoDao.buscaProduto(idProd);
+                                
                                 UsuarioDAO usuarioDAO = new UsuarioDAO();
                                 Usuario usu = new Usuario(produto.getIdUsuario());
                                 ArrayList<Usuario> usuarios = null;
@@ -53,6 +56,7 @@
 
                                 }
                             %>
+                          
                             <input class="form-control" type="text" id="nome" name="nome" value="<%=nomeProduto%>" disabled="">
                         </div>
                     </div>

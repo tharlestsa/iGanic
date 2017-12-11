@@ -13,6 +13,8 @@ import br.iganic.model.Produto;
 import br.iganic.view.Mensagem;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -76,7 +78,19 @@ public class PedidosClienteServlet extends HttpServlet {
 
         //guilherme
         if (acao.equals("avaliar")) {
-            request.getRequestDispatcher("./avaliarProduto.jsp").forward(request, response);
+            String idPedido = request.getParameter("idPedido");
+            ProdutoDAO produtoDAO = new ProdutoDAO();
+
+            try {
+                PedidoCliente p = dao.buscaPedido(Integer.parseInt(idPedido));
+                Produto produto = produtoDAO.buscaProduto(Integer.parseInt(p.getIdProduto()));
+
+                request.setAttribute("idProduto", produto.getIdProduto());
+                request.getRequestDispatcher("/avaliarProduto.jsp").forward(request, response);
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
 
         try {
@@ -86,7 +100,7 @@ public class PedidosClienteServlet extends HttpServlet {
 
         }
 
-        if(pedidos.isEmpty()){
+        if (pedidos.isEmpty()) {
             request.setAttribute("mensagem", new Mensagem("info", "Nenhum pedido foi encontrado!"));
         }
         request.setAttribute("pedidos", pedidos);

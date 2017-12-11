@@ -4,6 +4,7 @@
     Author     : rafael
 --%>
 
+<%@page import="javax.swing.JOptionPane"%>
 <%@page import="br.iganic.util.Label"%>
 <%@page import="br.iganic.util.Input"%>
 <%@page import="br.iganic.util.Button"%>
@@ -50,6 +51,7 @@
                 case "F":
                     status = "Finalizado";
                     acao = "<form action='./pedidosCliente' method='POST'>"
+                            + new Input("hidden", p.getIdPedido(), "idPedido", null, new Label(""))
                             + new Input("hidden", p.getIdProduto(), "idProduto", null, new Label(""))
                             + new Button("submit", "avaliar", "action", null, "Avaliar", "btn btn-warning")
                             + "</form>";
