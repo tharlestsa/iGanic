@@ -45,7 +45,7 @@
         Usuario usu = new Usuario(null, null, null, null, null, lat, lng, null, null, null, 0);
 
 //        fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedoresProxDoCliente(usu);
-        fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedores(new Fornecedor(usu, new Produto(produto, null, null, null, null, 0)));
+            fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedores(new Fornecedor(usu, new Produto(produto, null, null, null, null, 0)));
     } catch (Exception e) {
         System.out.println("Exceção na busca dos fornecedores: " + e.getMessage());
     }

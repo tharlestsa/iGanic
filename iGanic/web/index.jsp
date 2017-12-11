@@ -59,7 +59,7 @@
                         <button type="submit" id="acao" name="acao" value="entrar" class="btn btn-success btn-block">Entrar</button>
                     </form>
                     <div class="text-center">
-                        <a class="d-block small mt-3" href="./cadastra_usuario.jsp">Cadastrar novo usuário</a>
+                        <a class="d-block small mt-3" href="./usuario?acao=encaminhar">Cadastrar novo usuário</a>
                     </div>
                 </div>
             </div>

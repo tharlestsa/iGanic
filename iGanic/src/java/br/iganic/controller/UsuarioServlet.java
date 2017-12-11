@@ -33,6 +33,9 @@ public class UsuarioServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF8");
+
+        Sessao.trataSessao(request, response);
+
         String acao = (request.getParameter("acao") != null) ? request.getParameter("acao").toLowerCase() : "";
 
         switch (acao) {
@@ -50,6 +53,9 @@ public class UsuarioServlet extends HttpServlet {
                 break;
             case "buscausuario":
                 this.buscaUsuario(request, response);
+                break;
+            case "encaminhar":
+                request.getRequestDispatcher("/cadastra_usuario.jsp").forward(request, response);
                 break;
 
             default:
