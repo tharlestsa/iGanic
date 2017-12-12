@@ -42,10 +42,9 @@
 
         Double lat = Double.parseDouble(request.getSession().getAttribute("lat").toString());
         Double lng = Double.parseDouble(request.getSession().getAttribute("lng").toString());
-        Usuario usu = new Usuario(null, null, null, null, null, lat, lng, null, null, null, 0);
+        Usuario usu = new Usuario(lat, lng);
 
-//        fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedoresProxDoCliente(usu);
-            fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedores(new Fornecedor(usu, new Produto(produto, null, null, null, null, 0)));
+        fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedores(new Fornecedor(usu, new Produto(produto, null, null, null, null, 0)));
     } catch (Exception e) {
         System.out.println("Exceção na busca dos fornecedores: " + e.getMessage());
     }
@@ -59,9 +58,9 @@
     table.setId("tabela-busca");
 
     for (Fornecedor forn : fornecedores) {
-        String pedir = "    <form class='form-inline' action='./efetuarPedidos' method='POST'>"
+        String pedir = "<form class='form-inline' action='./efetuarPedidos' method='POST'>"
                 + "        <div class='input-group input-group-md'>"
-                + "           <input class='form-control' type='hidden' name='idProduto' id='idProduto' value='" + String.valueOf(forn.getProduto().getIdProduto()) + "'>"
+                + "           <input class='form-control' type='hidden' name='idProduto' id='idProduto' value='"+ String.valueOf(forn.getProduto().getIdProduto()) +"'>"
                 + "               <span class='input-group'>"
                 + "               <button class='btn btn-success' id='acao' name='acao' value='buscar' type='submit'>"
                 + "                       <i class='fa fa-cart-arrow-down'></i>"

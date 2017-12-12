@@ -67,3 +67,5 @@
 
     %>
 </div>
+
+<jsp:include page="./base_Jsp/rodape.jsp" />

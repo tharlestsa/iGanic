@@ -28,8 +28,8 @@ public class BuscaProdutosServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String acao = (request.getParameter("acao") != null) ? request.getParameter("acao").toLowerCase().toString() : "";
-            String produto = (request.getParameter("buscaProduto") != null) ? request.getParameter("buscaProduto").toLowerCase().toString() : "";
+            String acao = (request.getParameter("acao") != null) ? request.getParameter("acao").toString() : "";
+            String produto = (request.getParameter("buscaProduto") != null) ? request.getParameter("buscaProduto").toString() : "";
             switch (acao) {
                 case "buscar":
                     if (produto.isEmpty()) {
@@ -86,7 +86,7 @@ public class BuscaProdutosServlet extends HttpServlet {
     }// </editor-fold>
 
     public void buscaProdutos(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String produto = (request.getParameter("buscaProduto") != null) ? request.getParameter("buscaProduto").toLowerCase().toString() : "";
+        String produto = (request.getParameter("buscaProduto") != null) ? request.getParameter("buscaProduto").toString() : "";
         request.getSession().setAttribute("nomeProduto", produto);
         ArrayList<Fornecedor> fornecedores = null;
 

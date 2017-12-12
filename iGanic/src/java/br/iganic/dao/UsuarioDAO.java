@@ -148,6 +148,66 @@ public class UsuarioDAO implements DAO {
         return idInserido;
     }
 
+    public Boolean editaUsuario(Object ob) throws Exception {
+        Usuario usuario = (Usuario) ob;
+
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+
+        Boolean editou = false;
+
+        try {
+            conn = ConnectionDAO.getConnection();
+            ps = conn.prepareStatement(" UPDATE `Usuarios` SET "
+                    + "`nome`=?,"
+                    + "`cpf`=?,"
+                    + "`cel`=?,"
+                    + "`email`=?,"
+                    + "`lat`=?,"
+                    + "`lng`=?,"
+                    + "`rua`=?,"
+                    + "`num`=?,"
+                    + "`comp`=?,"
+                    + "`bairro`=?,"
+                    + "`cidade`=?,"
+                    + "`uf`=?,"
+                    + "`tipo`=?,"
+                    + "`usuario`=?,"
+                    + "`senha`=?"
+                    + " WHERE `idUsuario`=? ");
+            ps.setString(1, usuario.getNome());
+            ps.setString(2, usuario.getCpf());
+            ps.setString(3, usuario.getCel());
+            ps.setString(4, usuario.getEmail());
+            ps.setDouble(5, usuario.getLat());
+            ps.setDouble(6, usuario.getLng());
+            ps.setString(7, usuario.getRua());
+            ps.setString(8, usuario.getNum());
+            ps.setString(9, usuario.getComp());
+            ps.setString(10, usuario.getBairro());
+            ps.setString(11, usuario.getCidade());
+            ps.setString(12, usuario.getUf());
+            ps.setString(13, usuario.getTipo());
+            ps.setString(14, usuario.getUsuario());
+            ps.setString(15, usuario.getSenha());
+            ps.setInt(16, usuario.getIdUsuario());
+            
+            
+            
+            int i = ps.executeUpdate();
+            editou = true;
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage() + "\n\n\n");
+            throw new Exception(sqle);
+        } finally {
+            ConnectionDAO.closeConnection(conn, ps);
+        }
+
+        return editou;
+    }
+
     public List buscaUsuarioPorCpf(Object ob) throws Exception {
         Usuario usu = (Usuario) ob;
 
@@ -264,8 +324,8 @@ public class UsuarioDAO implements DAO {
                         rs.getString(5),
                         rs.getDouble(6),
                         rs.getDouble(7),
-                        rs.getString(9),
                         rs.getString(8),
+                        rs.getString(9),
                         rs.getString(10),
                         rs.getString(11),
                         rs.getString(12),
@@ -277,6 +337,7 @@ public class UsuarioDAO implements DAO {
             }
 
         } catch (SQLException sqle) {
+            System.out.println("Erro na consulta: " + sqle.getMessage());
             throw new Exception(sqle);
         } finally {
             ConnectionDAO.closeConnection(conn, ps, rs);
