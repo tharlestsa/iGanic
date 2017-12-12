@@ -35,21 +35,6 @@
         String qtd;
         for (PedidoCliente p : pedidos) {
             qtd = p.getQtd() + " " + p.getUnidade();
-            AvaliarProdutoDAO avaDao = new AvaliarProdutoDAO();
-
-            Button botaoAvaliacao = new Button();
-            Boolean avaliou = false;
-
-            try {
-                avaliou = avaDao.verificaAvaliacaoDoPedido(p);
-            } catch (Exception e) {
-            }
-
-            if (avaliou) {
-            } else {
-                botaoAvaliacao =  new Button("submit", "avaliar", "action", null, "Avaliar", "btn btn-warning");
-            }
-
             String acao = "";
             String status = "";
             switch (p.getStatus()) {
@@ -68,7 +53,7 @@
                     acao = "<form action='./pedidosCliente' method='POST'>"
                             + new Input("hidden", p.getIdPedido(), "idPedido", null, new Label(""))
                             + new Input("hidden", p.getIdProduto(), "idProduto", null, new Label(""))
-                            + botaoAvaliacao
+                            + new Button("submit", "avaliar", "action", null, "Avaliar", "btn btn-warning")
                             + "</form>";
                     break;
             }

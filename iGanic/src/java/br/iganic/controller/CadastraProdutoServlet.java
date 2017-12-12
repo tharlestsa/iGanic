@@ -109,8 +109,7 @@ public class CadastraProdutoServlet extends HttpServlet {
             }
 
         } catch (Exception ex) {
-            response.getWriter().println(ex.getMessage());
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
 
     }
@@ -124,7 +123,6 @@ public class CadastraProdutoServlet extends HttpServlet {
         precoS = precoS.replace(".", "'");
         precoS = precoS.replace(",", ".");
         precoS = precoS.replace("'", ".");
-        JOptionPane.showMessageDialog(null, precoS);
 
         quantidadeS = quantidadeS.replace(".", "'");
         quantidadeS = quantidadeS.replace(",", ".");
@@ -164,8 +162,7 @@ public class CadastraProdutoServlet extends HttpServlet {
             }
 
         } catch (Exception ex) {
-            response.getWriter().println(ex.getMessage());
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
     }
 
