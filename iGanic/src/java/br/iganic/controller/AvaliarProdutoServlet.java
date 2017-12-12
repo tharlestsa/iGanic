@@ -62,7 +62,7 @@ public class AvaliarProdutoServlet extends HttpServlet {
         AvaliarProduto avaliar = new AvaliarProduto(nota, comentario, idProduto);
 
         try {
-            AvaliarProduto avaliado = avaliarDAO.verificaAvaliacaoDoPedido();
+            AvaliarProduto avaliado = avaliarDAO.buscaAvaliacao(idProduto);
           
             
         } catch (Exception ex) {
