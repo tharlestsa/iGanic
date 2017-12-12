@@ -36,7 +36,7 @@ public class UsuarioServlet extends HttpServlet {
 
         String acao = (request.getParameter("acao") != null) ? request.getParameter("acao").toLowerCase() : "";
 
-        if ("encaminhar".equals(acao)) {
+        if ("encaminhar".equals(acao) || "registrar".equals(acao)) {
             //continua sem tratar a sessão, pois será direcinada para o cadastro de novo usuário. 
         } else {
             Sessao.trataSessao(request, response);
