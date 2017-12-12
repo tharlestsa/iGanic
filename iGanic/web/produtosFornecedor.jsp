@@ -32,7 +32,7 @@ Author     : guilherme
             conteudo += request.getAttribute("mensagem");
         }
 
-        Tabela table = new Tabela("Pedidos", new String[]{"#", "Produto", "Preco", "Quantidade", "Ação"});
+        Tabela table = new Tabela("Produtos", new String[]{"#", "Produto", "Preco", "Quantidade", "Ação"});
         String qtd;
         for (Produto p : produtos) {
             String acao = "";
