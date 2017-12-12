@@ -69,14 +69,14 @@ public class CadastraProdutoServlet extends HttpServlet {
         precoS = precoS.replace(".", "'");
         precoS = precoS.replace(",", ".");
         precoS = precoS.replace("'", "");
-       
+
         quantidadeS = quantidadeS.replace(".", "'");
         quantidadeS = quantidadeS.replace(",", ".");
         quantidadeS = quantidadeS.replace("'", "");
 
         Double preco = Double.parseDouble(precoS);
         Double quantidade = Double.parseDouble(quantidadeS);
-        
+
         String modo = request.getParameter("modo");
 
         int idUsuario = (int) request.getSession().getAttribute("idUsuario");
@@ -114,8 +114,8 @@ public class CadastraProdutoServlet extends HttpServlet {
         }
 
     }
-    
-    public void editarProduto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+    public void editarProduto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nome = request.getParameter("nome");
         String unidade = request.getParameter("unidade");
         String precoS = request.getParameter("preco");
@@ -124,21 +124,21 @@ public class CadastraProdutoServlet extends HttpServlet {
         precoS = precoS.replace(".", "'");
         precoS = precoS.replace(",", ".");
         precoS = precoS.replace("'", "");
-       
+
         quantidadeS = quantidadeS.replace(".", "'");
         quantidadeS = quantidadeS.replace(",", ".");
         quantidadeS = quantidadeS.replace("'", "");
 
         Double preco = Double.parseDouble(precoS);
         Double quantidade = Double.parseDouble(quantidadeS);
-        
-        String modo = request.getParameter("modo");
 
+        String modo = request.getParameter("modo");
+        int idProd = Integer.parseInt(request.getParameter("idProduto"));
         int idUsuario = (int) request.getSession().getAttribute("idUsuario");
-       
+
         ProdutoDAO produtoDAO = new ProdutoDAO();
 
-        Produto produto = new Produto(1, nome, unidade, preco, quantidade, modo, idUsuario);
+        Produto produto = new Produto(idProd, nome, unidade, preco, quantidade, modo, idUsuario);
         try {
 
             if (nome.equals("") || modo.equals("")) {
@@ -151,9 +151,10 @@ public class CadastraProdutoServlet extends HttpServlet {
 
             try {
                 produtoDAO.atualizar(produto);
+                request.setAttribute("idProduto", produto.getIdProduto());
                 request.setAttribute("tipo", "suce");
                 request.setAttribute("mensagem", "Produto Alterado!");
-                request.getRequestDispatcher("/cadastra_produto.jsp").forward(request, response);
+                request.getRequestDispatcher("/newjsp.jsp").forward(request, response);
 
             } catch (Exception ex) {
                 request.setAttribute("tipo", "erro");

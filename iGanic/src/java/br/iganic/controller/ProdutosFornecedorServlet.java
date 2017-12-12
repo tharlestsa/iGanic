@@ -20,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -53,6 +54,7 @@ public class ProdutosFornecedorServlet extends HttpServlet {
 
         if (acao.equals("editar")) {
             String idProduto = request.getParameter("idProduto");
+            request.setAttribute("idProduto", idProduto);
             request.getRequestDispatcher("./edita_produto.jsp").forward(request, response);
 
         }
@@ -67,7 +69,7 @@ public class ProdutosFornecedorServlet extends HttpServlet {
         if (produtos.isEmpty()) {
             request.setAttribute("mensagem", new Mensagem("info", "Nenhum produto foi encontrado!"));
         }
-        request.setAttribute("produtos", produtos);
+        request.setAttribute("produto", produtos);
         request.getRequestDispatcher("./produtosFornecedor.jsp").forward(request, response);
     }
 
