@@ -67,8 +67,8 @@ public class EfetuarPedidoServlet extends HttpServlet {
 
                 PedidoDAO pedidoDao = new PedidoDAO();
                 LocalDateTime data = LocalDateTime.now();
-
-                Float quantidade = Float.parseFloat(request.getParameter("quantidade"));
+                String qtde = request.getParameter("quantidade").replace(",", "."); 
+                Float quantidade = Float.parseFloat(qtde);
 
                 int idUsuario = (int) request.getSession().getAttribute("idUsuario");
 

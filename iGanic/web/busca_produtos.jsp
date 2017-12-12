@@ -20,7 +20,7 @@
 
 
 <section id="mapa-produtos">
-    <div class="barra-titulo"><center><label class="label-titulo" >Alimentos dispostos no mapa pelo <a id="logo-corpo">iGanic</a>!</label> </center></div>
+    <div class="barra-titulo"><center><label class="label-titulo" >O alimento pesquisado é exibido no mapa pelo <a id="logo-corpo">iGanic</a>!</label> </center></div>
             <% if (request.getAttribute("mensagem") != null) {
                     out.print(new Mensagem(request.getAttribute("tipo").toString(), String.valueOf(request.getAttribute("mensagem"))));
                 }
