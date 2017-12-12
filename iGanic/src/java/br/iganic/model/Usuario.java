@@ -27,21 +27,19 @@ public class Usuario {
 
     public Usuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
-        
+
     }
 
     public Usuario(Double lat, Double lng) {
         this.lat = lat;
         this.lng = lng;
     }
-    
 
     public Usuario(String cpf, String usuario, String senha) {
         this.cpf = cpf;
         this.usuario = usuario;
         this.senha = senha;
     }
-   
 
     public Usuario(String nome, String cpf, String cel, String email, Double lat, Double lng, String rua, String num, String comp, String bairro, String cidade, String uf, String tipo, String usuario, String senha) {
         this.nome = nome;
@@ -137,7 +135,12 @@ public class Usuario {
     }
 
     public String getRua() {
-        return rua;
+        if (this.rua == null) {
+            return "";
+        } else {
+            return rua;
+        }
+
     }
 
     public void setRua(String rua) {
@@ -145,7 +148,11 @@ public class Usuario {
     }
 
     public String getNum() {
-        return num;
+        if (num == null) {
+            return "";
+        } else {
+            return num;
+        }
     }
 
     public void setNum(String num) {
@@ -153,7 +160,11 @@ public class Usuario {
     }
 
     public String getComp() {
-        return comp;
+        if (comp == null) {
+            return "";
+        } else {
+            return comp;
+        }
     }
 
     public void setComp(String comp) {
@@ -161,7 +172,11 @@ public class Usuario {
     }
 
     public String getBairro() {
-        return bairro;
+        if (bairro == null) {
+            return "";
+        } else {
+            return bairro;
+        }
     }
 
     public void setBairro(String bairro) {
@@ -169,7 +184,11 @@ public class Usuario {
     }
 
     public String getCidade() {
-        return cidade;
+        if (cidade == null) {
+            return "";
+        } else {
+            return cidade;
+        }
     }
 
     public void setCidade(String cidade) {
@@ -177,7 +196,11 @@ public class Usuario {
     }
 
     public String getUf() {
-        return uf;
+        if (uf == null) {
+            return "";
+        } else {
+            return uf;
+        }
     }
 
     public void setUf(String uf) {

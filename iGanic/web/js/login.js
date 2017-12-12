@@ -24,7 +24,6 @@ $(document).on('keypress', "#usuario", function () {
 
 $().ready(function () {
 
-    // validate the comment form when it is submitted
     $("#form-login").validate({
         rules: {
             usuario: {

@@ -152,30 +152,30 @@ $(document).on('blur', "#cep", function () {
             $("#lat").val('');
             $("#lng").val('');
             console.log(JSON.stringify(retorno));
-            buscarCidadeEEstado(retorno);
 
-            if ((retorno.logradouro === '' || retorno.logradouro === undefined) || (retorno.bairro === '' || retorno.bairro === undefined)) {
+            if ((retorno.localidade === '' || retorno.localidade === undefined) || (retorno.uf === '' || retorno.uf === undefined)) {
+                $('#rua').attr('readonly', true);
+                $('#numero').attr('readonly', true);
+                $('#bairro').attr('readonly', true);
+                $('#comp').attr('readonly', true);
+                $('#cidade').attr('readonly', true);
+                $('#estado').attr('readonly', true);
+                $("[data-toggle='cep']").tooltip('show');
 
-                if ((retorno.cidade === '' || retorno.cidade === undefined)) {
-                    $('#rua').attr('readonly', false);
-                    $('#numero').attr('readonly', false);
-                    $('#comp').attr('readonly', false);
-                    $('#bairro').attr('readonly', false);
-                } else {
-                    $("[data-toggle='cep']").tooltip('show');
-                    $('#cidade').attr('readonly', true);
-                    $('#estado').attr('readonly', true);
-                }
-
-
+            } else if (retorno.logradouro === '') {
+                $('#rua').attr('readonly', false);
+                $('#comp').attr('readonly', false);
+                $('#bairro').attr('readonly', false);
+                $('#numero').attr('readonly', false);
             } else {
                 $('#numero').attr('readonly', false);
                 $('#comp').attr('readonly', false);
                 $('#rua').val(retorno.logradouro);
                 $('#comp').val(retorno.complemento);
                 $('#bairro').val(retorno.bairro);
-
             }
+            $('#cidade').val(retorno.localidade);
+            $('#estado').val(retorno.uf);
             buscarPointDoCep(cepSemPonto);
         },
         error: function () {

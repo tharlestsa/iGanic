@@ -44,6 +44,13 @@
                         System.out.println(e.getMessage());
                         e.printStackTrace();
                     }
+
+                    String rua = usuarioModel.getRua();
+                    String num = usuarioModel.getNum();
+                    String comp = usuarioModel.getComp();
+                    String bairro = usuarioModel.getBairro();
+                    String cidade = usuarioModel.getCidade();
+                    String estado = usuarioModel.getUf();
                 %>
                 <div class="form-group">
                     <div class="form-row">
@@ -65,7 +72,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="inputCel">Celular</label>
-                            <input class="form-control" id="cel" name="cel" type="tel" value="<%out.print(usuarioModel.getCel()); %>" placeholder="nº de celular">
+                            <input class="form-control" id="cel" name="cel" type="tel" value="<%out.print(usuarioModel.getCel());%>" placeholder="nº de celular">
                         </div>
                     </div>
                 </div>
@@ -77,11 +84,11 @@
                         </div>
                         <div class="col-md-6">
                             <label for="inputRua">Rua</label>
-                            <input class="form-control" id="rua" name="rua" value="<% out.print((usuarioModel.getRua().isEmpty() || usuarioModel.getRua().toLowerCase().equals("null")) ? usuarioModel.getRua() : ""); %>" type="text" placeholder="Informe a rua de sua residência">
+                            <input class="form-control" id="rua" name="rua" value="<%=rua%>" type="text" placeholder="Informe a rua de sua residência">
                         </div>
                         <div class="col-md-2">
                             <label for="inputNumero">nº</label>
-                            <input class="form-control" id="numero" name="numero" value="<% out.print((usuarioModel.getNum().isEmpty() || usuarioModel.getNum().toLowerCase().equals("null")) ? usuarioModel.getNum() : ""); %>" type="text" placeholder="Número">
+                            <input class="form-control" id="numero" name="numero" value="<%=num%>" type="text" placeholder="Número">
                         </div>
 
                     </div>
@@ -90,11 +97,11 @@
                     <div class="form-row">
                         <div class="col-md-6">
                             <label for="inputComp">Complemento</label>
-                            <input class="form-control" id="comp" name="comp"  value="<% out.print((usuarioModel.getComp().isEmpty() || usuarioModel.getComp().toLowerCase().equals("null")) ? usuarioModel.getComp() : ""); %>"type="text" placeholder="Complemento">
+                            <input class="form-control" id="comp" name="comp"  value="<%=comp%>" type="text" placeholder="Complemento">
                         </div>
                         <div class="col-md-6">
                             <label for="inputBairro">Bairro</label>
-                            <input class="form-control" id="bairro" name="bairro" value="<% out.print((usuarioModel.getBairro().isEmpty() || usuarioModel.getBairro().toLowerCase().equals("null")) ? usuarioModel.getBairro() : "");%>" type="text" placeholder="Informe o seu bairro">
+                            <input class="form-control" id="bairro" name="bairro" value="<%=bairro%>" type="text" placeholder="Informe o seu bairro">
                         </div>
                     </div>
                 </div>
@@ -102,11 +109,11 @@
                     <div class="form-row">
                         <div class="col-md-6">
                             <label for="inputCidade">Cidade</label>
-                            <input class="form-control" id="cidade" name="cidade"  value="<% out.print((usuarioModel.getCidade().isEmpty() || usuarioModel.getCidade().toLowerCase().equals("null")) ? usuarioModel.getCidade() : ""); %>" >
+                            <input class="form-control" id="cidade" name="cidade"  value="<%=cidade%>" >
                         </div>
                         <div class="col-md-6">
                             <label for="inputEstado">Estado</label>
-                            <input class="form-control" id="estado" name="estado" value="<% out.print((usuarioModel.getUf().isEmpty() || usuarioModel.getUf().toLowerCase().equals("null")) ? usuarioModel.getUf() : ""); %>" >
+                            <input class="form-control" id="estado" name="estado" value="<%=estado%>" >
                         </div>
                     </div>
                 </div>
@@ -114,7 +121,7 @@
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-6">
-                            <label for="inputTipo">Tipo da Conta</label>${sessionScope.tipoUsuario}
+                            <label for="inputTipo">Tipo da Conta</label>
                             <select class="form-control" id="tipo" name="tipo" disabled="">
                                 <option value="-1" >Informe o tipo da conta do usuário</option>
                                 <c:choose>
@@ -146,9 +153,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="form-row">
+
+                        <div class="col-md-12">
+                            <button type="submit" id="acao" name="acao" value="editar" class="btn btn-success btn-block">Salvar</button>
+                        </div>
+                    </div>
+                </div>
                 <input class="form-control" id="lat" name="lat" type="hidden">
                 <input class="form-control" id="lng" name="lng" type="hidden">
-                <button type="submit" id="acao" name="acao" value="editar" class="btn btn-success btn-block">Salvar</button>
             </form>
 
         </div>

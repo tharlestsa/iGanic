@@ -64,6 +64,10 @@ public class UsuarioServlet extends HttpServlet {
             case "encedicao":
                 request.getRequestDispatcher("/edita_usuario.jsp").forward(request, response);
                 break;
+            case "editar":
+                this.editaUsuario(request, response);
+                break;
+
 
             default:
 
@@ -246,8 +250,8 @@ public class UsuarioServlet extends HttpServlet {
             e.getMessage();
         }
     }
-    
-     private void editaUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+    private void editaUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try (PrintWriter out = response.getWriter()) {
             String nome = request.getParameter("nome");
             String cpf = request.getParameter("cpf");
@@ -271,21 +275,13 @@ public class UsuarioServlet extends HttpServlet {
 
             try {
 
-                Integer idUsuario = usuDao.salvarUsuario(new Usuario(nome, cpf, cel, email, lat, lng, rua, num, comp, bairro, cidade, uf, tipo, usuario, senha));
+                Boolean editou = usuDao.editaUsuario(new Usuario(nome, cpf, cel, email, lat, lng, rua, num, comp, bairro, cidade, uf, tipo, usuario, senha));
 
-                if (idUsuario > 0) {
+                if (editou) {
 
-                    HttpSession sessao = request.getSession(true);
-                    sessao.setAttribute("idUsuario", idUsuario);
-                    sessao.setAttribute("tipoUsuario", tipo);
-                    sessao.setAttribute("lat", lat);
-                    sessao.setAttribute("lng", lng);
-                    if (tipo.equals("C")) {
-                        request.getRequestDispatcher("/principal.jsp").forward(request, response);
-                    } else {
-                        request.getRequestDispatcher("/pedidosFornecedor.jsp").forward(request, response);
-                    }
-
+                    request.setAttribute("tipo", "suce");
+                    request.setAttribute("mensagem", "Os dados do usuário foram atualizados.");
+                    request.getRequestDispatcher("/edita_usuario.jsp").forward(request, response);
                 }
 
             } catch (Exception e) {
@@ -299,7 +295,6 @@ public class UsuarioServlet extends HttpServlet {
             e.getMessage();
         }
     }
-
 
     private void buscaUsuarioPorCpf(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try (PrintWriter out = response.getWriter()) {
