@@ -61,27 +61,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+<!--                <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-4">
                             <label >Produtos</label>
                             <select class="form-control " id="unidade" name="unidade" required="">
                                 <%
-                                    ArrayList<Produto> produtos = new ArrayList();
-                                    ProdutoDAO produtoDAO = new ProdutoDAO();
-                                    Produto produto;
-                                    produtos = produtoDAO.buscaProdutosDoFornecedor(2);
-                                    JOptionPane.showMessageDialog(null, produtos);
-                                    for (Produto prod : produtos) {
-                                        produto = (Produto) prod;
-                                        out.println("<option value " + produto.getNome() + ">" + "<option>");
-                                    }
+//                                    ArrayList<Produto> produtos = new ArrayList();
+//                                    ProdutoDAO produtoDAO = new ProdutoDAO();
+//                                    Produto produto;
+//                                    produtos = produtoDAO.buscaProdutosDosFornecedores(1);
+//                                    for (Produto prod : produtos) {
+//                                        produto = (Produto) prod;
+//                                        out.println("<option value " + produto.getNome() + ">" + "<option>");
+//                                    }
                                 %> 
 
                             </select>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <div class="col-md-12">
                     <input type="hidden" name="id-produto" value="id-produto"/> 
                 </div>

@@ -8,12 +8,12 @@
 <%@page import="br.iganic.view.Mensagem"%>
 
 <jsp:include page="./base_Jsp/cabecalho.jsp">
-    <jsp:param name="titulo" value="Cadastro de Produtos" />
+    <jsp:param name="titulo" value="Edita Produtos" />
 </jsp:include>
 
 <div class="container">
     <div class="card mx-auto mt-5">
-        <div class="card-header" style='font-weight:bold;' >Cadastro de Produto</div>
+        <div class="card-header" style='font-weight:bold;' >Edita Produto</div>
         <div class="card-body ">
             <% if (request.getAttribute("mensagem") != null) {
                     out.print(new Mensagem(String.valueOf(request.getAttribute("tipo")), String.valueOf(request.getAttribute("mensagem"))));
@@ -21,15 +21,15 @@
             %>
             <form id="form-produto" action="./cadastraProdutos" method="post">
                 <%
-                     String idProduto = request.getAttribute("idProduto").toString();
+                    //String idProduto = request.getAttribute("idProduto").toString();
                 %>
-                <div class="col-md-4">
+<!--                <div class="col-md-4">
                     <label >Consulta</label>
                     <select class="form-control " id="unidade" name="unidade" required="">
                         <option value=""></option>
                         <option value=""></option>
                     </select>
-                </div>
+                </div>-->
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-12">

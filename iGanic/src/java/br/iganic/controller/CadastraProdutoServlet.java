@@ -54,7 +54,7 @@ public class CadastraProdutoServlet extends HttpServlet {
                 cadastrarProduto(request, response);
                 break;
             case "editar":
-                request.getRequestDispatcher("./produtosFornecedor.jsp").forward(request, response);
+                editarProduto(request, response);
                 break;
         }
 
@@ -135,31 +135,29 @@ public class CadastraProdutoServlet extends HttpServlet {
         String modo = request.getParameter("modo");
 
         int idUsuario = (int) request.getSession().getAttribute("idUsuario");
-
+       
         ProdutoDAO produtoDAO = new ProdutoDAO();
 
-        Produto produto = new Produto(nome, unidade, preco, quantidade, modo, idUsuario);
+        Produto produto = new Produto(1, nome, unidade, preco, quantidade, modo, idUsuario);
         try {
 
             if (nome.equals("") || modo.equals("")) {
                 request.setAttribute("tipo", "erro");
                 request.setAttribute("mensagem", "Preencha todos os campos!");
-                request.getRequestDispatcher("/cadastra_produto.jsp").forward(request, response);
+                request.getRequestDispatcher("/edita_produto.jsp").forward(request, response);
 
                 return;
             }
 
             try {
                 produtoDAO.atualizar(produto);
-
-                
                 request.setAttribute("tipo", "suce");
-                request.setAttribute("mensagem", "Produto Cadastrado!");
-                request.getRequestDispatcher("/newjsp.jsp").forward(request, response);
+                request.setAttribute("mensagem", "Produto Alterado!");
+                request.getRequestDispatcher("/cadastra_produto.jsp").forward(request, response);
 
             } catch (Exception ex) {
                 request.setAttribute("tipo", "erro");
-                request.setAttribute("mensagem", "Nao foi possivel cadastrar esse produto!!");
+                request.setAttribute("mensagem", "Nao foi possivel editar esse produto!!");
                 request.getRequestDispatcher("/cadastra_produto.jsp").forward(request, response);
             }
 

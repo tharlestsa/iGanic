@@ -10,6 +10,7 @@ import br.iganic.base.DAO;
 import br.iganic.model.Produto;
 import br.iganic.model.Fornecedor;
 import br.iganic.model.Imagem;
+import br.iganic.model.Pedido;
 import br.iganic.model.Usuario;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -59,6 +60,7 @@ public class ProdutoDAO implements DAO {
         }
 
     }
+    
 
     @Override
     public void excluir(Object ob) throws Exception {
@@ -114,6 +116,39 @@ public class ProdutoDAO implements DAO {
         }
 
         return idInserido;
+    }
+
+    public ArrayList buscaProdutosDosFornecedores(int idUsuario) throws Exception {
+        ArrayList<Produto> produtos = new ArrayList();
+
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs;
+
+        try {
+            conn = ConnectionDAO.getConnection();
+            ps = conn.prepareStatement(" select * from Produtos where idUsuario = ?");
+            ps.setInt(1, idUsuario);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Produto p = new Produto();
+                p.setIdProduto(rs.getInt(1));
+                p.setNome(rs.getString(2));
+                p.setUnidade(rs.getString(3));
+                p.setPreco(rs.getDouble(4));
+                p.setQuantidade(rs.getDouble(5));
+                p.setModoProducao(rs.getString(6));
+                p.setIdUsuario(idUsuario);
+                produtos.add(p);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionDAO.closeConnection(conn, ps);
+        }
+
+        return produtos;
     }
 
     public Produto buscaProduto(int idProduto) throws Exception {
@@ -185,7 +220,7 @@ public class ProdutoDAO implements DAO {
                         rs.getString(14),
                         rs.getString(15),
                         rs.getString(16));
-                        
+
                 Produto produto = new Produto(
                         rs.getInt(17),
                         rs.getString(18),
@@ -199,7 +234,7 @@ public class ProdutoDAO implements DAO {
                         rs.getInt(24),
                         rs.getString(25),
                         rs.getInt(26));
-                
+
                 fornecedores.add(new Fornecedor(usuario, produto, imagem));
             }
 
@@ -232,7 +267,7 @@ public class ProdutoDAO implements DAO {
             rs = cl.executeQuery();
 
             while (rs.next()) {
-               Usuario usuario = new Usuario(
+                Usuario usuario = new Usuario(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
@@ -249,7 +284,7 @@ public class ProdutoDAO implements DAO {
                         rs.getString(14),
                         rs.getString(15),
                         rs.getString(16));
-                        
+
                 Produto produto = new Produto(
                         rs.getInt(17),
                         rs.getString(18),

@@ -54,7 +54,7 @@ public class ProdutosFornecedorServlet extends HttpServlet {
         switch (acao) {
             case "listar":
                 try {
-                    produtos = produtoDAO.buscaProdutosDoFornecedor(idUsuario);
+                    produtos = produtoDAO.buscaProdutosDosFornecedores(idUsuario);
                 } catch (Exception e) {
 
                 }
