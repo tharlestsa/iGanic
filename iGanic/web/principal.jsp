@@ -91,7 +91,7 @@
 
             <%
                 for (Fornecedor forn : fornecedores) {
-                     String notaf = null; 
+                    String notaf = null;
                     try {
                         nota = avaDao.buscaNotaDoProduto(forn.getProduto().getIdProduto());
                         DecimalFormat df = new DecimalFormat("0.##");
@@ -111,6 +111,12 @@
                             + "<input type='hidden' name='nome' id='nome' value='" + forn.getProduto().getNome() + "'>"
                             + "<input type='hidden' name='nome' id='fornecedor' value='" + forn.getUsuario().getNome() + "'>"
                             + "<input type='hidden' name='modo' id='modo' value='" + forn.getProduto().getModoProducao() + "'>"
+                            + "<input type='hidden' name='rua' id='rua' value='" + forn.getUsuario().getRua() + "'>"
+                            + "<input type='hidden' name='num' id='num' value='" + forn.getUsuario().getNum() + "'>"
+                            + "<input type='hidden' name='comp' id='comp' value='" + forn.getUsuario().getComp() + "'>"
+                            + "<input type='hidden' name='bairro' id='bairro' value='" + forn.getUsuario().getBairro() + "'>"
+                            + "<input type='hidden' name='cidade' id='cidade' value='" + forn.getUsuario().getCidade() + "'>"
+                            + "<input type='hidden' name='uf' id='uf' value='" + forn.getUsuario().getUf() + "'>"
                             + "</button></label>"
                             + "  <button class='btn btn-success button-pedido' id='acao' name='acao' value='pedir' type='submit'>"
                             + "         <i class='material-icons'>add_shopping_cart</i>"

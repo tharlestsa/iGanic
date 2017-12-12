@@ -136,6 +136,13 @@ public class BuscaProdutosServlet extends HttpServlet {
                 dados.put("img", forn.getImagem().getNome());
                 dados.put("modo", forn.getProduto().getModoProducao());
                 dados.put("nota", notaf);
+
+                dados.put("rua", forn.getUsuario().getRua());
+                dados.put("num", forn.getUsuario().getNum());
+                dados.put("comp", forn.getUsuario().getComp());
+                dados.put("bairro", forn.getUsuario().getBairro());
+                dados.put("cidade", forn.getUsuario().getCidade());
+                dados.put("uf", forn.getUsuario().getUf());
                 filhos.add(dados);
             }
 

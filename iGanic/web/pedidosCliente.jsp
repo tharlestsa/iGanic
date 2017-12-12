@@ -4,6 +4,7 @@
     Author     : rafael
 --%>
 
+<%@page import="br.iganic.dao.AvaliarProdutoDAO"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="br.iganic.util.Label"%>
 <%@page import="br.iganic.util.Input"%>
@@ -34,6 +35,20 @@
         String qtd;
         for (PedidoCliente p : pedidos) {
             qtd = p.getQtd() + " " + p.getUnidade();
+            AvaliarProdutoDAO avaDao = new AvaliarProdutoDAO();
+
+            Button botaoAvaliacao = new Button();
+            Boolean avaliou = false;
+
+            try {
+                avaliou = avaDao.verificaAvaliacaoDoPedido(p);
+            } catch (Exception e) {
+            }
+
+            if (avaliou) {
+            } else {
+                botaoAvaliacao =  new Button("submit", "avaliar", "action", null, "Avaliar", "btn btn-warning");
+            }
 
             String acao = "";
             String status = "";
@@ -53,7 +68,7 @@
                     acao = "<form action='./pedidosCliente' method='POST'>"
                             + new Input("hidden", p.getIdPedido(), "idPedido", null, new Label(""))
                             + new Input("hidden", p.getIdProduto(), "idProduto", null, new Label(""))
-                            + new Button("submit", "avaliar", "action", null, "Avaliar", "btn btn-warning")
+                            + botaoAvaliacao
                             + "</form>";
                     break;
             }

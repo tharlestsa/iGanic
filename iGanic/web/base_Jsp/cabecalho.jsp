@@ -143,7 +143,11 @@
                         </div>
                         <div class="panel panel-default">
                             <h5 class="subtitulo">Modo de Produção</h5><p>
-                            <div id="modo-producao-modal" class="panel-body"></div>
+                            <div id="modo-producao-modal" class="panel-body"></div><br>
+                        </div
+                        <div class="panel panel-default">
+                            <h5 class="subtitulo">Endereço</h5><p>
+                            <div id="endereco-modal" class="panel-body"></div>
                         </div>
                     </div>
                 </div>
