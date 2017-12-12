@@ -107,7 +107,7 @@ public class ProdutoDAO implements DAO {
             }
 
         } catch (SQLException sqle) {
-            System.out.println("Erro ao cadastrar o produto: "+sqle.getMessage());
+            System.out.println("Erro ao cadastrar o produto: " + sqle.getMessage());
             throw new Exception(sqle);
         } finally {
             ConnectionDAO.closeConnection(conn, ps);
@@ -168,9 +168,38 @@ public class ProdutoDAO implements DAO {
             rs = cl.executeQuery();
 
             while (rs.next()) {
-                Usuario usuario = new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getDouble(7), rs.getDouble(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getInt(12));
-                Produto produto = new Produto(rs.getInt(13), rs.getString(14), rs.getString(15), rs.getDouble(16), rs.getDouble(17), rs.getString(18), rs.getInt(19));
-                Imagem imagem = new Imagem(rs.getInt(20), rs.getString(21), rs.getInt(22));
+                Usuario usuario = new Usuario(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDouble(6),
+                        rs.getDouble(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11),
+                        rs.getString(12),
+                        rs.getString(13),
+                        rs.getString(14),
+                        rs.getString(15),
+                        rs.getString(16));
+                        
+                Produto produto = new Produto(
+                        rs.getInt(17),
+                        rs.getString(18),
+                        rs.getString(19),
+                        rs.getDouble(20),
+                        rs.getDouble(21),
+                        rs.getString(22),
+                        rs.getInt(23));
+
+                Imagem imagem = new Imagem(
+                        rs.getInt(24),
+                        rs.getString(25),
+                        rs.getInt(26));
+                
                 fornecedores.add(new Fornecedor(usuario, produto, imagem));
             }
 
@@ -203,9 +232,37 @@ public class ProdutoDAO implements DAO {
             rs = cl.executeQuery();
 
             while (rs.next()) {
-                Usuario usuario = new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getDouble(7), rs.getDouble(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getInt(12));
-                Produto produto = new Produto(rs.getInt(13), rs.getString(14), rs.getString(15), rs.getDouble(16), rs.getDouble(17), rs.getString(18), rs.getInt(19));
-                Imagem imagem = new Imagem(rs.getInt(20), rs.getString(21), rs.getInt(22));
+               Usuario usuario = new Usuario(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDouble(6),
+                        rs.getDouble(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11),
+                        rs.getString(12),
+                        rs.getString(13),
+                        rs.getString(14),
+                        rs.getString(15),
+                        rs.getString(16));
+                        
+                Produto produto = new Produto(
+                        rs.getInt(17),
+                        rs.getString(18),
+                        rs.getString(19),
+                        rs.getDouble(20),
+                        rs.getDouble(21),
+                        rs.getString(22),
+                        rs.getInt(23));
+
+                Imagem imagem = new Imagem(
+                        rs.getInt(24),
+                        rs.getString(25),
+                        rs.getInt(26));
                 fornecedores.add(new Fornecedor(usuario, produto, imagem));
             }
 

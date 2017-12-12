@@ -5,17 +5,21 @@ CREATE FUNCTION `cadastraUsuario` (
      pcpf VARCHAR(20),
      pcel VARCHAR(15),
      pemail VARCHAR(70),
-     pendereco VARCHAR(160),
      plat DOUBLE,
      plng DOUBLE,
+     prua VARCHAR(160),
+     pnum VARCHAR(20),
+     pcomp VARCHAR(45),
+     pbairro VARCHAR(45),
+     pcidade VARCHAR(45),
+     puf VARCHAR(20),
      ptipo VARCHAR(1),
      pusuario VARCHAR(20),
-     psenha VARCHAR(15),
-     pidCidade INT)
+     psenha VARCHAR(15))
 RETURNS INTEGER
 BEGIN
-	INSERT INTO `iGanic`.`Usuarios`(nome, cpf, cel, email, endereco, lat, lng, tipo, usuario, senha, idCidade)
-        VALUES(pnome, pcpf, pcel, pemail, pendereco, plat, plng, ptipo, pusuario, psenha, pidCidade);
+	INSERT INTO `iGanic`.`Usuarios`(nome, cpf, cel, email, lat, lng, rua, num, comp, bairro, cidade, uf, tipo, usuario, senha)
+        VALUES(pnome, pcpf, pcel, pemail, plat, plng, prua, pnum, pcomp, pbairro, pcidade, puf, ptipo, pusuario, psenha);
 
 RETURN LAST_INSERT_ID();
 END $$

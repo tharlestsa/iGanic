@@ -41,16 +41,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
             <div id="div-logo">
-                <a id="logo" class="navbar-brand" href="<%
-                    String produto = (request.getSession().getAttribute("tipoUsuario") != null) ? request.getSession().getAttribute("tipoUsuario").toString() : "";
-
-                    if (Sessao.existeSessao(request) && produto.equals("C")) {
-                        out.print("./principal.jsp");
-                    } else if (Sessao.existeSessao(request) && produto.equals("F")) {
-                        out.print("./pedidosFornecedor.jsp");
-                    } else {
-                        out.print("./index.jsp");
-                    }%>">iGanic</a>
+                <a id="logo" class="navbar-brand" href="./usuario?acao=">iGanic</a>
             </div>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -116,7 +107,7 @@
                             %>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
-                            <a class="dropdown-item" href="./edita_usuario.jsp">
+                            <a class="dropdown-item" href="./usuario?acao=encEdicao">
                                 <%
                                     out.print("<strong>" + usuarioModel.getNome() + "</strong>");
                                     out.print("<div class='dropdown-message small'>Cel: " + usuarioModel.getCel() + "</div>");
@@ -165,7 +156,7 @@
                 <div class="modal-body">Selecione "Sair" somente se estiver pronto para finalizar essa sessão.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a href="./index.jsp" class="btn btn-success " role="button" aria-disabled="true">Sair</a>
+                    <a href="./login?acao=sair" class="btn btn-success " role="button" aria-disabled="true">Sair</a>
                 </div>
             </div>
         </div>

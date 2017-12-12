@@ -112,29 +112,12 @@
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="inputEstado">Estado</label>
-                                <select class="form-control" id="estado" name="estado"  onchange="buscarCidadesDoEstado()">
-                                    <option value="" >Informe o Estado</option>
-                                    <%
-                                        EstadoDAO estDao = new EstadoDAO();
-                                        ArrayList<Estado> estados = null;
-                                        try {
-                                            estados = (ArrayList<Estado>) estDao.listaTodos();
-                                            for (Estado e : estados) {
-                                                out.print("<option value='" + e.getIdEstado() + "' >" + e.getUf() + "</option>");
-                                            }
-                                        } catch (Exception e) {
-
-                                        }
-                                    %>
-
-                                </select>
+                                <label for="inputCidade">Cidade</label>
+                                <input class="form-control" id="cidade" name="cidade" >
                             </div>
                             <div class="col-md-6">
-                                <label for="inputCidade">Cidade</label>
-                                <select class="form-control" id="cidade" name="cidade" >
-                                    <option value="" >Informe a Cidade</option>
-                                </select>
+                                <label for="inputEstado">Estado</label>
+                                <input class="form-control" id="estado" name="estado" >
                             </div>
                         </div>
                     </div>
@@ -173,7 +156,7 @@
                     <button type="submit" id="acao" name="acao" value="registrar" class="btn btn-success btn-block">Registrar</button>
                 </form>
                 <div class="text-center">
-                    <a class="d-block small mt-3" href="index.jsp">Efetuar login</a>
+                    <a class="d-block small mt-3" href="./login?acao=toLogin">Efetuar login</a>
                 </div>
             </div>
         </div>

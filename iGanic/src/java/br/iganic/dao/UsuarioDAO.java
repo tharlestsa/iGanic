@@ -51,13 +51,17 @@ public class UsuarioDAO implements DAO {
                     + "`cpf`, "
                     + "`cel`,"
                     + "`email`, "
-                    + "`endereco`, "
                     + "`lat`, "
                     + "`lng`, "
+                    + "`rua`, "
+                    + "`num`, "
+                    + "`comp`, "
+                    + "`bairro`, "
+                    + "`cidade`, "
+                    + "`uf`, "
                     + "`tipo`, "
                     + "`usuario`, "
                     + "`senha`, "
-                    + "`idCidade` "
                     + "FROM `iGanic`.`Usuarios` WHERE `idUsuario` =  ? ");
 
             ps.setInt(1, usu.getIdUsuario());
@@ -71,13 +75,17 @@ public class UsuarioDAO implements DAO {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getString(6),
+                        rs.getDouble(6),
                         rs.getDouble(7),
-                        rs.getDouble(8),
                         rs.getString(9),
+                        rs.getString(8),
                         rs.getString(10),
                         rs.getString(11),
-                        rs.getInt(12))
+                        rs.getString(12),
+                        rs.getString(13),
+                        rs.getString(14),
+                        rs.getString(15),
+                        rs.getString(16))
                 );
             }
 
@@ -101,25 +109,28 @@ public class UsuarioDAO implements DAO {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
-        CallableStatement cStmt = null;
 
         int idInserido = 0;
 
         try {
             conn = ConnectionDAO.getConnection();
-            ps = conn.prepareStatement(" select cadastraUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
+            ps = conn.prepareStatement(" select cadastraUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
 
             ps.setString(1, usuario.getNome());
             ps.setString(2, usuario.getCpf());
             ps.setString(3, usuario.getCel());
             ps.setString(4, usuario.getEmail());
-            ps.setString(5, usuario.getEndereco());
-            ps.setDouble(6, usuario.getLat());
-            ps.setDouble(7, usuario.getLng());
-            ps.setString(8, usuario.getTipo());
-            ps.setString(9, usuario.getUsuario());
-            ps.setString(10, usuario.getSenha());
-            ps.setInt(11, usuario.getIdCidade());
+            ps.setDouble(5, usuario.getLat());
+            ps.setDouble(6, usuario.getLng());
+            ps.setString(7, usuario.getRua());
+            ps.setString(8, usuario.getNum());
+            ps.setString(9, usuario.getComp());
+            ps.setString(10, usuario.getBairro());
+            ps.setString(11, usuario.getCidade());
+            ps.setString(12, usuario.getUf());
+            ps.setString(13, usuario.getTipo());
+            ps.setString(14, usuario.getUsuario());
+            ps.setString(15, usuario.getSenha());
 
             rs = ps.executeQuery();
 
@@ -128,7 +139,7 @@ public class UsuarioDAO implements DAO {
             }
 
         } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage()+"\n\n\n");
+            System.out.println(sqle.getMessage() + "\n\n\n");
             throw new Exception(sqle);
         } finally {
             ConnectionDAO.closeConnection(conn, ps);
@@ -146,19 +157,7 @@ public class UsuarioDAO implements DAO {
         List<Usuario> usuarios = new ArrayList<>();
         try {
             conn = ConnectionDAO.getConnection();
-            ps = conn.prepareStatement(" SELECT `idUsuario`, "
-                    + "`nome`,"
-                    + "`cpf`, "
-                    + "`cel`,"
-                    + "`email`, "
-                    + "`endereco`, "
-                    + "`lat`, "
-                    + "`lng`, "
-                    + "`tipo`, "
-                    + "`usuario`, "
-                    + "`senha`, "
-                    + "`idCidade` "
-                    + "FROM `iGanic`.`Usuarios` WHERE `cpf` =  ? ");
+            ps = conn.prepareStatement(" SELECT `idUsuario`, `nome`, `cpf`, `cel`, `email`, `lat`, `lng`, `rua`, `num`, `comp`, `bairro`, `cidade`, `uf`, `tipo`, `usuario`, `senha` FROM `Usuarios` WHERE cpf = (?) ");
 
             ps.setString(1, usu.getCpf());
 
@@ -171,13 +170,17 @@ public class UsuarioDAO implements DAO {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getString(6),
+                        rs.getDouble(6),
                         rs.getDouble(7),
-                        rs.getDouble(8),
                         rs.getString(9),
+                        rs.getString(8),
                         rs.getString(10),
                         rs.getString(11),
-                        rs.getInt(12))
+                        rs.getString(12),
+                        rs.getString(13),
+                        rs.getString(14),
+                        rs.getString(15),
+                        rs.getString(16))
                 );
             }
 
@@ -199,19 +202,7 @@ public class UsuarioDAO implements DAO {
         List<Usuario> usuarios = new ArrayList<Usuario>();
         try {
             conn = ConnectionDAO.getConnection();
-            ps = conn.prepareStatement(" SELECT `idUsuario`, "
-                    + "`nome`,"
-                    + "`cpf`, "
-                    + "`cel`,"
-                    + "`email`, "
-                    + "`endereco`, "
-                    + "`lat`, "
-                    + "`lng`, "
-                    + "`tipo`, "
-                    + "`usuario`, "
-                    + "`senha`, "
-                    + "`idCidade` "
-                    + "FROM `iGanic`.`Usuarios` WHERE `usuario` =  ? ");
+            ps = conn.prepareStatement(" SELECT `idUsuario`, `nome`, `cpf`, `cel`, `email`, `lat`, `lng`, `rua`, `num`, `comp`, `bairro`, `cidade`, `uf`, `tipo`, `usuario`, `senha` FROM `Usuarios` WHERE usuario = (?) ");
 
             ps.setString(1, usu.getUsuario());
 
@@ -224,17 +215,23 @@ public class UsuarioDAO implements DAO {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getString(6),
+                        rs.getDouble(6),
                         rs.getDouble(7),
-                        rs.getDouble(8),
                         rs.getString(9),
+                        rs.getString(8),
                         rs.getString(10),
                         rs.getString(11),
-                        rs.getInt(12))
+                        rs.getString(12),
+                        rs.getString(13),
+                        rs.getString(14),
+                        rs.getString(15),
+                        rs.getString(16))
                 );
             }
 
         } catch (SQLException sqle) {
+            System.out.println("\n\nErro na busca BD: " + sqle.getMessage() + sqle.getSQLState());
+            System.out.println("\n\nSql state: " + sqle.getLocalizedMessage());
             throw new Exception(sqle);
         } finally {
             ConnectionDAO.closeConnection(conn, ps, rs);
@@ -252,19 +249,7 @@ public class UsuarioDAO implements DAO {
         List<Usuario> usuarios = new ArrayList<Usuario>();
         try {
             conn = ConnectionDAO.getConnection();
-            ps = conn.prepareStatement(" SELECT `idUsuario`, "
-                    + "`nome`,"
-                    + "`cpf`, "
-                    + "`cel`,"
-                    + "`email`, "
-                    + "`endereco`, "
-                    + "`lat`, "
-                    + "`lng`, "
-                    + "`tipo`, "
-                    + "`usuario`, "
-                    + "`senha`, "
-                    + "`idCidade` "
-                    + "FROM `iGanic`.`Usuarios` WHERE `idUsuario` =  ? ");
+            ps = conn.prepareStatement(" SELECT `idUsuario`, `nome`, `cpf`, `cel`, `email`, `lat`, `lng`, `rua`, `num`, `comp`, `bairro`, `cidade`, `uf`, `tipo`, `usuario`, `senha` FROM `Usuarios` WHERE  idUsuario =  (?) ");
 
             ps.setInt(1, usu.getIdUsuario());
 
@@ -277,18 +262,21 @@ public class UsuarioDAO implements DAO {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getString(6),
+                        rs.getDouble(6),
                         rs.getDouble(7),
-                        rs.getDouble(8),
                         rs.getString(9),
+                        rs.getString(8),
                         rs.getString(10),
                         rs.getString(11),
-                        rs.getInt(12))
+                        rs.getString(12),
+                        rs.getString(13),
+                        rs.getString(14),
+                        rs.getString(15),
+                        rs.getString(16))
                 );
             }
 
         } catch (SQLException sqle) {
-             JOptionPane.showMessageDialog(null, sqle.getMessage());
             throw new Exception(sqle);
         } finally {
             ConnectionDAO.closeConnection(conn, ps, rs);
@@ -299,26 +287,14 @@ public class UsuarioDAO implements DAO {
 
     public List buscaUsuPeloUsuarioESenha(Object ob) throws Exception {
         Usuario usu = (Usuario) ob;
-
+        System.out.println("\n\nErro na busca BD: " + usu.getUsuario());
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
         List<Usuario> usuarios = new ArrayList<Usuario>();
         try {
             conn = ConnectionDAO.getConnection();
-            ps = conn.prepareStatement(" SELECT `idUsuario`, "
-                    + "`nome`,"
-                    + "`cpf`, "
-                    + "`cel`,"
-                    + "`email`, "
-                    + "`endereco`, "
-                    + "`lat`, "
-                    + "`lng`, "
-                    + "`tipo`, "
-                    + "`usuario`, "
-                    + "`senha`, "
-                    + "`idCidade` "
-                    + "FROM `iGanic`.`Usuarios` WHERE `usuario` =  ? AND `senha` = ? ");
+            ps = conn.prepareStatement(" SELECT `idUsuario`, `nome`, `cpf`, `cel`, `email`, `lat`, `lng`, `rua`, `num`, `comp`, `bairro`, `cidade`, `uf`, `tipo`, `usuario`, `senha` FROM `Usuarios` WHERE usuario = ? AND senha = ? ");
 
             ps.setString(1, usu.getUsuario());
             ps.setString(2, usu.getSenha());
@@ -332,17 +308,23 @@ public class UsuarioDAO implements DAO {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getString(6),
+                        rs.getDouble(6),
                         rs.getDouble(7),
-                        rs.getDouble(8),
                         rs.getString(9),
+                        rs.getString(8),
                         rs.getString(10),
                         rs.getString(11),
-                        rs.getInt(12))
+                        rs.getString(12),
+                        rs.getString(13),
+                        rs.getString(14),
+                        rs.getString(15),
+                        rs.getString(16))
                 );
             }
 
         } catch (SQLException sqle) {
+            System.out.println("\n\nErro na busca BD: " + sqle.getMessage() + sqle.getSQLState());
+            System.out.println("\n\nSql state: " + sqle.getLocalizedMessage());
             throw new Exception(sqle);
         } finally {
             ConnectionDAO.closeConnection(conn, ps, rs);
@@ -361,26 +343,28 @@ public class UsuarioDAO implements DAO {
             conn = ConnectionDAO.getConnection();
             conn.setAutoCommit(false);
 
-            for (Usuario usuario : usuarios ) {
-                ps = conn.prepareStatement(" select cadastraUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
+            for (Usuario usuario : usuarios) {
+                ps = conn.prepareStatement(" select cadastraUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
 
                 ps.setString(1, usuario.getNome());
                 ps.setString(2, usuario.getCpf());
                 ps.setString(3, usuario.getCel());
                 ps.setString(4, usuario.getEmail());
-                ps.setString(5, usuario.getEndereco());
-                ps.setDouble(6, usuario.getLat());
-                ps.setDouble(7, usuario.getLng());
-                ps.setString(8, usuario.getTipo());
-                ps.setString(9, usuario.getUsuario());
-                ps.setString(10, usuario.getSenha());
-                ps.setInt(11, usuario.getIdCidade());
-                
+                ps.setDouble(5, usuario.getLat());
+                ps.setDouble(6, usuario.getLng());
+                ps.setString(7, usuario.getRua());
+                ps.setString(8, usuario.getNum());
+                ps.setString(9, usuario.getComp());
+                ps.setString(10, usuario.getBairro());
+                ps.setString(11, usuario.getCidade());
+                ps.setString(12, usuario.getUf());
+                ps.setString(13, usuario.getTipo());
+                ps.setString(14, usuario.getUsuario());
+                ps.setString(15, usuario.getSenha());
+
                 System.out.println(usuario.toString());
 
                 rs = ps.executeQuery();
-                
-               
 
             }
             conn.commit();

@@ -13,52 +13,71 @@ public class Usuario {
     private String cpf;
     private String cel;
     private String email;
-    private String endereco;
     private Double lat;
     private Double lng;
+    private String rua;
+    private String num;
+    private String comp;
+    private String bairro;
+    private String cidade;
+    private String uf;
     private String tipo;
     private String usuario;
     private String senha;
-    private Integer idCidade;
 
     public Usuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
+        
+    }
+
+    public Usuario(Double lat, Double lng) {
+        this.lat = lat;
+        this.lng = lng;
     }
     
-    
+
     public Usuario(String cpf, String usuario, String senha) {
         this.cpf = cpf;
         this.usuario = usuario;
-        this.senha = senha; 
+        this.senha = senha;
     }
+   
 
-    public Usuario(String nome, String cpf, String cel, String email, String endereco, Double lat, Double lng, String tipo, String usuario, String senha, Integer idCidade) {
+    public Usuario(String nome, String cpf, String cel, String email, Double lat, Double lng, String rua, String num, String comp, String bairro, String cidade, String uf, String tipo, String usuario, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.cel = cel;
         this.email = email;
-        this.endereco = endereco;
         this.lat = lat;
         this.lng = lng;
+        this.rua = rua;
+        this.num = num;
+        this.comp = comp;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.uf = uf;
         this.tipo = tipo;
         this.usuario = usuario;
         this.senha = senha;
-        this.idCidade = idCidade;
     }
 
-    public Usuario(Integer idUsuario, String nome, String cpf, String cel, String email, String endereco, Double lat, Double lng, String tipo, String usuario, String senha, Integer idCidade) {
+    public Usuario(Integer idUsuario, String nome, String cpf, String cel, String email, Double lat, Double lng, String rua, String num, String comp, String bairro, String cidade, String uf, String tipo, String usuario, String senha) {
         this.idUsuario = idUsuario;
         this.nome = nome;
         this.cpf = cpf;
         this.cel = cel;
         this.email = email;
-        this.endereco = endereco;
         this.lat = lat;
         this.lng = lng;
+        this.rua = rua;
+        this.num = num;
+        this.comp = comp;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.uf = uf;
         this.tipo = tipo;
         this.usuario = usuario;
         this.senha = senha;
-        this.idCidade = idCidade;
     }
 
     public Integer getIdUsuario() {
@@ -101,14 +120,6 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
     public Double getLat() {
         return lat;
     }
@@ -123,6 +134,54 @@ public class Usuario {
 
     public void setLng(Double lng) {
         this.lng = lng;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public String getNum() {
+        return num;
+    }
+
+    public void setNum(String num) {
+        this.num = num;
+    }
+
+    public String getComp() {
+        return comp;
+    }
+
+    public void setComp(String comp) {
+        this.comp = comp;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
     }
 
     public String getTipo() {
@@ -149,18 +208,9 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public Integer getIdCidade() {
-        return idCidade;
-    }
-
-    public void setIdCidade(Integer idCidade) {
-        this.idCidade = idCidade;
-    }
-
     @Override
     public String toString() {
-        return "Usuario{" + "idUsuario=" + idUsuario + ", nome=" + nome + ", cpf=" + cpf + ", cel=" + cel + ", email=" + email + ", endereco=" + endereco + ", lat=" + lat + ", lng=" + lng + ", tipo=" + tipo + ", usuario=" + usuario + ", senha=" + senha + ", idCidade=" + idCidade + '}';
+        return "Usuario{" + "idUsuario=" + idUsuario + ", nome=" + nome + ", cpf=" + cpf + ", cel=" + cel + ", email=" + email + ", lat=" + lat + ", lng=" + lng + ", rua=" + rua + ", num=" + num + ", comp=" + comp + ", bairro=" + bairro + ", cidade=" + cidade + ", uf=" + uf + ", tipo=" + tipo + ", usuario=" + usuario + ", senha=" + senha + '}';
     }
-
 
 }

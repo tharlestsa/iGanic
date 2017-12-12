@@ -41,6 +41,12 @@ public class LoginServlet extends HttpServlet {
         if (acao == null) {
             acao = "";
         }
+        if ("toLogin".equals(acao) || "entrar".equals(acao)) {
+            //continua sem tratar a sessão, pois será direcinada para o login do usuário. 
+        } else {
+            Sessao.trataSessao(request, response);
+        }
+
         switch (acao) {
             case "":
                 if (Sessao.existeSessao(request)) {
@@ -54,6 +60,14 @@ public class LoginServlet extends HttpServlet {
 
             case "entrar":
                 this.autenticarUsuario(request, response);
+                break;
+            case "toLogin":
+                request.getSession().invalidate();
+                request.getRequestDispatcher("./index.jsp").forward(request, response);
+                break;
+            case "sair":
+                request.getSession().invalidate();
+                request.getRequestDispatcher("./index.jsp").forward(request, response);
                 break;
             default:
                 request.getSession().invalidate();
@@ -86,8 +100,8 @@ public class LoginServlet extends HttpServlet {
                 request.getRequestDispatcher("/pedidosFornecedor.jsp").forward(request, response);
             }
 
-            
         } catch (Exception ex) {
+            System.out.println("Erro ao autenticar: "+ ex.getMessage());
             request.setAttribute("tipo", "erro");
             request.setAttribute("mensagem", "Ao buscar os dados do usuário!");
             request.getRequestDispatcher("/index.jsp").forward(request, response);

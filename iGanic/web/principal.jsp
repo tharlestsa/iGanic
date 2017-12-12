@@ -5,7 +5,6 @@
 --%>
 
 <%@page import="br.iganic.view.Mensagem"%>
-<%@page import="javax.swing.JOptionPane"%>
 <%@page import="br.iganic.model.Usuario"%>
 <%@page import="br.iganic.model.Fornecedor"%>
 <%@page import="java.util.ArrayList"%>
@@ -25,7 +24,7 @@
             try {
                 Double lat = Double.parseDouble(request.getSession().getAttribute("lat").toString());
                 Double lng = Double.parseDouble(request.getSession().getAttribute("lng").toString());
-                fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedoresProxDoCliente(new Usuario(null, null, null, null, null, lat, lng, null, null, null, 0));
+                fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedoresProxDoCliente(new Usuario(lat, lng));
             } catch (Exception e) {
                 System.out.println("Exceção na busca dos fornecedores: " + e.getMessage());
             }
@@ -39,7 +38,7 @@
                 %>
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
-                <%                for (int i = 0; i < fornecedores.size(); i++) {
+                <%  for (int i = 0; i < fornecedores.size(); i++) {
                         if (i == 0) {
                             out.print("<li data-target='#carouselExampleIndicators' data-slide-to='0' class='active'></li>");
                         } else {

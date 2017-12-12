@@ -96,7 +96,7 @@ public class BuscaProdutosServlet extends HttpServlet {
             try {
                 Double lat = Double.parseDouble(request.getSession().getAttribute("lat").toString());
                 Double lng = Double.parseDouble(request.getSession().getAttribute("lng").toString());
-                Usuario usu = new Usuario(null, null, null, null, null, lat, lng, null, null, null, 0);
+                Usuario usu = new Usuario(lat, lng);
 
 //                fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedoresProxDoCliente(usu);
                 fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedores(new Fornecedor(usu, new Produto(produto, null, null, null, null, 0)));

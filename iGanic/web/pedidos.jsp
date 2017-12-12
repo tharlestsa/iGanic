@@ -39,14 +39,18 @@
                         request.getRequestDispatcher("/principal.jsp").forward(request, response);
                     } else {
                         ProdutoDAO produtoDao = new ProdutoDAO();
+                        
                         Produto produto = produtoDao.buscaProduto(Integer.parseInt(idProduto));
                         UsuarioDAO usuarioDAO = new UsuarioDAO();
+                        
                         Usuario usu = new Usuario(produto.getIdUsuario());
                         ArrayList<Usuario> usuarios = null;
+                        
                         nomeFornecedor = "";
                         nomeProduto = produto.getNome();
                         modoProducao = produto.getModoProducao();
                         ImagemDAO imgDao = new ImagemDAO();
+                        
                         try {
 
                             usuarios = (ArrayList<Usuario>) usuarioDAO.buscaUsuPeloId(usu);

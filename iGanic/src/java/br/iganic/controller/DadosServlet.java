@@ -205,8 +205,11 @@ public class DadosServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
             
             UsuarioDAO usuDao = new UsuarioDAO(); 
-
-            Object obj = JSONValue.parse(new FileReader("/home/rafael/NetBeansProjects/iGanic/iGanic/web/adm/city.json"));
+            String path = this.getServletContext().getRealPath("");
+            
+            System.out.println("\n\n\n Caminho do arquivo: " + path + "\n\n\n");
+            
+            Object obj = JSONValue.parse(new FileReader(path + "adm/city.json"));
 
             JSONArray array2 = (JSONArray) obj;
             ArrayList<Usuario> usuarios = new ArrayList<>(); 
@@ -214,14 +217,29 @@ public class DadosServlet extends HttpServlet {
             array2.forEach(city -> {
                 JSONObject json = new JSONObject();
                 json = (JSONObject) city;
-                usuarios.add(new Usuario(json.get("title").toString(), json.get("id").toString()+i, json.get("id_state").toString(), json.get("population").toString(), json.get("title").toString(), Double.parseDouble(json.get("lat").toString()), Double.parseDouble(json.get("lng").toString()),  "C", "teste"+i, "teste"+i, 9));
+                usuarios.add(new Usuario(
+                        json.get("title").toString(),
+                        json.get("id").toString()+i,
+                        json.get("id_state").toString(),
+                        json.get("population").toString(),
+                        Double.parseDouble(json.get("lat").toString()),
+                        Double.parseDouble(json.get("lng").toString()), 
+                        json.get("title").toString(),
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "C",
+                        "teste"+i,
+                        "teste"+i));
                 i++; 
             });
             
             usuDao.salvarUsuarios(usuarios);
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            System.out.println("\n\n\n Não Salvou os usuários erro: " + e.getMessage()+ "\n\n\n");
         }
 
     }

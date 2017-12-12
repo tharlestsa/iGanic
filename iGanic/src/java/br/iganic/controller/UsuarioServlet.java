@@ -34,9 +34,13 @@ public class UsuarioServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF8");
 
-        Sessao.trataSessao(request, response);
-
         String acao = (request.getParameter("acao") != null) ? request.getParameter("acao").toLowerCase() : "";
+
+        if ("encaminhar".equals(acao)) {
+            //continua sem tratar a sessão, pois será direcinada para o cadastro de novo usuário. 
+        } else {
+            Sessao.trataSessao(request, response);
+        }
 
         switch (acao) {
             case "buscarcidades":
@@ -57,11 +61,22 @@ public class UsuarioServlet extends HttpServlet {
             case "encaminhar":
                 request.getRequestDispatcher("/cadastra_usuario.jsp").forward(request, response);
                 break;
+            case "encedicao":
+                request.getRequestDispatcher("/edita_usuario.jsp").forward(request, response);
+                break;
 
             default:
-                if (Sessao.existeSessao(request)) {
+
+                String produto = (request.getSession().getAttribute("tipoUsuario") != null) ? request.getSession().getAttribute("tipoUsuario").toString() : "";
+
+                if (Sessao.existeSessao(request) && produto.equals("C")) {
                     request.getRequestDispatcher("/principal.jsp").forward(request, response);
+                } else if (Sessao.existeSessao(request) && produto.equals("F")) {
+                    request.getRequestDispatcher("/pedidosFornecedor.jsp").forward(request, response);
+                } else {
+                    request.getRequestDispatcher("/index.jsp").forward(request, response);
                 }
+
         }
 
     }
@@ -185,43 +200,25 @@ public class UsuarioServlet extends HttpServlet {
             String cpf = request.getParameter("cpf");
             String email = request.getParameter("email");
             String cel = request.getParameter("cel");
+            Double lat = Double.parseDouble(request.getParameter("lat"));
+            Double lng = Double.parseDouble(request.getParameter("lng"));
 
             String rua = request.getParameter("rua");
-            String numero = request.getParameter("numero");
+            String num = request.getParameter("numero");
             String comp = request.getParameter("comp");
             String bairro = request.getParameter("bairro");
-
-            String endereco = null;
-
-            if ((rua != null) || (!rua.isEmpty())) {
-                endereco = rua;
-            }
-
-            if ((numero != null) || (!numero.isEmpty())) {
-                endereco += ", " + numero;
-            }
-
-            if ((comp != null) || (!comp.isEmpty())) {
-                endereco += ", " + comp;
-            }
-
-            if ((bairro != null) || (!bairro.isEmpty())) {
-                endereco += ", " + bairro;
-            }
+            String cidade = request.getParameter("cidade");
+            String uf = request.getParameter("uf");
 
             String tipo = request.getParameter("tipo");
             String usuario = request.getParameter("usuario");
             String senha = request.getParameter("senha");
-            Double lat = Double.parseDouble(request.getParameter("lat"));
-            Double lng = Double.parseDouble(request.getParameter("lng"));
-
-            Integer idCidade = Integer.parseInt(request.getParameter("cidade"));
 
             UsuarioDAO usuDao = new UsuarioDAO();
 
             try {
 
-                Integer idUsuario = usuDao.salvarUsuario(new Usuario(nome, cpf, cel, email, endereco, lat, lng, tipo, usuario, senha, idCidade));
+                Integer idUsuario = usuDao.salvarUsuario(new Usuario(nome, cpf, cel, email, lat, lng, rua, num, comp, bairro, cidade, uf, tipo, usuario, senha));
 
                 if (idUsuario > 0) {
 
@@ -249,6 +246,60 @@ public class UsuarioServlet extends HttpServlet {
             e.getMessage();
         }
     }
+    
+     private void editaUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        try (PrintWriter out = response.getWriter()) {
+            String nome = request.getParameter("nome");
+            String cpf = request.getParameter("cpf");
+            String email = request.getParameter("email");
+            String cel = request.getParameter("cel");
+            Double lat = Double.parseDouble(request.getParameter("lat"));
+            Double lng = Double.parseDouble(request.getParameter("lng"));
+
+            String rua = request.getParameter("rua");
+            String num = request.getParameter("numero");
+            String comp = request.getParameter("comp");
+            String bairro = request.getParameter("bairro");
+            String cidade = request.getParameter("cidade");
+            String uf = request.getParameter("uf");
+
+            String tipo = request.getParameter("tipo");
+            String usuario = request.getParameter("usuario");
+            String senha = request.getParameter("senha");
+
+            UsuarioDAO usuDao = new UsuarioDAO();
+
+            try {
+
+                Integer idUsuario = usuDao.salvarUsuario(new Usuario(nome, cpf, cel, email, lat, lng, rua, num, comp, bairro, cidade, uf, tipo, usuario, senha));
+
+                if (idUsuario > 0) {
+
+                    HttpSession sessao = request.getSession(true);
+                    sessao.setAttribute("idUsuario", idUsuario);
+                    sessao.setAttribute("tipoUsuario", tipo);
+                    sessao.setAttribute("lat", lat);
+                    sessao.setAttribute("lng", lng);
+                    if (tipo.equals("C")) {
+                        request.getRequestDispatcher("/principal.jsp").forward(request, response);
+                    } else {
+                        request.getRequestDispatcher("/pedidosFornecedor.jsp").forward(request, response);
+                    }
+
+                }
+
+            } catch (Exception e) {
+                System.out.println("\n\n" + e.getMessage() + "\n\n");
+                request.setAttribute("tipo", "erro");
+                request.setAttribute("mensagem", "Ao registrar a nova conta do usuário.");
+                request.getRequestDispatcher("/cadastra_usuario.jsp").forward(request, response);
+            }
+
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
+
 
     private void buscaUsuarioPorCpf(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try (PrintWriter out = response.getWriter()) {

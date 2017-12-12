@@ -17,7 +17,7 @@ BEGIN
         ON `iGanic`.`Imagens`.`idProduto` = `iGanic`.`Produtos`.`idProduto`
     WHERE `iGanic`.`Produtos`.`nome` = produtoNome
     ORDER BY distancia ASC
-    LIMIT 10;
+    LIMIT 20;
     
 END$$
 DELIMITER ;

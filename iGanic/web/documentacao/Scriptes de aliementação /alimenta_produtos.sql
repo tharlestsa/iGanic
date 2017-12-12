@@ -26,15 +26,15 @@ VALUES (NULL, 'Alface', 'UN', '4.50', '100', 'Estou produção adotou os princí
        (NULL, 'Alface', 'UN', '4.50', '100', 'Estou produção adotou os princípios da cultivação de alimimentos organicos. ', '25');
        
 INSERT INTO `iGanic`.`Imagens` (`idImagem`, `nome`, `idProduto`) 
-VALUES (NULL, '01.jpeg', '28'),
-       (NULL, '02.jpeg', '29'),
-       (NULL, '03.jpeg', '27'),
-       (NULL, '03.jpeg', '29'),
-       (NULL, '05.jpeg', '30'),
-       (NULL, '06.jpeg', '31'),
-       (NULL, '07.jpeg', '32'),
-       (NULL, '08.jpeg', '33'),
-       (NULL, '09.jpeg', '34'),
-       (NULL, '10.jpeg', '35');
+VALUES (NULL, '01.jpeg', '1'),
+       (NULL, '02.jpeg', '2'),
+       (NULL, '03.jpeg', '3'),
+       (NULL, '03.jpeg', '4'),
+       (NULL, '05.jpeg', '5'),
+       (NULL, '06.jpeg', '6'),
+       (NULL, '07.jpeg', '7'),
+       (NULL, '08.jpeg', '8'),
+       (NULL, '09.jpeg', '9'),
+       (NULL, '10.jpeg', '10');
       
        

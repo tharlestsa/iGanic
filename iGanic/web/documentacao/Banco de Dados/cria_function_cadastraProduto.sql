@@ -7,10 +7,10 @@ CREATE FUNCTION `cadastraProduto`(
     `quantidade` DOUBLE,
     `modoProducao` VARCHAR(200),
     `idUsuario` INT)
-    RETURNS INT NOT DETERMINISTIC NO SQL SQL SECURITY DEFINER 
+    RETURNS INTEGER
     BEGIN
-		INSERT INTO `iGanic`.`Produtos`(`nome`, `unidade`, `preco`, `quantidade`, `modoProducao`, `idUsuario`)
-			VALUES(nome, unidade, preco, quantidade, modoProducao, idUsuario);
+	INSERT INTO `iGanic`.`Produtos`(`nome`, `unidade`, `preco`, `quantidade`, `modoProducao`, `idUsuario`)
+	VALUES(nome, unidade, preco, quantidade, modoProducao, idUsuario);
 
 RETURN LAST_INSERT_ID(); 
 END $$
