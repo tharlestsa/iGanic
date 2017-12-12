@@ -150,7 +150,7 @@ public class CadastraProdutoServlet extends HttpServlet {
             }
 
             try {
-                produtoDAO.atualizar(produto);
+                produtoDAO.alterarProduto(produto);
                 request.setAttribute("idProduto", produto.getIdProduto());
                 request.setAttribute("tipo", "suce");
                 request.setAttribute("mensagem", "Produto Alterado!");

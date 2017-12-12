@@ -60,7 +60,6 @@ public class ProdutoDAO implements DAO {
         }
 
     }
-    
 
     @Override
     public void excluir(Object ob) throws Exception {
@@ -308,6 +307,48 @@ public class ProdutoDAO implements DAO {
         }
         return fornecedores;
 
+    }
+
+    public void alterarProduto(Produto ob) throws Exception {
+        Produto p = (Produto) ob;
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+
+        try {
+            conn = ConnectionDAO.getConnection();
+            conn.setAutoCommit(false);
+
+            conn = ConnectionDAO.getConnection();
+
+            ps = conn.prepareStatement("update Produtos set nome = ?, unidade = ?, preco = ?, quantidade = ?, modoProducao = ? "
+                    + "where idProduto = ?");
+
+            ps.setString(1, p.getNome());
+            ps.setString(2, p.getUnidade());
+            ps.setDouble(3, p.getPreco());
+            ps.setDouble(4, p.getQuantidade());
+            ps.setString(5, p.getModoProducao());
+            ps.setInt(6, p.getIdProduto());
+
+            System.out.println("/n/n/n/n/n/n erro sql: " + ps);
+            ps.executeUpdate();
+
+            ps = conn.prepareStatement(" DELETE FROM `Imagens` WHERE `idProduto` = ? ");
+            
+            ps.setInt(1, p.getIdProduto());
+             System.out.println("/n/n/n/n/n/n erro sql 2: " + ps);
+            ps.executeUpdate();
+            
+            conn.commit();
+
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            conn.rollback();
+        } finally {
+            conn.setAutoCommit(true);
+            ConnectionDAO.closeConnection(conn, ps);
+        }
     }
 
     public void adicionaQtdProduto(int idProduto, Double Qtd) {
