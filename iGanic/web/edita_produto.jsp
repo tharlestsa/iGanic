@@ -20,16 +20,6 @@
                 }
             %>
             <form id="form-produto" action="./cadastraProdutos" method="post">
-                <%
-                    //String idProduto = request.getAttribute("idProduto").toString();
-                %>
-<!--                <div class="col-md-4">
-                    <label >Consulta</label>
-                    <select class="form-control " id="unidade" name="unidade" required="">
-                        <option value=""></option>
-                        <option value=""></option>
-                    </select>
-                </div>-->
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-12">
@@ -67,7 +57,10 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <input type="hidden" name="id-produto" value="id-produto"/> 
+                    <%
+                        String idProduto = request.getAttribute("idProduto").toString();
+                    %>
+                    <input type="hidden" name="idProduto" value="<%= idProduto%>"/> <br>
                 </div>
                 <button type="submit" id="acao" name="acao" value="editar" class="btn btn-success btn-block">Salvar</button>
 

@@ -41,7 +41,7 @@ Author     : guilherme
                     + new Input("hidden", String.valueOf(p.getIdProduto()), "idProduto", null, new Label(""))
                     + new Button("submit", "editar", "action", null, "Editar", "btn-danger")
                     + "</form>";
-            table.addLinha(new String[]{p.getNome(), String.valueOf(p.getPreco()), String.valueOf(p.getQuantidade()), acao});
+            table.addLinha(new String[]{String.valueOf(p.getIdProduto()), p.getNome(), String.valueOf(p.getPreco()), String.valueOf(p.getQuantidade()), acao});
         }
 
         conteudo += table.toString();
