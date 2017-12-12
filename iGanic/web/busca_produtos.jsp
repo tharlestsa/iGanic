@@ -62,7 +62,7 @@
                 + "        <div class='input-group input-group-md'>"
                 + "           <input class='form-control' type='hidden' name='idProduto' id='idProduto' value='"+ String.valueOf(forn.getProduto().getIdProduto()) +"'>"
                 + "               <span class='input-group'>"
-                + "               <button class='btn btn-success' id='acao' name='acao' value='buscar' type='submit'>"
+                + "               <button class='btn btn-success' id='acao' name='acao' value='pedir' type='submit'>"
                 + "                       <i class='fa fa-cart-arrow-down'></i>"
                 + "                   </button>"
                 + "               </span>"

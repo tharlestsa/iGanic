@@ -78,7 +78,7 @@ public class Upload {
                             String dirName = request.getServletContext().getRealPath("/img_produtos/");
                             File saveTo = new File(dirName + fileName);
                             name = fileName;
-                            System.out.println("caminho: " + saveTo.toString() );
+                            System.out.println("\n\n\n\nCaminho da imagem: " + saveTo.toString() +"\n\n\n\n\n");
                             try {
                                 fileItem.write(saveTo);
                             } catch (Exception e) {

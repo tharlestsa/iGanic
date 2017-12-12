@@ -1,5 +1,6 @@
 package br.iganic.controller;
 
+import br.iganic.dao.AvaliarProdutoDAO;
 import br.iganic.dao.ProdutoDAO;
 import br.iganic.model.Estado;
 import br.iganic.model.Fornecedor;
@@ -8,6 +9,7 @@ import br.iganic.model.Usuario;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,10 +38,10 @@ public class BuscaProdutosServlet extends HttpServlet {
                         request.setAttribute("tipo", "aten");
                         request.setAttribute("mensagem", "Informe o nome do alimento que você deseja procurar!");
                         request.getRequestDispatcher("/principal.jsp").forward(request, response);
-                    }else{
-                         this.buscaProdutos(request, response);
+                    } else {
+                        this.buscaProdutos(request, response);
                     }
-                   
+
                     break;
 
             }
@@ -102,7 +104,7 @@ public class BuscaProdutosServlet extends HttpServlet {
                 fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedores(new Fornecedor(usu, new Produto(produto, null, null, null, null, 0)));
                 if (fornecedores.isEmpty()) {
                     request.setAttribute("tipo", "aten");
-                    request.setAttribute("mensagem", "Nenhum alimento econtrado com o nome informado!");
+                    request.setAttribute("mensagem", "Nenhum alimento encontrado com esse nome!");
                 }
             } catch (Exception e) {
                 System.out.println("Exceção na busca dos fornecedores: " + e.getMessage());
@@ -113,6 +115,16 @@ public class BuscaProdutosServlet extends HttpServlet {
             JsonArray filhos = new JsonArray();
 
             for (Fornecedor forn : fornecedores) {
+                AvaliarProdutoDAO avaDao = new AvaliarProdutoDAO();
+                Double nota = 0.0;
+                String notaf = null;
+                try {
+                    nota = avaDao.buscaNotaDoProduto(forn.getProduto().getIdProduto());
+                    DecimalFormat df = new DecimalFormat("0.##");
+                    notaf = df.format(nota);
+                } catch (Exception e) {
+                    System.out.println("Problema ao buscar a nota: " + e.getMessage());
+                }
                 dados = new JSONObject();
                 dados.put("lat", forn.getUsuario().getLat());
                 dados.put("lng", forn.getUsuario().getLng());
@@ -123,6 +135,7 @@ public class BuscaProdutosServlet extends HttpServlet {
                 dados.put("preco", String.valueOf(forn.getProduto().getPreco()).replace(".", ","));
                 dados.put("img", forn.getImagem().getNome());
                 dados.put("modo", forn.getProduto().getModoProducao());
+                dados.put("nota", notaf);
                 filhos.add(dados);
             }
 

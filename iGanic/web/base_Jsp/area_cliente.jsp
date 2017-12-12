@@ -9,17 +9,17 @@
 <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
   
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Buscar Produtos">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="./usuario">
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Buscar Produtos</span>
         </a>
     </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+<!--    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
         <a class="nav-link" href="./pedidos.jsp">
             <i class="fa fa-fw fa-area-chart"></i>
             <span class="nav-link-text">Efetuar Pedido</span>
         </a>
-    </li>
+    </li>-->
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
         <a class="nav-link" href="./pedidosCliente">
             <i class="fa fa-fw fa-table"></i>

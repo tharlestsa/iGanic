@@ -80,7 +80,7 @@ public class AvaliarProdutoDAO implements DAO {
     }
 
     public AvaliarProduto buscaAvaliacao(int idProduto) throws Exception {
-        AvaliarProduto p =  null;
+        AvaliarProduto p = null;
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs;
@@ -94,16 +94,40 @@ public class AvaliarProdutoDAO implements DAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                p = new AvaliarProduto(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));               
+                p = new AvaliarProduto(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
             }
         } catch (Exception ex) {
             Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConnectionDAO.closeConnection(conn, ps);
         }
-        System.out.println("retorno id: "+ p.getIdProduto());
-        
+        System.out.println("retorno id: " + p.getIdProduto());
+
         return p;
+    }
+
+    public Double buscaNotaDoProduto(int idProduto) throws Exception {
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs;
+        Double nota = 0.0;
+        try {
+            conn = ConnectionDAO.getConnection();
+            ps = conn.prepareStatement("SELECT (SUM(nota) / COUNT(`idAvaliacao`)) AS nota_media FROM `Avaliacoes` WHERE `idProduto` = ? ");
+
+            ps.setInt(1, idProduto);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                nota = rs.getDouble(1);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionDAO.closeConnection(conn, ps);
+        }
+        return nota;
     }
 
 }

@@ -4,6 +4,8 @@
     Author     : tharles
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="br.iganic.dao.AvaliarProdutoDAO"%>
 <%@page import="br.iganic.view.Mensagem"%>
 <%@page import="br.iganic.model.Usuario"%>
 <%@page import="br.iganic.model.Fornecedor"%>
@@ -21,10 +23,13 @@
         <%
             ProdutoDAO prodDao = new ProdutoDAO();
             ArrayList<Fornecedor> fornecedores = new ArrayList<>();
+            AvaliarProdutoDAO avaDao = new AvaliarProdutoDAO();
+            Double nota = 0.0;
             try {
                 Double lat = Double.parseDouble(request.getSession().getAttribute("lat").toString());
                 Double lng = Double.parseDouble(request.getSession().getAttribute("lng").toString());
                 fornecedores = (ArrayList<Fornecedor>) prodDao.buscaFornecedoresProxDoCliente(new Usuario(lat, lng));
+
             } catch (Exception e) {
                 System.out.println("Exceção na busca dos fornecedores: " + e.getMessage());
             }
@@ -86,12 +91,21 @@
 
             <%
                 for (Fornecedor forn : fornecedores) {
+                     String notaf = null; 
+                    try {
+                        nota = avaDao.buscaNotaDoProduto(forn.getProduto().getIdProduto());
+                        DecimalFormat df = new DecimalFormat("0.##");
+                        notaf = df.format(nota);
+                    } catch (Exception e) {
+                        System.out.println("Problema ao buscar a nota: " + e.getMessage());
+                    }
                     out.print("<form method='POST' action='./efetuarPedidos'>"
                             + "<input type='hidden' name='idProduto' id='idProduto' value='" + forn.getProduto().getIdProduto() + "'>"
                             + "<div class='card mb-3'>"
                             + "     <img class='card-img-top img-fluid w-100' src='./img_produtos/" + forn.getImagem().getNome() + "'>"
                             + "<div class='card-body'>"
                             + "      <label class='label-produto'>" + forn.getProduto().getNome() + "</label><p class='p-label'>"
+                            + "      <label class='label-produto-corpo'>Nota: " + notaf + "</label><p class='p-label'>"
                             + "      <label id ='preco' class='label-produto-corpo'>Preço: R$ " + String.valueOf(forn.getProduto().getPreco()).replace(".", ",") + "</label><p class='p-label'>"
                             + "      <label class='label-produto-corpo'><button type='button' class='modal-produtos btn btn-success' data-toggle='modal' data-target='#modal-pro'> <i class='material-icons'>info</i> "
                             + "<input type='hidden' name='nome' id='nome' value='" + forn.getProduto().getNome() + "'>"
