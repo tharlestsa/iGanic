@@ -19,7 +19,7 @@
 
 <div class="container margem">
     <div class="card mx-auto mt-5">
-        <div class="card-header" style='font-weight:bold;' >Cadastro de Produto</div>
+        <div class="card-header" style='font-weight:bold;' >Cadastro de </div>
         <div class="card-body">
             <% if (request.getAttribute("mensagem") != null) {
                     out.print(new Mensagem(request.getAttribute("tipo").toString(), String.valueOf(request.getAttribute("mensagem"))));
@@ -49,7 +49,15 @@
                     String bairro = usuarioModel.getBairro();
                     String cidade = usuarioModel.getCidade();
                     String estado = usuarioModel.getUf();
-                    System.out.println("Vindo do busca"+usuarioModel.toString());
+                    String selectedF = "";
+                    String selectedC = "";
+
+                    if (usuarioModel.getTipo().equals("F")) {
+                        selectedF = "selected=''";
+                    } else {
+                        selectedC = "selected=''";
+                    }
+                    System.out.println("Vindo do busca" + usuarioModel.toString());
                 %>
                 <div class="form-group">
                     <div class="form-row">
@@ -123,14 +131,8 @@
                             <label for="inputTipo">Tipo da Conta</label>
                             <select class="form-control" id="tipo" name="tipo" readonly="">
                                 <option value="-1" >Informe o tipo da conta do usuário</option>
-                                <c:choose>
-                                    <c:when test="${sessionScope.tipoUsuario == 'C'}">
-                                        <option value='C' selected="">Cliente</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <option value='F' selected="">Fornecedor</option>
-                                    </c:otherwise>
-                                </c:choose>
+                                <option value='C' <%=selectedC%>>Cliente</option>
+                                <option value='F'<%=selectedF%> >Fornecedor</option>
                             </select>
                         </div>
                         <div class="col-md-6">
