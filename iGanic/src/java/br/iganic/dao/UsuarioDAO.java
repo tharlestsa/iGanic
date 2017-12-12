@@ -176,7 +176,6 @@ public class UsuarioDAO implements DAO {
                     + "`usuario`=?,"
                     + "`senha`=?"
                     + " WHERE `idUsuario`=? ");
-
             ps.setString(1, usuario.getNome());
             ps.setString(2, usuario.getCpf());
             ps.setString(3, usuario.getCel());
@@ -193,10 +192,11 @@ public class UsuarioDAO implements DAO {
             ps.setString(14, usuario.getUsuario());
             ps.setString(15, usuario.getSenha());
             ps.setInt(16, usuario.getIdUsuario());
-
-            rs = ps.executeQuery();
             
-            editou = true; 
+            
+            
+            int i = ps.executeUpdate();
+            editou = true;
 
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage() + "\n\n\n");
@@ -324,8 +324,8 @@ public class UsuarioDAO implements DAO {
                         rs.getString(5),
                         rs.getDouble(6),
                         rs.getDouble(7),
-                        rs.getString(9),
                         rs.getString(8),
+                        rs.getString(9),
                         rs.getString(10),
                         rs.getString(11),
                         rs.getString(12),

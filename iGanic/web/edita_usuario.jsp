@@ -38,8 +38,6 @@
                         for (Usuario u : usuarios) {
                             usuarioModel = u;
                         }
-
-                        System.out.println("\n\n\n" + usuarioModel.toString() + "\n\n\n");
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                         e.printStackTrace();
@@ -51,6 +49,7 @@
                     String bairro = usuarioModel.getBairro();
                     String cidade = usuarioModel.getCidade();
                     String estado = usuarioModel.getUf();
+                    System.out.println("Vindo do busca"+usuarioModel.toString());
                 %>
                 <div class="form-group">
                     <div class="form-row">
@@ -122,7 +121,7 @@
                     <div class="form-row">
                         <div class="col-md-6">
                             <label for="inputTipo">Tipo da Conta</label>
-                            <select class="form-control" id="tipo" name="tipo" disabled="">
+                            <select class="form-control" id="tipo" name="tipo" readonly="">
                                 <option value="-1" >Informe o tipo da conta do usuário</option>
                                 <c:choose>
                                     <c:when test="${sessionScope.tipoUsuario == 'C'}">
