@@ -4,6 +4,10 @@
    Author     : guilherme
 --%>
 
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="br.iganic.dao.ProdutoDAO"%>
+<%@page import="br.iganic.model.Produto"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="br.iganic.view.Mensagem"%>
 
@@ -54,6 +58,27 @@
                         <div class="col-md-12">
                             <label>Modo de Produçao</label>
                             <textarea class="form-control" rows="6" type="text" id="modo" name="modo" placeholder="Informe o modo de produçao do produto" required=""></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <label >Produtos</label>
+                            <select class="form-control " id="unidade" name="unidade" required="">
+                                <%
+                                    ArrayList<Produto> produtos = new ArrayList();
+                                    ProdutoDAO produtoDAO = new ProdutoDAO();
+                                    Produto produto;
+                                    produtos = produtoDAO.buscaProdutosDoFornecedor(2);
+                                    JOptionPane.showMessageDialog(null, produtos);
+                                    for (Produto prod : produtos) {
+                                        produto = (Produto) prod;
+                                        out.println("<option value " + produto.getNome() + ">" + "<option>");
+                                    }
+                                %> 
+
+                            </select>
                         </div>
                     </div>
                 </div>

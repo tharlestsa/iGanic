@@ -83,6 +83,7 @@ public class EfetuarPedidoServlet extends HttpServlet {
                             request.setAttribute("tipo", "aten");
                             request.setAttribute("mensagem", "O fornecedor não tem essa quantidade de produto disponivel!!");
                             request.getRequestDispatcher("/pedidos.jsp").forward(request, response);
+                            return;
                         }
 
                         pedidoDao.salvarPedido(pedido);

@@ -8,6 +8,7 @@ package br.iganic.dao;
 import br.iganic.base.ConnectionDAO;
 import br.iganic.base.DAO;
 import br.iganic.model.AvaliarProduto;
+import br.iganic.model.PedidoCliente;
 import br.iganic.model.Pedidoo;
 import java.sql.Connection;
 import java.sql.Date;
@@ -16,7 +17,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.websocket.CloseReason;
 
 /**
  *
@@ -61,7 +65,7 @@ public class AvaliarProdutoDAO implements DAO {
 
             conn = ConnectionDAO.getConnection();
             ps = conn.prepareStatement("INSERT INTO `iGanic`.`Avaliacoes`(`nota`, `comentario`, `idProduto`) VALUES ((?),(?),(?))");
-            
+
             ps.setInt(1, avaliacao.getNota());
             ps.setString(2, avaliacao.getComentario());
             ps.setInt(3, avaliacao.getIdProduto());
@@ -69,11 +73,45 @@ public class AvaliarProdutoDAO implements DAO {
             ps.executeUpdate();
 
         } catch (SQLException sqle) {
-//            JOptionPane.showMessageDialog(null, sqle.getMessage());
             throw new Exception(sqle);
         } finally {
             ConnectionDAO.closeConnection(conn, ps);
         }
     }
 
+    public AvaliarProduto buscaAvaliacao(int idProduto) throws Exception {
+        AvaliarProduto p =  null;
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs;
+
+        try {
+            conn = ConnectionDAO.getConnection();
+            ps = conn.prepareStatement("select * from Avaliacoes INNER JOIN where idProduto = ?");
+
+            ps.setInt(1, idProduto);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                p = new AvaliarProduto(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));               
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionDAO.closeConnection(conn, ps);
+        }
+        System.out.println("retorno id: "+ p.getIdProduto());
+        
+        return p;
+    }
+
 }
+
+//SELECT *
+//	FROM `iGanic`.`Avaliacoes`
+//      INNER JOIN `iGanic`.`Pedidos`
+//    	ON `iGanic`.`Pedidos`.`idProduto` = `iGanic`.`Avaliacoes`.`idProduto`
+//      INNER JOIN `iGanic`.`Usuarios`
+//    	ON `iGanic`.`Usuarios`.`idUsuario` = `iGanic`.`Avaliacoes`.`idProduto`
+//WHERE `iGanic`.`Pedidos`.`idPedido` = 

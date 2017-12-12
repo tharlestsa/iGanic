@@ -53,6 +53,9 @@ public class CadastraProdutoServlet extends HttpServlet {
             case "cadastrar":
                 cadastrarProduto(request, response);
                 break;
+            case "editar":
+                request.getRequestDispatcher("./produtosFornecedor.jsp").forward(request, response);
+                break;
         }
 
     }
@@ -110,6 +113,60 @@ public class CadastraProdutoServlet extends HttpServlet {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    
+    public void editarProduto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        String nome = request.getParameter("nome");
+        String unidade = request.getParameter("unidade");
+        String precoS = request.getParameter("preco");
+        String quantidadeS = request.getParameter("quantidade");
+
+        precoS = precoS.replace(".", "'");
+        precoS = precoS.replace(",", ".");
+        precoS = precoS.replace("'", "");
+       
+        quantidadeS = quantidadeS.replace(".", "'");
+        quantidadeS = quantidadeS.replace(",", ".");
+        quantidadeS = quantidadeS.replace("'", "");
+
+        Double preco = Double.parseDouble(precoS);
+        Double quantidade = Double.parseDouble(quantidadeS);
+        
+        String modo = request.getParameter("modo");
+
+        int idUsuario = (int) request.getSession().getAttribute("idUsuario");
+
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+
+        Produto produto = new Produto(nome, unidade, preco, quantidade, modo, idUsuario);
+        try {
+
+            if (nome.equals("") || modo.equals("")) {
+                request.setAttribute("tipo", "erro");
+                request.setAttribute("mensagem", "Preencha todos os campos!");
+                request.getRequestDispatcher("/cadastra_produto.jsp").forward(request, response);
+
+                return;
+            }
+
+            try {
+                produtoDAO.atualizar(produto);
+
+                
+                request.setAttribute("tipo", "suce");
+                request.setAttribute("mensagem", "Produto Cadastrado!");
+                request.getRequestDispatcher("/newjsp.jsp").forward(request, response);
+
+            } catch (Exception ex) {
+                request.setAttribute("tipo", "erro");
+                request.setAttribute("mensagem", "Nao foi possivel cadastrar esse produto!!");
+                request.getRequestDispatcher("/cadastra_produto.jsp").forward(request, response);
+            }
+
+        } catch (Exception ex) {
+            response.getWriter().println(ex.getMessage());
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

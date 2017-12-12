@@ -28,6 +28,10 @@
         <servlet-name>AvaliarProdutoServlet</servlet-name>
         <servlet-class>br.iganic.controller.AvaliarProdutoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProdutosFornecedorServlet</servlet-name>
+        <servlet-class>br.iganic.controller.ProdutosFornecedorServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DadosServlet</servlet-name>
         <url-pattern>/dados</url-pattern>
@@ -51,6 +55,10 @@
     <servlet-mapping>
         <servlet-name>AvaliarProdutoServlet</servlet-name>
         <url-pattern>/avaliarProduto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProdutosFornecedorServlet</servlet-name>
+        <url-pattern>/produtosFornecedor</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

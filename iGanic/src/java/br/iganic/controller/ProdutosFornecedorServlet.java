@@ -5,28 +5,27 @@
  */
 package br.iganic.controller;
 
-import br.iganic.dao.AvaliarProdutoDAO;
+import br.iganic.dao.PedidoDAO;
 import br.iganic.dao.ProdutoDAO;
-import br.iganic.model.AvaliarProduto;
+import br.iganic.model.Pedido;
 import br.iganic.model.Produto;
 import br.iganic.util.Sessao;
+import br.iganic.view.Mensagem;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author guilherme
  */
-@WebServlet(name = "AvaliarProdutoServlet", urlPatterns = {"/avaliarProduto"})
-public class AvaliarProdutoServlet extends HttpServlet {
+@WebServlet(name = "ProdutosFornecedorServlet", urlPatterns = {"/ProdutosFornecedorServlet"})
+public class ProdutosFornecedorServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,57 +39,50 @@ public class AvaliarProdutoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String acao = request.getParameter("acao");
-
         Sessao.trataSessao(request, response);
-        switch (acao) {
-            case "avaliar":
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        int idUsuario = (int) request.getSession().getAttribute("idUsuario");
 
-                avaliar(request, response);
+        String acao = request.getParameter("action");
+
+        ArrayList<Produto> produtos = new ArrayList();
+
+        if (acao == null) {
+            acao = "listar";
+        }
+
+        switch (acao) {
+            case "listar":
+                try {
+                    produtos = produtoDAO.buscaProdutosDoFornecedor(idUsuario);
+                } catch (Exception e) {
+
+                }
+                break;
+            case "edit":
+                Produto p = new Produto();
+                p.setIdProduto(Integer.parseInt(request.getParameter("idProduto")));
+                p.setNome(request.getParameter("nome"));
+                p.setPreco(Double.parseDouble(request.getParameter("preco")));
+                p.setQuantidade(Double.parseDouble(request.getParameter("quantidade")));
+                p.setIdUsuario(idUsuario);
+                
+                try {
+                    produtoDAO.atualizar(p);
+                } catch (Exception e) {
+                }
                 break;
         }
 
-    }
-
-    public void avaliar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int nota = Integer.parseInt(request.getParameter("nota"));
-        String comentario = request.getParameter("comentario");
-        int idProduto = Integer.parseInt(request.getParameter("idProduto"));
-        int idUsuario = (int) request.getSession().getAttribute("idUsuario");
-
-        AvaliarProdutoDAO avaliarDAO = new AvaliarProdutoDAO();
-        AvaliarProduto avaliar = new AvaliarProduto(nota, comentario, idProduto);
-
-        try {
-            AvaliarProduto avaliado = avaliarDAO.buscaAvaliacao(idProduto);
-          
-            
-        } catch (Exception ex) {
-            Logger.getLogger(AvaliarProdutoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        if (produtos.isEmpty()) {
+            request.setAttribute("mensagem", new Mensagem("info", "Nenhum produto encontrado!"));
         }
 
-        try {
-            try {
-                avaliarDAO.salvarAvaliacao(avaliar);
-                request.setAttribute("tipo", "suce");
-                request.setAttribute("mensagem", "Avaliaçao Realizada!");
-
-            } catch (Exception ex) {
-                request.setAttribute("tipo", "erro");
-                request.setAttribute("mensagem", "Nao foi possivel avaliar esse produto!!");
-
-            }
-
-            request.getRequestDispatcher("./pedidosCliente.jsp").forward(request, response);
-
-        } catch (Exception ex) {
-            response.getWriter().println(ex.getMessage());
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        request.setAttribute("produto", produtos);
+        request.getRequestDispatcher("./produtosFornecedor.jsp").forward(request, response);
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

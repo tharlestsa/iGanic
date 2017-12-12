@@ -20,7 +20,16 @@
                 }
             %>
             <form id="form-produto" action="./cadastraProdutos" method="post">
-
+                <%
+                     String idProduto = request.getAttribute("idProduto").toString();
+                %>
+                <div class="col-md-4">
+                    <label >Consulta</label>
+                    <select class="form-control " id="unidade" name="unidade" required="">
+                        <option value=""></option>
+                        <option value=""></option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-12">
@@ -61,15 +70,16 @@
                     <input type="hidden" name="id-produto" value="id-produto"/> 
                 </div>
                 <button type="submit" id="acao" name="acao" value="editar" class="btn btn-success btn-block">Salvar</button>
+
             </form>
 
         </div>
     </div>
-            
+
 </div>
- <!-- Bootstrap core JavaScript-->
-    <script src="./template/admin/vendor/jquery/jquery.min.js" type="text/javascript"></script>
-    <script src="./template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="./template/admin/vendor/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="./template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
 <!-- Core plugin JavaScript-->
 <script src="./template/admin/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
 <script src="./mask-plugin/jquery.mask.min.js" type="text/javascript"></script>

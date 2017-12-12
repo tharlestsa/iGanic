@@ -29,14 +29,18 @@
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-12">
+                            <% if (request.getAttribute("mensagem") != null) {
+                                    out.print(new Mensagem(String.valueOf(request.getAttribute("tipo")), String.valueOf(request.getAttribute("mensagem"))));
+                                }
+                            %>
                             <label>Nome produto</label>
                             <%
-                                
                                 ProdutoDAO produtoDao = new ProdutoDAO();
-                                
+
                                 int idProd = (int) request.getAttribute("idProduto");
+
                                 Produto produto = produtoDao.buscaProduto(idProd);
-                                
+
                                 UsuarioDAO usuarioDAO = new UsuarioDAO();
                                 Usuario usu = new Usuario(produto.getIdUsuario());
                                 ArrayList<Usuario> usuarios = null;
@@ -53,10 +57,9 @@
 
                                     }
                                 } catch (Exception e) {
-
                                 }
                             %>
-                          
+
                             <input class="form-control" type="text" id="nome" name="nome" value="<%=nomeProduto%>" disabled="">
                         </div>
                     </div>
