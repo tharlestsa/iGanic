@@ -1,7 +1,10 @@
- 
-    Document   : produtosFornecedor
-    Created on : 11/12/2017, 21:16:35
-    Author     : guilherme
+<%@page import="br.iganic.util.Input"%>
+<%@page import="br.iganic.dao.ProdutoDAO"%>
+<%@page import="javax.swing.JOptionPane"%>
+
+Document   : produtosFornecedor
+Created on : 11/12/2017, 21:16:35
+Author     : guilherme
 
 
 <%@page import="br.iganic.model.Produto"%>
@@ -13,63 +16,39 @@
 <%@page import="br.iganic.util.Label"%>
 
 <jsp:include page="./base_Jsp/cabecalho.jsp">
-    <jsp:param name="titulo" value="Produtos" />
+    <jsp:param name="titulo" value="Produtos Fornecedor"/>
 </jsp:include>
 
-<style>.tabledit-toolbar{width: 130px;} .botao{margin-left: 5px;}</style>
 <div class="container cont">
-<%
-    String conteudo = "";
+    <%
+        ArrayList<Produto> produtos = (ArrayList<Produto>) request.getAttribute("produto");
 
-    ArrayList<Produto> produtos = (ArrayList<Produto>) request.getAttribute("produtos");
-
-    if (produtos == null) {
-        request.getRequestDispatcher("./pedidosFornecedor").forward(request, response);
-    }
-    
-    if(request.getAttribute("mensagem") != null) conteudo += request.getAttribute("mensagem");
-
-    Tabela table = new Tabela("Produtos", new String[]{"#", "Nome", "Preco", "Quantidade", "Modo Produçao"});
-    table.setId("tabela");
-
-    for (Produto p : produtos) {
-        String qtd = String.valueOf(p.getQuantidade());
-        String preco = String.valueOf(p.getPreco());
-        table.addLinha(new String[]{String.valueOf(p.getIdProduto()), p.getNome(), preco, qtd, p.getModoProducao()});
-    }
-
-    conteudo += table.toString();
-
-    out.print(conteudo);
-%>
-</div>
-
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://markcell.github.io/jquery-tabledit/assets/js/jquery.min.js"></script>
-<script src="https://markcell.github.io/jquery-tabledit/assets/js/bootstrap.min.js"></script>
-<script src="https://markcell.github.io/jquery-tabledit/assets/js/prettify.min.js"></script>
-<script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
-<script type="text/javascript">
-    $('#tabela').Tabledit({
-        url: './produtosFornecedor',
-        deleteButton: false,
-        saveButton: true,
-        autoFocus: false,
-        buttons: {
-            edit: {
-                class: 'btn btn-sm btn-primary',
-                html: '<span class="glyphicon glyphicon-pencil"></span>Editar',
-                action: 'edit'
-            },
-            save: {
-                class: 'btn btn-sm btn-success botao',
-                html: '<span class="glyphicon glyphicon-pencil"></span>Salvar'
-            }
-        },
-        columns: {
-            identifier: [0, 'idPedido'],
-            editable: [[3, 'status','{"A": "Em andamento", "F" :"Finalizado", "C" : "Cancelado"}']]
+        if (produtos == null) {
+            request.getRequestDispatcher("./produtosFornecedor").forward(request, response);
         }
-    });
-</script>
+        String conteudo = "";
+
+        if (request.getAttribute("mensagem") != null) {
+            conteudo += request.getAttribute("mensagem");
+        }
+
+        Tabela table = new Tabela("Pedidos", new String[]{"#", "Produto", "Preco", "Quantidade", "Ação"});
+        String qtd;
+        for (Produto p : produtos) {
+            String acao = "";
+
+            acao = "<form action='./produtosFornecedor' method='POST'>"
+                    + new Input("hidden", String.valueOf(p.getIdProduto()), "idProduto", null, new Label(""))
+                    + new Button("submit", "editar", "action", null, "Editar", "btn-danger")
+                    + "</form>";
+            table.addLinha(new String[]{p.getNome(), String.valueOf(p.getPreco()), String.valueOf(p.getQuantidade()), acao});
+        }
+
+        conteudo += table.toString();
+
+        out.println(conteudo);
+
+    %>
+
+</div>
 <jsp:include page="./base_Jsp/rodape.jsp" />

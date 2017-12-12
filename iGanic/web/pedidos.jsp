@@ -33,24 +33,27 @@
                     String nomeFornecedor = "";
                     String nomeProduto = "";
                     String modoProducao = "";
+                    String qtd = "";
                     Imagem imagem = null;
 
                     if (idProduto.isEmpty()) {
                         request.getRequestDispatcher("/principal.jsp").forward(request, response);
                     } else {
                         ProdutoDAO produtoDao = new ProdutoDAO();
-                        
+
                         Produto produto = produtoDao.buscaProduto(Integer.parseInt(idProduto));
                         UsuarioDAO usuarioDAO = new UsuarioDAO();
-                        
+
                         Usuario usu = new Usuario(produto.getIdUsuario());
                         ArrayList<Usuario> usuarios = null;
-                        
+
                         nomeFornecedor = "";
                         nomeProduto = produto.getNome();
                         modoProducao = produto.getModoProducao();
+                        qtd = String.valueOf(produto.getQuantidade());
+
                         ImagemDAO imgDao = new ImagemDAO();
-                        
+
                         try {
 
                             usuarios = (ArrayList<Usuario>) usuarioDAO.buscaUsuPeloId(usu);
@@ -91,8 +94,17 @@
                     <div class="form-row">
                         <div class="col-md-6">
                             <label >Modo de produçao</label>
-                            <textarea class="form-control" rows="4" type="text" id="modoProducao" name="modoProducao" value="<%=modoProducao%>" disabled=""></textarea>
+                            <textarea class="form-control" rows="4" type="text" id="modoProducao" name="modoProducao" disabled=""><%=modoProducao%></textarea>
                         </div>
+                        <div class="col-md-6">
+                            <label>Quantidade Disponivel</label>
+                            <input class="form-control" type="text" id="qtd" name="qtd" value="<%=qtd%>" disabled="">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
                         <div class="col-md-6">
                             <label>Quantidade</label>
                             <input class="form-control" type="text" id="quantidade" name="quantidade" placeholder="Informe a quantidade do pedido" required="">

@@ -8,6 +8,7 @@ package br.iganic.controller;
 import br.iganic.dao.PedidoDAO;
 import br.iganic.dao.ProdutoDAO;
 import br.iganic.model.Pedido;
+import br.iganic.model.PedidoCliente;
 import br.iganic.model.Produto;
 import br.iganic.util.Sessao;
 import br.iganic.view.Mensagem;
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author guilherme
  */
-@WebServlet(name = "ProdutosFornecedorServlet", urlPatterns = {"/ProdutosFornecedorServlet"})
+@WebServlet(name = "ProdutosFornecedorServlet", urlPatterns = {"/produtosFornecedor"})
 public class ProdutosFornecedorServlet extends HttpServlet {
 
     /**
@@ -38,8 +39,7 @@ public class ProdutosFornecedorServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        Sessao.trataSessao(request, response);
+
         ProdutoDAO produtoDAO = new ProdutoDAO();
         int idUsuario = (int) request.getSession().getAttribute("idUsuario");
 
@@ -51,34 +51,23 @@ public class ProdutosFornecedorServlet extends HttpServlet {
             acao = "listar";
         }
 
-        switch (acao) {
-            case "listar":
-                try {
-                    produtos = produtoDAO.buscaProdutosDosFornecedores(idUsuario);
-                } catch (Exception e) {
+        if (acao.equals("editar")) {
+            String idProduto = request.getParameter("idProduto");
+            request.getRequestDispatcher("./edita_produto.jsp").forward(request, response);
 
-                }
-                break;
-            case "edit":
-                Produto p = new Produto();
-                p.setIdProduto(Integer.parseInt(request.getParameter("idProduto")));
-                p.setNome(request.getParameter("nome"));
-                p.setPreco(Double.parseDouble(request.getParameter("preco")));
-                p.setQuantidade(Double.parseDouble(request.getParameter("quantidade")));
-                p.setIdUsuario(idUsuario);
-                
-                try {
-                    produtoDAO.atualizar(p);
-                } catch (Exception e) {
-                }
-                break;
+        }
+
+        try {
+            produtos = produtoDAO.buscaProdutosDosFornecedores(idUsuario);
+
+        } catch (Exception e) {
+
         }
 
         if (produtos.isEmpty()) {
-            request.setAttribute("mensagem", new Mensagem("info", "Nenhum produto encontrado!"));
+            request.setAttribute("mensagem", new Mensagem("info", "Nenhum produto foi encontrado!"));
         }
-
-        request.setAttribute("produto", produtos);
+        request.setAttribute("produtos", produtos);
         request.getRequestDispatcher("./produtosFornecedor.jsp").forward(request, response);
     }
 
