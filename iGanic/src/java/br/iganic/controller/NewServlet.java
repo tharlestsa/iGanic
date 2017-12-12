@@ -64,11 +64,11 @@ public class NewServlet extends HttpServlet {
                     out.print("Ficheiro enviado!");
                     request.setAttribute("tipo", "suce");
                     request.setAttribute("mensagem", "Imagem inserida!");
-                    request.getRequestDispatcher("/cadastra_produto.jsp").forward(request, response);
+                    request.getRequestDispatcher("/produtosFornecedor.jsp").forward(request, response);
                 } else {
                     request.setAttribute("tipo", "erro");
                     request.setAttribute("mensagem", "Nao foi possivel inserir a imagem!");
-                    request.getRequestDispatcher("/cadastra_produto.jsp").forward(request, response);
+                    request.getRequestDispatcher("/produtosFornecedor.jsp").forward(request, response);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
