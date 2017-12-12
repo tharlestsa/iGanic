@@ -74,6 +74,7 @@ public class AvaliarProdutoServlet extends HttpServlet {
                 avaliarDAO.salvarAvaliacao(avaliar);
                 request.setAttribute("tipo", "suce");
                 request.setAttribute("mensagem", "Avaliaçao Realizada!");
+                
 
             } catch (Exception ex) {
                 request.setAttribute("tipo", "erro");
@@ -81,10 +82,9 @@ public class AvaliarProdutoServlet extends HttpServlet {
 
             }
 
-            request.getRequestDispatcher("./pedidosCliente.jsp").forward(request, response);
+            request.getRequestDispatcher("./principal.jsp").forward(request, response);
 
         } catch (Exception ex) {
-            response.getWriter().println(ex.getMessage());
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 

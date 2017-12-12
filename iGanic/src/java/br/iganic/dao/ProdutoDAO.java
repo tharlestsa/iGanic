@@ -329,19 +329,17 @@ public class ProdutoDAO implements DAO {
             ps.setString(5, p.getModoProducao());
             ps.setInt(6, p.getIdProduto());
 
-            System.out.println("/n/n/n/n/n/n erro sql: " + ps);
             ps.executeUpdate();
 
             ps = conn.prepareStatement(" DELETE FROM `Imagens` WHERE `idProduto` = ? ");
-            
+
             ps.setInt(1, p.getIdProduto());
-             System.out.println("/n/n/n/n/n/n erro sql 2: " + ps);
+
             ps.executeUpdate();
-            
+
             conn.commit();
 
         } catch (SQLException sqle) {
-            JOptionPane.showMessageDialog(null, sqle.getMessage());
             conn.rollback();
         } finally {
             conn.setAutoCommit(true);

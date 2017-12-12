@@ -68,11 +68,11 @@ public class CadastraProdutoServlet extends HttpServlet {
 
         precoS = precoS.replace(".", "'");
         precoS = precoS.replace(",", ".");
-        precoS = precoS.replace("'", "");
+        precoS = precoS.replace("'", ".");
 
         quantidadeS = quantidadeS.replace(".", "'");
         quantidadeS = quantidadeS.replace(",", ".");
-        quantidadeS = quantidadeS.replace("'", "");
+        quantidadeS = quantidadeS.replace("'", ".");
 
         Double preco = Double.parseDouble(precoS);
         Double quantidade = Double.parseDouble(quantidadeS);
@@ -123,11 +123,12 @@ public class CadastraProdutoServlet extends HttpServlet {
 
         precoS = precoS.replace(".", "'");
         precoS = precoS.replace(",", ".");
-        precoS = precoS.replace("'", "");
+        precoS = precoS.replace("'", ".");
+        JOptionPane.showMessageDialog(null, precoS);
 
         quantidadeS = quantidadeS.replace(".", "'");
         quantidadeS = quantidadeS.replace(",", ".");
-        quantidadeS = quantidadeS.replace("'", "");
+        quantidadeS = quantidadeS.replace("'", ".");
 
         Double preco = Double.parseDouble(precoS);
         Double quantidade = Double.parseDouble(quantidadeS);

@@ -87,7 +87,7 @@ public class AvaliarProdutoDAO implements DAO {
 
         try {
             conn = ConnectionDAO.getConnection();
-            ps = conn.prepareStatement("select * from Avaliacoes INNER JOIN where idProduto = ?");
+            ps = conn.prepareStatement("select * from Avaliacoes where idProduto = ?");
 
             ps.setInt(1, idProduto);
 
