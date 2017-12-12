@@ -8,6 +8,7 @@ package br.iganic.dao;
 import br.iganic.base.ConnectionDAO;
 import br.iganic.base.DAO;
 import br.iganic.model.AvaliarProduto;
+import br.iganic.model.Pedido;
 import br.iganic.model.PedidoCliente;
 import br.iganic.model.Pedidoo;
 import java.sql.Connection;
@@ -79,31 +80,40 @@ public class AvaliarProdutoDAO implements DAO {
         }
     }
 
-    public AvaliarProduto buscaAvaliacao(int idProduto) throws Exception {
-        AvaliarProduto p = null;
+    public boolean verificaAvaliacaoDoPedido(Pedido ob) throws Exception {
+        Pedido pedido = (Pedido) ob;
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs;
-
+        boolean avaliado = false;
+        int qtde = 0;
         try {
             conn = ConnectionDAO.getConnection();
-            ps = conn.prepareStatement("select * from Avaliacoes where idProduto = ?");
+            ps = conn.prepareStatement("SELECT COUNT(idAvaliacao) as qtde\n"
+                    + "	FROM `iGanic`.`Avaliacoes`\n"
+                    + "      INNER JOIN `iGanic`.`Pedidos`\n"
+                    + "    	ON `iGanic`.`Pedidos`.`idProduto` = `iGanic`.`Avaliacoes`.`idProduto`\n"
+                    + "    WHERE `iGanic`.`Pedidos`.`idPedido` = ? AND `iGanic`.`Pedidos`.`idUsuario`= ?");
 
-            ps.setInt(1, idProduto);
+            ps.setInt(1, pedido.getIdPedido());
+            ps.setInt(2, pedido.getIdUsuario());
 
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                p = new AvaliarProduto(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
+                qtde = rs.getInt(1);
             }
+            if (qtde > 0) {
+                avaliado = true;
+            } 
+
         } catch (Exception ex) {
             Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConnectionDAO.closeConnection(conn, ps);
         }
-        System.out.println("retorno id: " + p.getIdProduto());
 
-        return p;
+        return avaliado;
     }
 
     public Double buscaNotaDoProduto(int idProduto) throws Exception {
