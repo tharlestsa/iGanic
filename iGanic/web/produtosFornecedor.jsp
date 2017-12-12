@@ -21,32 +21,37 @@ Author     : guilherme
 
 <div class="container cont">
     <%
-        ArrayList<Produto> produtos = (ArrayList<Produto>) request.getAttribute("produto");
+        try {
 
-        if (produtos == null) {
-            request.getRequestDispatcher("./produtosFornecedor").forward(request, response);
+            ArrayList<Produto> produtos = (ArrayList<Produto>) request.getAttribute("produto");
+
+            if (produtos == null) {
+                request.getRequestDispatcher("./produtosFornecedor").forward(request, response);
+            }
+            String conteudo = "";
+
+            if (request.getAttribute("mensagem") != null) {
+                conteudo += request.getAttribute("mensagem");
+            }
+
+            Tabela table = new Tabela("Produtos", new String[]{"#", "Produto", "Preco", "Quantidade", "Ação"});
+            String qtd;
+            for (Produto p : produtos) {
+                String acao = "";
+
+                acao = "<form action='./produtosFornecedor' method='POST'>"
+                        + new Input("hidden", String.valueOf(p.getIdProduto()), "idProduto", null, new Label(""))
+                        + new Button("submit", "editar", "action", null, "Editar", "btn-danger")
+                        + "</form>";
+                table.addLinha(new String[]{String.valueOf(p.getIdProduto()), p.getNome(), String.valueOf(p.getPreco()), String.valueOf(p.getQuantidade()), acao});
+            }
+
+            conteudo += table.toString();
+
+            out.println(conteudo);
+        } catch (Exception e) {
+            System.out.println("Erro - produtosFornecedor: " + e.getMessage());
         }
-        String conteudo = "";
-
-        if (request.getAttribute("mensagem") != null) {
-            conteudo += request.getAttribute("mensagem");
-        }
-
-        Tabela table = new Tabela("Produtos", new String[]{"#", "Produto", "Preco", "Quantidade", "Ação"});
-        String qtd;
-        for (Produto p : produtos) {
-            String acao = "";
-
-            acao = "<form action='./produtosFornecedor' method='POST'>"
-                    + new Input("hidden", String.valueOf(p.getIdProduto()), "idProduto", null, new Label(""))
-                    + new Button("submit", "editar", "action", null, "Editar", "btn-danger")
-                    + "</form>";
-            table.addLinha(new String[]{String.valueOf(p.getIdProduto()), p.getNome(), String.valueOf(p.getPreco()), String.valueOf(p.getQuantidade()), acao});
-        }
-
-        conteudo += table.toString();
-
-        out.println(conteudo);
 
     %>
 

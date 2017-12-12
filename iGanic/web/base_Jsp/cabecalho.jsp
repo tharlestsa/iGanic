@@ -131,12 +131,20 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modal-prod-title"></h5>
+                        <h4 class="modal-title" id="modal-prod-title"></h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div id="modal-prod-body" class="modal-body">
+                        <div class="panel panel-default">
+                            <h5 class="subtitulo">Fornecedor</h5><p>
+                            <div id="fornecedor-modal" class="panel-body"></div><br>
+                        </div>
+                        <div class="panel panel-default">
+                            <h5 class="subtitulo">Modo de Produção</h5><p>
+                            <div id="modo-producao-modal" class="panel-body"></div>
+                        </div>
                     </div>
                 </div>
             </div>

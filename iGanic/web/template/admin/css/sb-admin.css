@@ -437,7 +437,7 @@ footer.sticky-footer {
 .label-produto{
     font-family: 'Abhaya Libre';
     font-size: 150%;
-    
+
 }
 
 .label-produto-corpo{
@@ -465,4 +465,25 @@ footer.sticky-footer {
 .label-produto-corpo-posicao{
     margin:0;
     float: right;
+}
+
+#modal-prod-title{
+    font-family: 'Abhaya Libre';
+    font-size: 50px;
+}
+
+#fornecedor-modal{
+
+    font-family: 'Abhaya Libre';
+}
+
+
+#modo-producao-modal{
+    font-family: 'Abhaya Libre';
+}
+
+.subtitulo{
+    font-family: 'Abhaya Libre';
+    font-weight: bold;
+
 }
