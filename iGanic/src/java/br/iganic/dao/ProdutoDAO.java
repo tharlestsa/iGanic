@@ -319,8 +319,6 @@ public class ProdutoDAO implements DAO {
             conn = ConnectionDAO.getConnection();
             conn.setAutoCommit(false);
 
-            conn = ConnectionDAO.getConnection();
-
             ps = conn.prepareStatement("update Produtos set nome = ?, unidade = ?, preco = ?, quantidade = ?, modoProducao = ? "
                     + "where idProduto = ?");
 
@@ -343,7 +341,7 @@ public class ProdutoDAO implements DAO {
             conn.commit();
 
         } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
+            JOptionPane.showMessageDialog(null, sqle.getMessage());
             conn.rollback();
         } finally {
             conn.setAutoCommit(true);
